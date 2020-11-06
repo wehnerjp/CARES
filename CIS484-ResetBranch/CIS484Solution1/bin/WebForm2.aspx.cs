@@ -9,15 +9,22 @@ using System.Data.SqlClient;
 using System.Web.Configuration;
 using System.Configuration;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using System.Web.Services;
+using CIS484Solution1;
+using System.Windows.Media.Imaging;
 
 namespace CIS484Solution1
 {
     public partial class WebForm2 : System.Web.UI.Page
     {
         public static int StID = -1;
+        private MemoryStream ms;
+        public DataTable Cart;
+        public DataView CartView;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -28,12 +35,20 @@ namespace CIS484Solution1
             //            "$(document).ready(function() { $('.js-example-basic-single').select2(); });",
             //            true);
             ScriptManager.RegisterStartupScript(
-                        UpdatePanel2,
-                        this.GetType(),
-                        "MyAction",
-                        "$(document).ready(function() { $('.js-example-basic-single').select2();  $('.grid').masonry({ itemSelector: '.grid-item', columnWidth: 160,  gutter: 20   }); $(document).ready(function () {$('#manBt').click(function() {$('#manPan1').slideToggle('slow');});});});",
-                        true);
+                UpdatePanel2,
+                this.GetType(),
+                "MyAction",
+                "$(document).ready(function() { $('.js-example-basic-single').select2();  $('.grid').masonry({ itemSelector: '.grid-item', columnWidth: 160,  gutter: 20   }); $(document).ready(function () {$('#manBt').click(function() {$('#manPan1').slideToggle('slow');});});});",
+                true);
             Page.Form.Attributes.Add("enctype", "multipart/form-data");
+        }
+
+        protected void Page_LoadComplete(object sender, EventArgs e)
+        {
+        }
+
+        protected void PopulateCommentRepeater()
+        {
         }
 
         protected void MultiView_ActiveViewChanged(object sender, EventArgs e)
@@ -41,18 +56,86 @@ namespace CIS484Solution1
             //Connect to DB
         }
 
+        //protected void CommendationPage_Display()
+        //{
+        //    SqlCommand cmd;
+        //    SqlDataAdapter adapter;
+        //    DataSet ds;
+        //    int rno = 0;
+        //    byte[] photo_aray;
+        //    string con = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
+        //    adapter = new SqlDataAdapter("select * from Staff", con);
+        //    adapter.MissingSchemaAction = MissingSchemaAction.AddWithKey;
+        //    ds = new DataSet();
+        //    adapter.Fill(ds, "Staff");
+
+        //    if (ds.Tables[0].Rows.Count > 0)
+        //    {
+        //        textBox1.Text = ds.Tables[0].Rows[rno][0].ToString();
+        //        textBox2.Text = ds.Tables[0].Rows[rno][1].ToString();
+        //        textBox3.Text = ds.Tables[0].Rows[rno][2].ToString();
+        //        textBox4.Text = ds.Tables[0].Rows[rno][3].ToString();
+        //        pictureBox1.Image = null;
+        //        if (ds.Tables[0].Rows[rno][4] != System.DBNull.Value)
+        //        {
+        //            photo_aray = (byte[])ds.Tables[0].Rows[rno][4];
+        //            ms = new MemoryStream(photo_aray);
+        //            pictureBox1.Image = System.Drawing.Image.FromStream(ms);
+        //        }
+        //    }
+        //    else
+        //        MessageBox.Show("No Records");
+
+        //    List<ImageHandler> samples = new List<ImageHandler>();
+
+        //    samples.Add(new ImageHandler() { url = "http://www.google.com/images/srpr/logo4w.png" });
+        //    samples.Add(new ImageHandler() { url = "http://www.google.com/images/srpr/logo4w.png" });
+        //    samples.Add(new ImageHandler() { url = "http://www.google.com/images/srpr/logo4w.png" });
+        //    samples.Add(new ImageHandler() { url = "http://www.google.com/images/srpr/logo4w.png" });
+        //    samples.Add(new ImageHandler() { url = "http://www.google.com/images/srpr/logo4w.png" });
+        //    samples.Add(new ImageHandler() { url = "http://www.google.com/images/srpr/logo4w.png" });
+
+        //    this.CommendationList.DataSource = samples;
+        //    this.CommendationList.DataBind();
+        //}
+
+        //public static BitmapImage LoadImage(byte[] imageData)
+        //{
+        //    if (imageData == null || imageData.Length == 0) return null;
+        //    var image = new BitmapImage();
+        //    using (var mem = new MemoryStream(imageData))
+        //    {
+        //        mem.Position = 0;
+        //        image.BeginInit();
+        //        image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+        //        image.CacheOption = BitmapCacheOption.OnLoad;
+        //        image.UriSource = null;
+        //        image.StreamSource = mem;
+        //        image.EndInit();
+        //    }
+        //    image.Freeze();
+        //    return image;
+        //}
+
         protected void EventList_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Queries Relevant to home page, fetching event info student info and more
-            String sqlQuery = "Select EventName, Time, FORMAT(Date,'dd/MM/yyyy') as Date,  RoomNbr from Event where EventID = " + EventList.SelectedItem.Value;
-            String sqlQuery1 = "SELECT Student.FirstName +' ' + Student.LastName as StudentName, Student.TeacherID from Student " +
+            String sqlQuery =
+                "Select EventName, Time, FORMAT(Date,'dd/MM/yyyy') as Date,  RoomNbr from Event where EventID = " +
+                EventList.SelectedItem.Value;
+            String sqlQuery1 =
+                "SELECT Student.FirstName +' ' + Student.LastName as StudentName, Student.TeacherID from Student " +
                 "inner join Teacher on Student.TeacherID = Teacher.TeacherID " +
                 "inner join EventAttendanceList on EventAttendanceList.TeacherID = Teacher.TeacherID " +
                 "where EventAttendanceList.EventID = " + EventList.SelectedItem.Value;
-            String sqlQuery2 = "select EventPersonnel.FirstName +' ' + EventPersonnel.LastName as VolunteerName, EventPersonnel.PersonnelType from EventPresenters " +
-                "inner join EventPersonnel on EventPersonnel.VolunteerID = EventPresenters.PersonnelID where EventPresenters.Role = 'Volunteer' and EventPresenters.EventID = " + EventList.SelectedItem.Value;
-            String sqlQuery3 = "select EventPersonnel.FirstName + ' ' + EventPersonnel.LastName as CoordinatorName from EventPresenters " +
-                "inner join EventPersonnel on EventPersonnel.VolunteerID = EventPresenters.PersonnelID where EventPresenters.Role = 'Coordinator' and EventPresenters.EventID = " + EventList.SelectedItem.Value;
+            String sqlQuery2 =
+                "select EventPersonnel.FirstName +' ' + EventPersonnel.LastName as VolunteerName, EventPersonnel.PersonnelType from EventPresenters " +
+                "inner join EventPersonnel on EventPersonnel.VolunteerID = EventPresenters.PersonnelID where EventPresenters.Role = 'Volunteer' and EventPresenters.EventID = " +
+                EventList.SelectedItem.Value;
+            String sqlQuery3 =
+                "select EventPersonnel.FirstName + ' ' + EventPersonnel.LastName as CoordinatorName from EventPresenters " +
+                "inner join EventPersonnel on EventPersonnel.VolunteerID = EventPresenters.PersonnelID where EventPresenters.Role = 'Coordinator' and EventPresenters.EventID = " +
+                EventList.SelectedItem.Value;
 
             //Get connection string from web.config file
             string strcon = ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString;
@@ -76,6 +159,7 @@ namespace CIS484Solution1
                     }
                 }
             }
+
             rep1.DataSource = items;
             rep1.DataBind();
             //Fill table with data
@@ -95,6 +179,7 @@ namespace CIS484Solution1
                     }
                 }
             }
+
             CoordinatorRepeater.DataSource = items1;
             CoordinatorRepeater.DataBind();
             //Fill table with data
@@ -120,7 +205,9 @@ namespace CIS484Solution1
         protected void StudentSchool_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Make Teacher selection DDL conditional based on what school they selected
-            String sqlQuery = "Select TeacherID, FirstName +' ' + LastName as TeacherName from Teacher where SchoolID = " + StudentSchoolDropDownList.SelectedItem.Value;
+            String sqlQuery =
+                "Select TeacherID, FirstName +' ' + LastName as TeacherName from Teacher where SchoolID = " +
+                StudentSchoolDropDownList.SelectedItem.Value;
             //Get connection string from web.config file
             string strcon = ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString;
             //create new sqlconnection and connection to database by using connection string from web.config file
@@ -137,19 +224,25 @@ namespace CIS484Solution1
                 StudentTeacherDropDownList.DataValueField = "TeacherID";
                 StudentTeacherDropDownList.DataBind();
             }
+
             con.Close();
         }
 
         protected void StudentNameDDL_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Student Selection information for user display
-            String sqlQuery = "Select Student.StudentID, TRIM(Student.FirstName) + ' ' + TRIM(Student.LastName) as StudentName, Student.Age, Student.Notes, TRIM(Teacher.FirstName) + ' ' + TRIM(Teacher.LastName) as TeacherName, Tshirt.Size, Tshirt.Color, TRIM(School.SchoolName) from Student " +
-                 "inner join Tshirt on Tshirt.TshirtID = Student.TshirtID " +
+            String sqlQuery =
+                "Select Student.StudentID, TRIM(Student.FirstName) + ' ' + TRIM(Student.LastName) as StudentName, Student.Age, Student.Notes, TRIM(Teacher.FirstName) + ' ' + TRIM(Teacher.LastName) as TeacherName, Tshirt.Size, Tshirt.Color, TRIM(School.SchoolName) from Student " +
+                "inner join Tshirt on Tshirt.TshirtID = Student.TshirtID " +
                 "inner join Teacher on Student.TeacherID = Teacher.TeacherID " +
                 "inner join School on School.SchoolID = Student.SchoolID " +
-                "where Student.StudentID = " + StudentNameDDL.SelectedItem.Value + " and Student.SchoolID = (select SchoolID from student where StudentID= " + StudentNameDDL.SelectedItem.Value + ") " +
-                " and Student.TeacherID = (select TeacherID from student where StudentID = " + StudentNameDDL.SelectedItem.Value + ") " +
-               " and Tshirt.TshirtID = (select TshirtID from Student where StudentID = " + StudentNameDDL.SelectedItem.Value + ")";
+                "where Student.StudentID = " + StudentNameDDL.SelectedItem.Value +
+                " and Student.SchoolID = (select SchoolID from student where StudentID= " +
+                StudentNameDDL.SelectedItem.Value + ") " +
+                " and Student.TeacherID = (select TeacherID from student where StudentID = " +
+                StudentNameDDL.SelectedItem.Value + ") " +
+                " and Tshirt.TshirtID = (select TshirtID from Student where StudentID = " +
+                StudentNameDDL.SelectedItem.Value + ")";
 
             //Get connection string from web.config file
             string strcon = ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString;
@@ -186,7 +279,10 @@ namespace CIS484Solution1
         {
             Boolean dup = false;
 
-            if (dup == false && FirstNameTextBox.Text != "" && LastNameTextBox.Text != "" && StudentAgeList.SelectedIndex > -1 && NotesTextBox.Text != "" && TshirtList.SelectedIndex > -1 && TshirtColorList.SelectedIndex > -1 && StudentSchoolDropDownList.SelectedIndex > -1 && StudentTeacherDropDownList.SelectedIndex > -1)
+            if (dup == false && FirstNameTextBox.Text != "" && LastNameTextBox.Text != "" &&
+                StudentAgeList.SelectedIndex > -1 && NotesTextBox.Text != "" && TshirtList.SelectedIndex > -1 &&
+                TshirtColorList.SelectedIndex > -1 && StudentSchoolDropDownList.SelectedIndex > -1 &&
+                StudentTeacherDropDownList.SelectedIndex > -1)
             {
                 //If filled out and non duplicate it inserts into object
                 string strcon = ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString;
@@ -207,8 +303,14 @@ namespace CIS484Solution1
                     {
                         sub = NotesTextBox.Text.Length;
                     }
-                    string sqlStatement = "If Not Exists (select 1 from Student where FirstName= @FirstName and LastName= @LastName) Insert into Student (FirstName, LastName, Age, Notes, TshirtID, SchoolID, TeacherID) values(@FirstName, @LastName, '" + StudentAgeList.SelectedValue + "', @Notes, " +
-                           "(SELECT  TshirtID FROM[Lab1].[dbo].Tshirt where Size = '" + TshirtList.SelectedValue + "' and Color = '" + TshirtColorList.SelectedValue + "'), '" + StudentSchoolDropDownList.SelectedValue + "', '" + StudentTeacherDropDownList.SelectedValue + "'); ";
+
+                    string sqlStatement =
+                        "If Not Exists (select 1 from Student where FirstName= @FirstName and LastName= @LastName) Insert into Student (FirstName, LastName, Age, Notes, TshirtID, SchoolID, TeacherID) values(@FirstName, @LastName, '" +
+                        StudentAgeList.SelectedValue + "', @Notes, " +
+                        "(SELECT  TshirtID FROM[Lab1].[dbo].Tshirt where Size = '" + TshirtList.SelectedValue +
+                        "' and Color = '" + TshirtColorList.SelectedValue + "'), '" +
+                        StudentSchoolDropDownList.SelectedValue + "', '" + StudentTeacherDropDownList.SelectedValue +
+                        "'); ";
                     cmd = new SqlCommand(sqlStatement, connection);
                     cmd.Parameters.AddWithValue("@FirstName", FirstNameTextBox.Text);
                     cmd.Parameters.AddWithValue("@LastName", LastNameTextBox.Text);
@@ -292,6 +394,90 @@ namespace CIS484Solution1
         //        con1.Close();
         //    }
         //}
+        //public void SerializeAndSave()
+        //{
+        //    try
+        //    {
+        //        // instantiate a MemoryStream and a new instance of our class
+        //        MemoryStream ms = new MemoryStream();
+        //        ClassToSerialize c = new ClassToSerialize(txtName.Text);
+        //        // create a new BinaryFormatter instance
+        //        BinaryFormatter b = new BinaryFormatter();
+        //        // serialize the class into the MemoryStream
+        //        b.Serialize(ms, c);
+        //        ms.Seek(0, 0);
+        //        // Show the information
+        //        //textBox1.Text = "Ms Length: " + ms.Length.ToString();
+        //        int res = SaveToDB(txtName.Text, ms.ToArray());
+        //        //textBox1.Text += "\nDB RetVal: " + res.ToString() + "\n";
+        //        //Clean up
+        //        ms.Close();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
+        //}
+
+        //public void RetrieveAndDeserialize()
+        //{
+        //    MemoryStream ms2 = new MemoryStream();
+        //    byte[] buf = RetrieveFromDB(txtName.Text);
+        //    ms2.Write(buf, 0, buf.Length);
+        //    ms2.Seek(0, 0);
+        //    BinaryFormatter b = new BinaryFormatter();
+        //    ClassToSerialize c = (ClassToSerialize)b.Deserialize(ms2);
+        //    textBox1.Text += "Deserialized Name: " + c.name + "\n";
+        //    textBox1.Text += "Portion of Deserialized float array: \n";
+        //    for (int j = 0; j < 100; j++)
+        //    {
+        //        textBox1.Text += c.fltArray[j].ToString() + "\n";
+        //    }
+
+        //    ms2.Close();
+        //}
+
+        //private int SaveToDB(string imgName, byte[] imgbin)
+        //{
+        //    string strcon = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
+        //    SqlConnection connection = new SqlConnection(strcon);
+
+        //    //SqlCommand command = new SqlCommand("INSERT INTO Employees (firstname,lastname,photo) VALUES(@img_name, @img_name, @img_data)", connection);
+
+        //    SqlCommand command = new SqlCommand("If Not Exists (select 1 from Staff where FirstName= @FirstName and LastName= @LastName)  Insert into Staff (FirstName, LastName, Type, LocationID, Email, Password, StaffPicture) values " +
+        //                                        "(@FirstName, @LastName, '" + "Admin" + "', @LocationID, @Email, @Password, @Image); ", connection);
+        //    //Get connection string from web.config file
+        //    // (need to write something to first and lastname columns
+        //    // because of constraints)
+
+        //    SqlParameter param0 = new SqlParameter("@img_name", SqlDbType.VarChar, 50);
+        //    param0.Value = imgName;
+        //    command.Parameters.Add(param0);
+        //    SqlParameter param1 = new SqlParameter("@img_data", SqlDbType.Image);
+        //    param1.Value = imgbin;
+        //    command.Parameters.Add(param1);
+        //    connection.Open();
+        //    int numRowsAffected = command.ExecuteNonQuery();
+        //    connection.Close();
+        //    return numRowsAffected;
+        //}
+
+        //private byte[] RetrieveFromDB(string lastname)
+        //{
+        //    SqlConnection connection = new SqlConnection("Server=(local);DataBase=Northwind; User Id=sa;Password=;");
+        //    SqlCommand command = new SqlCommand("select top 1 Photo from Employees
+
+        //    where lastname = '"+lastname +"'", connection );
+
+        //    connection.Open();
+        //    SqlDataReader dr = command.ExecuteReader();
+        //    dr.Read();
+        //    byte[] imgData = (byte[])dr["Photo"];
+        //    connection.Close();
+        //    return imgData;
+        //}
+
+        // end class
 
         protected void AddAdmin_Click(object sender, EventArgs e)
         {
@@ -311,6 +497,14 @@ namespace CIS484Solution1
                 con.Open();
                 if (ImageUpload.HasFile)
                 {
+                    ////using MemoryStream:
+                    //ms = new MemoryStream();
+                    //ImageUpload.Image.Save(ms, ImageFormat.Jpeg);
+                    //byte[] photo_aray = new byte[ms.Length];
+                    //ms.Position = 0;
+                    //ms.Read(photo_aray, 0, photo_aray.Length);
+                    //cmd.Parameters.AddWithValue("@photo", photo_aray);
+
                     int imagefilelength = ImageUpload.PostedFile.ContentLength;
                     byte[] imgarray = new byte[imagefilelength];
                     HttpPostedFile image = ImageUpload.PostedFile;
@@ -869,6 +1063,34 @@ namespace CIS484Solution1
                 // close the Sql Connection
                 connection.Close();
             }
+        }
+
+        protected void AddComment_Click(object sender, EventArgs e)
+        {
+            var imgbtn = (System.Web.UI.WebControls.Button)sender;
+            var item = (DataListItem)imgbtn.NamingContainer;
+            // the datasource is not available on postback, but you have all other controls
+            var StaffName = (System.Web.UI.WebControls.Label)item.FindControl("StaffNameLabel");
+            string company = StaffName.Text;
+            MessageBox.Show(company);
+        }
+    }
+
+    [Serializable]
+    public class ClassToSerialize
+    {
+        public string name;
+        public float[] fltArray;
+
+        // constructor initializes name and creates the sample array of floats
+        public ClassToSerialize(string theName)
+        {
+            this.name = theName;
+            float[] theArray = new float[1000];
+            Random rnd = new System.Random();
+            for (int i = 0; i < 1000; i++)
+                theArray[i] = (float)rnd.NextDouble() * 1000;
+            fltArray = theArray;
         }
     }
 }

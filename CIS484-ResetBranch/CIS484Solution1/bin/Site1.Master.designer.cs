@@ -150,33 +150,6 @@ namespace CIS484Solution1
         protected global::System.Web.UI.WebControls.ContentPlaceHolder HomePlaceHolder;
 
         /// <summary>
-        /// menuTabsCurrent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Menu menuTabsCurrent;
-
-        /// <summary>
-        /// multiviewStudent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.MultiView multiviewStudent;
-
-        /// <summary>
-        /// StudentNew control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.View StudentNew;
-
-        /// <summary>
         /// NewStudentPlaceHolder control.
         /// </summary>
         /// <remarks>
@@ -184,15 +157,6 @@ namespace CIS484Solution1
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder NewStudentPlaceHolder;
-
-        /// <summary>
-        /// StudentExisting control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.View StudentExisting;
 
         /// <summary>
         /// StudentExistingPlaceholder control.
@@ -204,22 +168,13 @@ namespace CIS484Solution1
         protected global::System.Web.UI.WebControls.ContentPlaceHolder StudentExistingPlaceholder;
 
         /// <summary>
-        /// TeacherMenu control.
+        /// CommedationPlaceholder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Menu TeacherMenu;
-
-        /// <summary>
-        /// TeacherView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.MultiView TeacherView;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder CommedationPlaceholder;
 
         /// <summary>
         /// TeacherExistingPlaceholder control.

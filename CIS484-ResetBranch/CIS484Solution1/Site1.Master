@@ -308,9 +308,8 @@
                             <asp:View runat="server">
                                 <div style="width: 100%; margin-left: 20px; margin-top: 20px; margin-right: 20px;">
                                     <h2 style="text-align: center">Commendation Page</h2>
-                                    <h3>Employee can Log Hours</h3>
-                                    <h3>Employee can view inventory mark item as sold </h3>
-                                    <h3>Employee can add item</h3>
+                                    <asp:ContentPlaceHolder runat="server" ID="CommedationPlaceholder">
+                                    </asp:ContentPlaceHolder>
                                     <asp:ContentPlaceHolder ID="TeacherExistingPlaceholder" runat="server">
                                     </asp:ContentPlaceHolder>
 

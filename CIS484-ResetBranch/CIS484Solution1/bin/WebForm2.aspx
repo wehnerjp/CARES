@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="WebForm2.aspx.cs" Inherits="CIS484Solution1.WebForm2" %>
 
+<%@ Import Namespace="System.Data" %>
+
 <asp:Content ID="Home" ContentPlaceHolderID="HomePlaceholder" runat="server">
     <!-- John Wehner Max Vaughan -->
     <div class="container" style="width: 100%; margin-left: 20px; margin-top: 20px; margin-right: 20px;">
@@ -566,6 +568,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
+                            <asp:Image ID="Image1" runat="server" />
                             <asp:FileUpload ID="ImageUpload" runat="server" />
                         </div>
                     </div>
@@ -818,4 +821,45 @@
             </fieldset>
         </div>
     </div>
+</asp:Content>
+
+<asp:Content runat="server" ID="CommendationPage" ContentPlaceHolderID="CommedationPlaceholder">
+    <asp:SqlDataSource runat="server"
+        ID="CommendationDataSource"
+        DataSourceMode="DataReader"
+        ConnectionString="<%$ ConnectionStrings:CARESconnection%>"
+        SelectCommand="select StaffID, FirstName + ' ' + LastName as Name, Type, StaffPicture from Staff" />
+    <asp:DataList ID="CommendationList" DataSourceID="CommendationDataSource" runat="server" RepeatColumns="3">
+        <SelectedItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False"
+            Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Right"
+            VerticalAlign="Middle" />
+        <ItemTemplate>
+            <table class="table table-bordered table-striped" style="margin-left: 5px">
+                <tr>
+                    <td>
+                        <img style="width: 100%; max-width: 200px;" src="<%# "ShowImage.ashx?id=" + Eval("StaffID") %>" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="StaffNameLabel" runat="server" Text='<%# Eval("Name") %>'><%#Eval("Name") %></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                </tr>
+                <tr>
+                    <td>
+                        <%--        <asp:Repeater ID="<%# "CommentRepeater" + Eval("StaffID") %>" runat="server">
+                        </asp:Repeater>--%>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <%--                        <asp:TextBox Text="<%#Eval("StaffID") %>" Visible="True" runat="server"></asp:TextBox>--%>
+                        <asp:Button ID="AddCommentButton" runat="server" OnClick="AddComment_Click" Text="Submit" Style="margin-left: 0%;" CssClass="btn btn-info" />
+                    </td>
+                </tr>
+            </table>
+        </ItemTemplate>
+    </asp:DataList>
 </asp:Content>
