@@ -8,6 +8,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web.Configuration;
 using System.Configuration;
+using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using System.Web.Services;
 
@@ -19,18 +21,19 @@ namespace CIS484Solution1
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            ScriptManager.RegisterStartupScript(
-                        UpdatePanel1,
-                        this.GetType(),
-                        "MyAction",
-                        "$(document).ready(function() { $('.js-example-basic-single').select2(); });",
-                        true);
+            //ScriptManager.RegisterStartupScript(
+            //            UpdatePanel1,
+            //            this.GetType(),
+            //            "MyAction",
+            //            "$(document).ready(function() { $('.js-example-basic-single').select2(); });",
+            //            true);
             ScriptManager.RegisterStartupScript(
                         UpdatePanel2,
                         this.GetType(),
                         "MyAction",
                         "$(document).ready(function() { $('.js-example-basic-single').select2();  $('.grid').masonry({ itemSelector: '.grid-item', columnWidth: 160,  gutter: 20   }); $(document).ready(function () {$('#manBt').click(function() {$('#manPan1').slideToggle('slow');});});});",
                         true);
+            Page.Form.Attributes.Add("enctype", "multipart/form-data");
         }
 
         protected void MultiView_ActiveViewChanged(object sender, EventArgs e)
@@ -246,48 +249,131 @@ namespace CIS484Solution1
         //     MessageBox.Show(PasswordHash.HashPassword("1111"));
         // }
 
-        protected void AddTeacher_Click(object sender, EventArgs e)
+        //protected void AddTeacher_Click(object sender, EventArgs e)
+        //{
+        //    //Inserting teacher query
+        //    String sqlQuery = "If Not Exists (select 1 from Teacher where FirstName= @FirstName and LastName= @LastName)  Insert into Teacher (FirstName, LastName, Notes, TshirtID, SchoolID, Email, Grade) values " +
+        //        "(@FirstName, @LastName, @Notes, " +
+        //        "(SELECT  TshirtID FROM Tshirt where Size = '" + TeacherTshirtSize.SelectedItem.Value + "' and Color = '" + TeacherTshirtColor.SelectedItem.Value + "'), '" + TeacherSchoolList.SelectedItem.Value + "', '" + EmailTextBox.Text + "', '" + GradeDDL.SelectedItem.Value + "'); ";
+        //    //Get connection string from web.config file
+        //    string strcon = ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString;
+        //    //Inserting teacher query
+        //    String sqlQuery1 = "  Insert into UserInfo (Email, Password, Role) values " +
+        //        "(@Email, '" + PasswordHash.HashPassword(modalLRInput13.Text) + "', 'Teacher');";            //Get connection string from web.config file
+        //    string strcon1 = ConfigurationManager.ConnectionStrings["authconnection"].ConnectionString;
+        //    //create new sqlconnection and connection to database by using connection string from web.config file
+        //    SqlConnection con = new SqlConnection(strcon);
+        //    SqlConnection con1 = new SqlConnection(strcon1);
+        //    SqlCommand cmd = new SqlCommand(sqlQuery1, con1);
+        //    using (SqlCommand command = new SqlCommand(sqlQuery, con))
+        //    {
+        //        con.Open();
+        //        command.Parameters.Add(new SqlParameter("@FirstName", TeacherFirstNameText.Text));
+        //        command.Parameters.Add(new SqlParameter("@LastName", TeacherLastNameInput.Text));
+        //        command.Parameters.Add(new SqlParameter("@Notes", TeacherNoteTextBox.Text));
+
+        //        con1.Open();
+        //        cmd.Parameters.Add(new SqlParameter("@Email", EmailTextBox.Text));
+
+        //        try
+        //        {
+        //            command.ExecuteNonQuery();
+        //            Console.Write("insert successful");
+        //            //MessageBox.Show("insert teacher success");
+        //            cmd.CommandType = CommandType.Text;
+        //            cmd.ExecuteNonQuery();
+        //            ResetTeacherButton_Click(sender, e);
+        //        }
+        //        catch (SqlException ex)
+        //        {
+        //            Console.Write(ex.Message);
+        //        }
+        //        con.Close();
+        //        con1.Close();
+        //    }
+        //}
+
+        protected void AddAdmin_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("Admin");
             //Inserting teacher query
-            String sqlQuery = "If Not Exists (select 1 from Teacher where FirstName= @FirstName and LastName= @LastName)  Insert into Teacher (FirstName, LastName, Notes, TshirtID, SchoolID, Email, Grade) values " +
-                "(@FirstName, @LastName, @Notes, " +
-                "(SELECT  TshirtID FROM Tshirt where Size = '" + TeacherTshirtSize.SelectedItem.Value + "' and Color = '" + TeacherTshirtColor.SelectedItem.Value + "'), '" + TeacherSchoolList.SelectedItem.Value + "', '" + EmailTextBox.Text + "', '" + GradeDDL.SelectedItem.Value + "'); ";
+            String sqlQuery = "If Not Exists (select 1 from Staff where FirstName= @FirstName and LastName= @LastName)  Insert into Staff (FirstName, LastName, Type, LocationID, Email, Password, StaffPicture) values " +
+                "(@FirstName, @LastName, '" + "Admin" + "', @LocationID, @Email, @Password, @Image); ";
             //Get connection string from web.config file
-            string strcon = ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString;
+            string strcon = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
             //Inserting teacher query
-            String sqlQuery1 = "  Insert into UserInfo (Email, Password, Role) values " +
-                "(@Email, '" + PasswordHash.HashPassword(modalLRInput13.Text) + "', 'Teacher');";            //Get connection string from web.config file
-            string strcon1 = ConfigurationManager.ConnectionStrings["authconnection"].ConnectionString;
+
+            //Get connection string from web.config file
             //create new sqlconnection and connection to database by using connection string from web.config file
             SqlConnection con = new SqlConnection(strcon);
-            SqlConnection con1 = new SqlConnection(strcon1);
-            SqlCommand cmd = new SqlCommand(sqlQuery1, con1);
             using (SqlCommand command = new SqlCommand(sqlQuery, con))
             {
                 con.Open();
-                command.Parameters.Add(new SqlParameter("@FirstName", TeacherFirstNameText.Text));
-                command.Parameters.Add(new SqlParameter("@LastName", TeacherLastNameInput.Text));
-                command.Parameters.Add(new SqlParameter("@Notes", TeacherNoteTextBox.Text));
+                if (ImageUpload.HasFile)
+                {
+                    int imagefilelength = ImageUpload.PostedFile.ContentLength;
+                    byte[] imgarray = new byte[imagefilelength];
+                    HttpPostedFile image = ImageUpload.PostedFile;
+                    image.InputStream.Read(imgarray, 0, imagefilelength);
+                    command.Parameters.Add("@Image", SqlDbType.Image, imgarray.Length).Value = imgarray;
+                    MessageBox.Show("Inserted image");
+                }
+                else
+                {
+                    MessageBox.Show("Default image");
+                    string fName = "..\\defaultUserIcon.jpg";
+                    byte[] content = ImageToStream(fName);
 
-                con1.Open();
-                cmd.Parameters.Add(new SqlParameter("@Email", EmailTextBox.Text));
+                    command.Parameters.Add("@Image", SqlDbType.Image, content.Length).Value = content;
+                }
+                command.Parameters.Add(new SqlParameter("@FirstName", StaffFirstName.Text));
+                command.Parameters.Add(new SqlParameter("@LastName", StaffLastName.Text));
+                command.Parameters.Add(new SqlParameter("@LocationID", StaffLocationDDL.SelectedValue));
+                command.Parameters.Add(new SqlParameter("@Email", StaffEmail.Text));
+                command.Parameters.Add(new SqlParameter("@Password", PasswordHash.HashPassword(modalLRInput13.Text)));
 
                 try
                 {
                     command.ExecuteNonQuery();
                     Console.Write("insert successful");
-                    //MessageBox.Show("insert teacher success");
-                    cmd.CommandType = CommandType.Text;
-                    cmd.ExecuteNonQuery();
-                    ResetTeacherButton_Click(sender, e);
+                    MessageBox.Show("insert admin success");
+
+                    ResetStaffButton_Click(sender, e);
                 }
                 catch (SqlException ex)
                 {
                     Console.Write(ex.Message);
+                    MessageBox.Show("insert admin failure");
                 }
                 con.Close();
-                con1.Close();
             }
+        }
+
+        private byte[] ImageToStream(string fileName)
+        {
+            MemoryStream stream = new MemoryStream();
+
+            try
+            {
+                Bitmap image = new Bitmap(fileName);
+                image.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No Cigar");
+            }
+
+            return stream.ToArray();
+        }
+
+        protected void ResetStaffButton_Click(object sender, EventArgs e)
+        {
+            //clear teacher input
+            StaffFirstName.Text = string.Empty;
+            StaffLastName.Text = string.Empty;
+            StaffLocationDDL.SelectedIndex = 0;
+            StaffEmail.Text = string.Empty;
+            modalLRInput13.Text = string.Empty;
         }
 
         protected void TeacherNameDDL_SelectedIndexChanged(object sender, EventArgs e)
@@ -453,29 +539,29 @@ namespace CIS484Solution1
             NotesTextBox.Text = string.Empty;
         }
 
-        protected void PopulateTextTeacher_Click(object sender, EventArgs e)
-        {
-            //Using faker api to generate random names en masse for teachers so it doesn't get repetitive, randomly selecting DDL options, meeting conditional needs
+        //protected void PopulateTextTeacher_Click(object sender, EventArgs e)
+        //{
+        //    //Using faker api to generate random names en masse for teachers so it doesn't get repetitive, randomly selecting DDL options, meeting conditional needs
 
-            Random rnd = new Random();
-            TeacherSchoolList.SelectedIndex = rnd.Next(0, TeacherSchoolList.Items.Count - 1);
-            TeacherTshirtSize.SelectedIndex = rnd.Next(0, TeacherTshirtSize.Items.Count - 1);
-            TeacherTshirtColor.SelectedIndex = rnd.Next(0, TshirtColorList.Items.Count - 1);
-            modalLRInput13.Text = "1111";
-        }
+        //    Random rnd = new Random();
+        //    TeacherSchoolList.SelectedIndex = rnd.Next(0, TeacherSchoolList.Items.Count - 1);
+        //    TeacherTshirtSize.SelectedIndex = rnd.Next(0, TeacherTshirtSize.Items.Count - 1);
+        //    TeacherTshirtColor.SelectedIndex = rnd.Next(0, TshirtColorList.Items.Count - 1);
+        //    modalLRInput13.Text = "1111";
+        //}
 
-        protected void ResetTeacherButton_Click(object sender, EventArgs e)
-        {
-            //clear teacher input
-            TeacherFirstNameText.Text = string.Empty;
-            TeacherLastNameInput.Text = string.Empty;
-            TeacherSchoolList.SelectedIndex = 0;
-            TeacherTshirtSize.SelectedIndex = 0;
-            TeacherTshirtColor.SelectedIndex = 0;
-            TeacherNoteTextBox.Text = string.Empty;
-            EmailTextBox.Text = string.Empty;
-            modalLRInput13.Text = string.Empty;
-        }
+        //protected void ResetTeacherButton_Click(object sender, EventArgs e)
+        //{
+        //    //clear teacher input
+        //    TeacherFirstNameText.Text = string.Empty;
+        //    TeacherLastNameInput.Text = string.Empty;
+        //    TeacherSchoolList.SelectedIndex = 0;
+        //    TeacherTshirtSize.SelectedIndex = 0;
+        //    TeacherTshirtColor.SelectedIndex = 0;
+        //    TeacherNoteTextBox.Text = string.Empty;
+        //    EmailTextBox.Text = string.Empty;
+        //    modalLRInput13.Text = string.Empty;
+        //}
 
         protected void VolunteerNameDDL_SelectedIndexChanged(object sender, EventArgs e)
         {

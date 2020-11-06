@@ -33,15 +33,7 @@ namespace CIS484Solution1
             System.Web.UI.WebControls.Menu MasterMenu = sender as System.Web.UI.WebControls.Menu;
             MultiView multiTabs = this.FindControl("MasterMultiView") as MultiView;
             //MessageBox.Show(UserLoginType + Int32.Parse(MasterMenu.SelectedValue));
-            if (UserLoginType == "Teacher" && (Int32.Parse(MasterMenu.SelectedValue) == 1 || Int32.Parse(MasterMenu.SelectedValue) == 2 || Int32.Parse(MasterMenu.SelectedValue) == 0))
-            {
-                multiTabs.ActiveViewIndex = Int32.Parse(MasterMenu.SelectedValue);
-            }
-            else if (UserLoginType == "Volunteer" && (Int32.Parse(MasterMenu.SelectedValue) == 1 || Int32.Parse(MasterMenu.SelectedValue) == 2 || Int32.Parse(MasterMenu.SelectedValue) == 0))
-            {
-                multiTabs.ActiveViewIndex = Int32.Parse(MasterMenu.SelectedValue);
-            }
-            else if (UserLoginType == "Coordinator")
+            if (UserLoginType != null)
             {
                 multiTabs.ActiveViewIndex = Int32.Parse(MasterMenu.SelectedValue);
             }
@@ -95,7 +87,7 @@ namespace CIS484Solution1
                 UserLoginName = null;
                 UserLoginEmail = null;
                 //LoginForm.InnerHtml = "Launch Login Form";
-                MasterMenu.Items[5].Text = "User: None";
+                MasterMenu.Items[4].Text = "User: None";
             }
         }
 
@@ -103,20 +95,18 @@ namespace CIS484Solution1
         {
             string email = HttpUtility.HtmlEncode(defaultFormEmail.Text);
             string pass = HttpUtility.HtmlEncode(defaultFormPass.Text);
-            string type = "Select UserLoginType from UserInfo where Email = " + email;
-            SqlConnection authConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["authconnection"].ConnectionString);
-            SqlConnection dbConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString);
+            string type = "Select Type from Staff where Email = " + email;
+            SqlConnection authConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString);
+            SqlConnection dbConnection = new SqlConnection(WebConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString);
             SqlCommand loginCommand = new SqlCommand();
             loginCommand.Connection = authConnection;
-            loginCommand.CommandType = CommandType.StoredProcedure;
-            loginCommand.CommandText = "Auth";
             loginCommand.Parameters.AddWithValue("@Email", email);
             loginCommand.Parameters.AddWithValue("@Password", pass);
             dbConnection.Open();
             authConnection.Open();
             System.Data.SqlClient.SqlCommand findPass = new System.Data.SqlClient.SqlCommand();
             findPass.Connection = authConnection;
-            findPass.CommandText = "Select * from UserInfo where Email = @Email";
+            findPass.CommandText = "Select * from Staff where Email = @Email";
             findPass.Parameters.Add(new SqlParameter("@Email", email));
 
             SqlDataReader reader = findPass.ExecuteReader();
@@ -130,34 +120,21 @@ namespace CIS484Solution1
                         if (PasswordHash.ValidatePassword(defaultFormPass.Text, storedHash))
                         {
                             UserLoginEmail = email;
-                            UserLoginType = reader.GetString(2).Trim();
+                            UserLoginType = reader.GetString(3).Trim();
 
-                            if (UserLoginType.Equals("Teacher"))
+                            string qry1 = "select * from Staff where Email='" + email + "'";
+                            SqlCommand cmd1 = new SqlCommand(qry1, dbConnection);
+                            SqlDataReader sdr1 = cmd1.ExecuteReader();
+                            while (sdr1.Read())
                             {
-                                string qry1 = "select * from Teacher where Email='" + email + "'";
-                                SqlCommand cmd1 = new SqlCommand(qry1, dbConnection);
-                                SqlDataReader sdr1 = cmd1.ExecuteReader();
-                                while (sdr1.Read())
-                                {
-                                    UserLoginID = sdr1.GetInt32(0);
-                                    UserLoginName = (sdr1.GetString(2).Substring(0, 1) + ". " + sdr1.GetString(3));
-                                }
+                                UserLoginID = sdr1.GetInt32(0);
+                                UserLoginName = (sdr1.GetString(1).Substring(0, 1) + ". " + sdr1.GetString(2));
                             }
-                            else
-                            {
-                                string qry1 = "select * from EventPersonnel where Email='" + email + "'";
-                                SqlCommand cmd1 = new SqlCommand(qry1, dbConnection);
-                                SqlDataReader sdr1 = cmd1.ExecuteReader();
-                                while (sdr1.Read())
-                                {
-                                    UserLoginID = sdr1.GetInt32(0);
-                                    UserLoginName = (sdr1.GetString(1).Substring(0, 1) + ". " + sdr1.GetString(2));
-                                }
-                            }
+
                             ShowMessage("Logged in successfully as " + UserLoginName.Trim() + " Role: " + UserLoginType, MessageType.Success);
                             if (UserLoginEmail != null)
                             {
-                                MasterMenu.Items[3].Text = HttpUtility.HtmlEncode((UserLoginName.Trim()).Trim());
+                                MasterMenu.Items[4].Text = HttpUtility.HtmlEncode((UserLoginName.Trim()).Trim());
                             }
                             else
                             {

@@ -32,7 +32,6 @@ td {
     margin-right: 5px;
 }
 
-
 .menuItemsg {
     display: flex !important;
     float: none !important;
@@ -123,18 +122,15 @@ fieldset, legend {
     padding: 0;
 }
 
-
 li > ol,
 li > ul {
     margin-bottom: 0;
 }
 
-
 table {
     border-collapse: collapse;
     border-spacing: 0;
 }
-
 
 fieldset {
     min-width: 0;
@@ -342,6 +338,7 @@ h6 {
     .btn--blue:hover {
         background: #3868cd;
     }
+
 .btn--red {
     background: #de1738;
 }
@@ -349,7 +346,6 @@ h6 {
     .btn--red:hover {
         background: #8e1600;
     }
-
 
 /* ==========================================================================
    #FORM
@@ -365,11 +361,15 @@ input {
     font-size: 14px;
     font-family: inherit;
 }
+
 #CheckBoxList1 {
-    input {
-              width: unset;
-          }
+    input
+
+{
+    width: unset;
 }
+}
+
 .input--style-4 {
     line-height: 50px;
     background: #fafafa;
@@ -415,7 +415,6 @@ input {
         color: #666;
     }
 
-
 .label {
     font-size: 16px;
     color: #555;
@@ -442,22 +441,26 @@ input {
         margin-right: 10px;
         width: unset;
     }
-    .radio-container td{
+
+    .radio-container td {
         display: ruby;
     }
+
     .radio-container tr {
         display: block;
     }
+
     .radio-container label {
         cursor: pointer;
     }
-        .radio-container input:checked ~ .checkmark {
-            background-color: #e5e5e5;
-        }
 
-            .radio-container input:checked ~ .checkmark:after {
-                display: block;
-            }
+    .radio-container input:checked ~ .checkmark {
+        background-color: #e5e5e5;
+    }
+
+        .radio-container input:checked ~ .checkmark:after {
+            display: block;
+        }
 
     .radio-container .checkmark:after {
         top: 50%;
@@ -568,5 +571,3 @@ input {
         padding: 50px 40px;
     }
 }
-
-

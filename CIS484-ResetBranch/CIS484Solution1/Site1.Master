@@ -1,7 +1,7 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="CIS484Solution1.Site1" %>
 
 <!DOCTYPE html>
-<!-- John Wehner Max Vaughan -->
+<!-- John Wehner -->
 
 <html>
 <head runat="server">
@@ -131,7 +131,7 @@
         });
     </script>
     <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
-        <div class="wrapper wrapper--w680">
+        <div class="wrapper wrapper">
             <div class="card card-4">
                 <div class="card-body">
                     <!-- My Heading and my Name included in the Title and in the body-->
@@ -161,12 +161,14 @@
                                 Orientation="Horizontal"
                                 Text-Align="center"
                                 runat="server"
+                                Width="100%"
                                 OnMenuItemClick="MasterMenu_MenuItemClick" NavigateUrl="javascript:  needToConfirm = false;" StaticMenuItemStyle-CssClass="menuItems" OnClientClick="javascript: needToConfirm = false;" StaticMenuStyle-CssClass="navb" StaticSelectedStyle-CssClass="menuItems" ClientIDMode="Static">
                                 <Items>
                                     <asp:MenuItem Text="Home" Value="0" Selected="true" />
-                                    <asp:MenuItem Text="Management Center" Value="1" />
-                                    <asp:MenuItem Text="SignUp Center" Value="2" />
-                                    <asp:MenuItem Text="User: None" Enabled="False" />
+                                    <asp:MenuItem Text="Employee Center" Value="1" />
+                                    <asp:MenuItem Text="Commendation Page" Value="2" />
+                                    <asp:MenuItem Text="Admin Page" Value="3" />
+                                    <asp:MenuItem Text="User: None" Value="5" Enabled="False" />
                                 </Items>
                             </asp:Menu>
                         </div>
@@ -244,7 +246,8 @@
                                                 <asp:View>
                                                     <!--Body-->
                                                     <div class="modal-body">
-
+                                                        <asp:ContentPlaceHolder ID="NewStaffPlaceholder" runat="server">
+                                                        </asp:ContentPlaceHolder>
                                                         <asp:ContentPlaceHolder ID="TeacherNewPlaceholder" runat="server">
                                                         </asp:ContentPlaceHolder>
                                                     </div>
@@ -274,73 +277,56 @@
                                     <asp:ContentPlaceHolder ID="HomePlaceHolder" runat="server">
                                     </asp:ContentPlaceHolder>
                                     <div class="form-group">
-                                        <h2 style="text-align: center">Welcome to Cyber Day 2021</h2>
-                                        <h3>If you're a new teacher sign up, or else log in.</h3>
+                                        <h2 style="text-align: center">Welcome to CARES</h2>
+                                        <h3>Cares Image Panel</h3>
+                                        <h3>Cares Donation Box</h3>
+                                        <h3>FAQ For Cares</h3>
                                     </div>
                                 </div>
                             </asp:View>
                             <asp:View runat="server">
                                 <!--New and Existing Student Sub Menus-->
                                 <div style="width: 100%; margin-left: 20px; margin-top: 20px; margin-right: 20px;">
-                                    <asp:Menu
-                                        ID="menuTabsCurrent"
-                                        CssClass="navb"
-                                        Orientation="Horizontal"
-                                        Width="100%"
-                                        Text-Align="center"
-                                        runat="server" AutoPostBack="true"
-                                        OnMenuItemClick="menuTabsCurrent_MenuItemClick" StaticMenuItemStyle-CssClass="menuItems" StaticMenuStyle-CssClass="navb" StaticSelectedStyle-CssClass="menuItemsg" ValidateRequestMode="Inherit">
-                                        <Items>
-                                            <asp:MenuItem Text="Add a Student" Value="0" Selected="true" />
-                                            <asp:MenuItem Text="Manage Personnel" Value="1" />
-                                        </Items>
-                                    </asp:Menu>
+                                    <h2 style="text-align: center">Employee Page</h2>
+                                    <h3>Employee can Log Hours</h3>
+                                    <h3>Employee can view inventory mark item as sold </h3>
+                                    <h3>Employee can add item</h3>
+                                    <h2 style="text-align: center">Manger Functions</h2>
+                                    <h3>Can view employees at location and approve hours</h3>
+                                    <h3>Can see inventory statistics </h3>
+                                    <h3>Basic Statistics</h3>
 
                                     <!--Validating and Populable Student input with responsive list selection-->
-                                    <asp:MultiView ID="multiviewStudent" runat="server" ActiveViewIndex="0">
-                                        <asp:View ID="StudentNew" runat="server">
-                                            <asp:ContentPlaceHolder ID="NewStudentPlaceHolder" runat="server">
-                                            </asp:ContentPlaceHolder>
-                                        </asp:View>
-                                        <asp:View ID="StudentExisting" runat="server">
 
-                                            <asp:ContentPlaceHolder ID="StudentExistingPlaceholder" runat="server">
-                                            </asp:ContentPlaceHolder>
-                                        </asp:View>
-                                    </asp:MultiView>
+                                    <asp:ContentPlaceHolder ID="NewStudentPlaceHolder" runat="server">
+                                    </asp:ContentPlaceHolder>
+
+                                    <asp:ContentPlaceHolder ID="StudentExistingPlaceholder" runat="server">
+                                    </asp:ContentPlaceHolder>
                                 </div>
                             </asp:View>
                             <asp:View runat="server">
                                 <div style="width: 100%; margin-left: 20px; margin-top: 20px; margin-right: 20px;">
-                                    <asp:Menu
-                                        ID="TeacherMenu"
-                                        CssClass="navb"
-                                        Orientation="Horizontal"
-                                        Width="100%"
-                                        Text-Align="center"
-                                        runat="server"
-                                        OnMenuItemClick="TeacherMenu_MenuItemClick" StaticMenuItemStyle-CssClass="menuItems" StaticMenuStyle-CssClass="navb" StaticSelectedStyle-CssClass="menuItems" ClientIDMode="Static">
-                                        <Items>
-                                            <asp:MenuItem Text="Teacher" Value="0" Selected="true" />
-                                            <asp:MenuItem Text="Volunteer" Value="1" />
-                                            <asp:MenuItem Text="Coordinator" Value="2" />
-                                        </Items>
-                                    </asp:Menu>
-                                    <!--Teacher Input Extra Functionality-->
-                                    <asp:MultiView ID="TeacherView" runat="server" ActiveViewIndex="0">
-                                        <asp:View runat="server">
-                                            <asp:ContentPlaceHolder ID="TeacherExistingPlaceholder" runat="server">
-                                            </asp:ContentPlaceHolder>
-                                        </asp:View>
-                                        <asp:View runat="server">
-                                            <asp:ContentPlaceHolder ID="VolunteerExistingPlaceholder" runat="server">
-                                            </asp:ContentPlaceHolder>
-                                        </asp:View>
-                                        <asp:View runat="server">
-                                            <asp:ContentPlaceHolder ID="CoordinatorExistingPlaceholder" runat="server">
-                                            </asp:ContentPlaceHolder>
-                                        </asp:View>
-                                    </asp:MultiView>
+                                    <h2 style="text-align: center">Commendation Page</h2>
+                                    <h3>Employee can Log Hours</h3>
+                                    <h3>Employee can view inventory mark item as sold </h3>
+                                    <h3>Employee can add item</h3>
+                                    <asp:ContentPlaceHolder ID="TeacherExistingPlaceholder" runat="server">
+                                    </asp:ContentPlaceHolder>
+
+                                    <asp:ContentPlaceHolder ID="VolunteerExistingPlaceholder" runat="server">
+                                    </asp:ContentPlaceHolder>
+
+                                    <asp:ContentPlaceHolder ID="CoordinatorExistingPlaceholder" runat="server">
+                                    </asp:ContentPlaceHolder>
+                                </div>
+                            </asp:View>
+                            <asp:View runat="server">
+                                <div style="width: 100%; margin-left: 20px; margin-top: 20px; margin-right: 20px;">
+                                    <h2>Admin Page</h2>
+                                    <h3>Add Employees</h3>
+                                    <h3>Data Breakdowns</h3>
+                                    <h3>Cash Flow</h3>
                                 </div>
                             </asp:View>
                         </asp:MultiView>
