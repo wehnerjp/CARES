@@ -51,27 +51,6 @@ namespace CIS484Solution1
             multiTabs.ActiveViewIndex = Int32.Parse(menuTabsCurrent.SelectedValue);
         }
 
-        protected void TeacherMenu_MenuItemClick(object sender, MenuEventArgs e)
-        {
-            System.Web.UI.WebControls.Menu TeacherMenu = sender as System.Web.UI.WebControls.Menu;
-            MultiView multiTabs = this.FindControl("TeacherView") as MultiView;
-            multiTabs.ActiveViewIndex = Int32.Parse(TeacherMenu.SelectedValue);
-        }
-
-        protected void VolunteerMenu_MenuItemClick(object sender, MenuEventArgs e)
-        {
-            System.Web.UI.WebControls.Menu VolunteerMenu = sender as System.Web.UI.WebControls.Menu;
-            MultiView multiTabs = this.FindControl("VolunteerMultiView") as MultiView;
-            multiTabs.ActiveViewIndex = Int32.Parse(VolunteerMenu.SelectedValue);
-        }
-
-        protected void CoordinatorMenu_MenuItemClick(object sender, MenuEventArgs e)
-        {
-            System.Web.UI.WebControls.Menu CoordinatorMenu = sender as System.Web.UI.WebControls.Menu;
-            MultiView multiTabs = this.FindControl("CoordinatorMultiView") as MultiView;
-            multiTabs.ActiveViewIndex = Int32.Parse(CoordinatorMenu.SelectedValue);
-        }
-
         protected void ShowMessage(string Message, MessageType type)
         {
             ScriptManager.RegisterStartupScript(this, this.GetType(), System.Guid.NewGuid().ToString(), "ShowMessage('" + Message + "','" + type + "');", true);

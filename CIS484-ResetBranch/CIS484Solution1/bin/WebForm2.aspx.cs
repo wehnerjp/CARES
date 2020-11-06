@@ -25,6 +25,7 @@ namespace CIS484Solution1
         private MemoryStream ms;
         public DataTable Cart;
         public DataView CartView;
+        public static int CommenteeID;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -41,6 +42,7 @@ namespace CIS484Solution1
                 "$(document).ready(function() { $('.js-example-basic-single').select2();  $('.grid').masonry({ itemSelector: '.grid-item', columnWidth: 160,  gutter: 20   }); $(document).ready(function () {$('#manBt').click(function() {$('#manPan1').slideToggle('slow');});});});",
                 true);
             Page.Form.Attributes.Add("enctype", "multipart/form-data");
+            //RepeterData();
         }
 
         protected void Page_LoadComplete(object sender, EventArgs e)
@@ -1070,9 +1072,77 @@ namespace CIS484Solution1
             var imgbtn = (System.Web.UI.WebControls.Button)sender;
             var item = (DataListItem)imgbtn.NamingContainer;
             // the datasource is not available on postback, but you have all other controls
-            var StaffName = (System.Web.UI.WebControls.Label)item.FindControl("StaffNameLabel");
-            string company = StaffName.Text;
-            MessageBox.Show(company);
+            var StaffName = (System.Web.UI.WebControls.Label)item.FindControl("StaffIdLabel");
+            CommenteeID = int.Parse(StaffName.Text);
+            MessageBox.Show(CommenteeID.ToString());
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "basicExampleModal", "$('#basicExampleModal').modal();", true);
+            RepeterData();
+        }
+
+        protected void commentSubmit_click(object sender, EventArgs e)
+        {
+            string strcon = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
+            SqlConnection con = new SqlConnection(strcon);
+            SqlCommand cmd;
+            SqlCommand cmd1;
+
+            try
+            {
+                con.Open();
+                cmd = new SqlCommand("Insert into Comments (CommentContent, StaffID) values(@CommentContent, @StaffID)", con);
+                cmd.Parameters.Add("@CommentContent", SqlDbType.VarChar).Value = txtComment.Text.ToString();
+                cmd.Parameters.Add("@StaffID", SqlDbType.Int).Value = Site1.UserLoginID;
+                //MessageBox.Show(Site1.UserLoginID.ToString());
+
+                cmd.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                txtComment.Text = ex.Message;
+            }
+            try
+            {
+                con.Open();
+
+                cmd1 = new SqlCommand("Insert into StaffComments (StaffID, CommentID) values (@StaffID, (select CommentID from Comments where CommentContent = @CommentContent))", con);
+                cmd1.Parameters.Add("@CommentContent", SqlDbType.VarChar).Value = txtComment.Text.ToString();
+                MessageBox.Show(CommenteeID.ToString());
+
+                cmd1.Parameters.Add("@StaffID", SqlDbType.Int).Value = CommenteeID;
+                cmd1.ExecuteNonQuery();
+
+                con.Close();
+                txtComment.Text = string.Empty;
+                RepeterData();
+            }
+            catch (Exception ex)
+            {
+                txtComment.Text += ex.Message;
+            }
+        }
+
+        public void RepeterData()
+        {
+            SqlDataAdapter da;
+            string strcon = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
+            SqlConnection con = new SqlConnection(strcon);
+            con.Open();
+            SqlCommand cmd = new SqlCommand("Select C.CommentID as CommentID, C.CommentContent as CommentContent, (Select SX.FirstName + ' ' + SX.LastName as StaffName from Staff SX where StaffID = C.StaffID) as StaffName from Comments C " +
+                                 " inner join StaffComments SC on SC.CommentID = C.CommentID " +
+                                 " inner join Staff S on S.StaffID = SC.StaffID " +
+                                 " where S.StaffID = @CommenteeID", con);
+            MessageBox.Show("CommenteeID", CommenteeID.ToString());
+
+            cmd.Parameters.Add("@CommenteeID", SqlDbType.Int).Value = CommenteeID;
+
+            DataSet ds = new DataSet();
+            da = new SqlDataAdapter(cmd);
+            da.Fill(ds);
+            RepterDetails.DataSource = ds;
+            RepterDetails.DataBind();
+            //MessageBox.Show("CommentsPopulated");
         }
     }
 

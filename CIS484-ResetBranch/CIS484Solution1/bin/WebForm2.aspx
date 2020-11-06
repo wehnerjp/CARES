@@ -843,23 +843,104 @@
                 <tr>
                     <td>
                         <asp:Label ID="StaffNameLabel" runat="server" Text='<%# Eval("Name") %>'><%#Eval("Name") %></asp:Label>
+                        <asp:Label ID="StaffIdLabel" runat="server" Visible="False" Text='<%# Eval("StaffID") %>'><%#Eval("StaffID") %></asp:Label>
                     </td>
                 </tr>
                 <tr>
                 </tr>
-                <tr>
-                    <td>
-                        <%--        <asp:Repeater ID="<%# "CommentRepeater" + Eval("StaffID") %>" runat="server">
-                        </asp:Repeater>--%>
-                    </td>
-                </tr>
+
                 <tr>
                     <td>
                         <%--                        <asp:TextBox Text="<%#Eval("StaffID") %>" Visible="True" runat="server"></asp:TextBox>--%>
-                        <asp:Button ID="AddCommentButton" runat="server" OnClick="AddComment_Click" Text="Submit" Style="margin-left: 0%;" CssClass="btn btn-info" />
+                        <asp:Button ID="AddCommentButton" runat="server" OnClick="AddComment_Click" Text="Comment" Style="margin-left: 0%;" CssClass="btn btn-info" />
                     </td>
                 </tr>
             </table>
         </ItemTemplate>
     </asp:DataList>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#basicExampleModal">
+        Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h3>Add a Commendation</h3>
+                    <div>
+                        <table>
+                            <tr>
+                                <td>Enter Comments:</td>
+                                <td>
+                                    <asp:TextBox ID="txtComment" runat="server" Rows="5" Columns="20" TextMode="MultiLine"></asp:TextBox></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <asp:Button ID="commentSubmit" runat="server" Text="Submit" OnClick="commentSubmit_click" /></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div>
+                        <asp:Repeater ID="RepterDetails" runat="server">
+                            <HeaderTemplate>
+                                <table>
+                                    <tr>
+                                        <td colspan="2">
+                                            <b>Comments</b>
+                                        </td>
+                                    </tr>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <tr style="background-color: #EBEFF0">
+                                    <td>
+                                        <table style="background-color: #EBEFF0; border-top: 1px dotted #df5015; width: 500px">
+                                            <tr>
+                                                <td>ID:
+    <asp:Label ID="lblSubject" runat="server" Text='<%#Eval("CommentID") %>' Font-Bold="true" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <asp:Label ID="lblComment" runat="server" Text='<%#Eval("CommentContent") %>' />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table style="background-color: #EBEFF0; border-top: 1px dotted #df5015; border-bottom: 1px solid #df5015; width: 500px">
+                                            <tr>
+                                                <td>Post By:
+                                                    <asp:Label ID="lblUser" runat="server" Font-Bold="true" Text='<%#Eval("StaffName") %>' /></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"></td>
+                                </tr>
+                            </ItemTemplate>
+                            <FooterTemplate>
+                                </table>
+                            </FooterTemplate>
+                        </asp:Repeater>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </asp:Content>
