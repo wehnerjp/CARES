@@ -581,7 +581,7 @@
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator10"
                             ControlToValidate="modalLRInput13"
                             ValidationGroup="SignUpGroup"
-                            ErrorMessage="Enter Email."
+                            ErrorMessage="Enter Password."
                             runat="Server">
                         </asp:RequiredFieldValidator>
                     </div>
@@ -837,7 +837,7 @@
             <table class="table table-bordered table-striped" style="margin-left: 5px">
                 <tr>
                     <td>
-                        <img style="width: 100%; max-width: 200px;" src="<%# "ShowImage.ashx?id=" + Eval("StaffID") %>" />
+                        <img style="width: 100%; max-width: 200px; max-height: 230px;" src="<%# "ShowImage.ashx?id=" + Eval("StaffID") %>" />
                     </td>
                 </tr>
                 <tr>
@@ -943,4 +943,158 @@
             </div>
         </div>
     </div>
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="NewEmployeePlaceholder" runat="server">
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
+            <div style="margin-top: 40px;">
+                <div class="row">
+                    <div class="w-100"></div>
+                    <div class="col">
+                        <div class="form-group">
+                            <asp:Label ID="Label3" CssClass="label" runat="server" Text="First Name"></asp:Label>
+                            <asp:TextBox CssClass="input--style-4" ValidationGroup="EmpInput" ID="EmpFirstName" runat="server" required="true" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <asp:Label ID="Label4" CssClass="label" runat="server" Text="Last Name"></asp:Label>
+                            <asp:TextBox CssClass="input--style-4" ValidationGroup="EmpInput" ID="EmpLastName" runat="server" required="true" ValidateRequestMode="Inherit" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <asp:Label ID="Label6" CssClass="label" runat="server" Text="Age"></asp:Label>
+                            <asp:DropDownList
+                                ID="EmpTypeDropDown"
+                                runat="server"
+                                CssClass="js-example-basic-single">
+                                <asp:ListItem Value="Employee" />
+                                <asp:ListItem Value="Volunteer" />
+                                <asp:ListItem Value="VolunHelper" />
+                            </asp:DropDownList>
+                        </div>
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="col">
+                        <div class="form-group">
+                            <asp:Label ID="Label19" CssClass="label" runat="server" Text="Location"></asp:Label>
+                            <asp:SqlDataSource runat="server"
+                                ID="LocationDataSource"
+                                DataSourceMode="DataReader"
+                                ConnectionString="<%$ ConnectionStrings:CARESconnection%>"
+                                SelectCommand="SELECT LocationID, LocationName FROM Location" />
+                            <asp:DropDownList
+                                ID="EmpLocationDDL"
+                                DataSourceID="LocationDataSource"
+                                DataTextField="LocationName"
+                                DataValueField="LocationID"
+                                AutoPostBack="true"
+                                runat="server"
+                                CssClass="js-example-basic-single" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <asp:Label ID="Label13" CssClass="label" runat="server" Text="Manager" />
+                            <!--Generated Dynamically in C# code based on school selection-->
+                            <asp:CheckBox ID="ManagerCheckBox" runat="server" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <asp:Label ID="Label15" CssClass="label" runat="server" Text="Email"></asp:Label>
+                            <asp:TextBox CssClass="input--style-4" ValidationGroup="EmpInput" ID="EmpEmailTextBox" runat="server" required="true" ValidateRequestMode="Inherit" />
+                        </div>
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="col">
+                        <div class="form-group">
+                            <asp:Label ID="Label16" CssClass="label" runat="server" Text="Password"></asp:Label>
+                            <asp:TextBox CssClass="input--style-4" ValidationGroup="EmpInput" ID="EmpPasswordTextBox" runat="server" required="true" ValidateRequestMode="Inherit" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <asp:Image ID="Image2" runat="server" />
+                            <asp:FileUpload ID="ImageUpload1" runat="server" />
+                        </div>
+                    </div>
+                    <div class="colt">
+                        <asp:Button ID="SubmitEmp" runat="server" OnClick="AddEmp_Click" Text="Submit" Style="margin-left: 0%;" CssClass="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+            <!--Button options for Submit, Commit Populate and Reset Distinguishable-->
+            <%--            <div class="container">
+                <div class="row">
+                    <div class="col-sm text-left">
+                        <asp:Button ID="Button1" runat="server" OnClick="AddEmp_Click" Text="Submit" Style="margin-left: 0%; padding: 2px;" CssClass="btn btn-primary btn-sm" />
+                    </div>
+                    <div class="col-sm text-right">
+                        <asp:Button ID="Button3" runat="server" OnClick="ResetEmpButton_Click" ValidationGroup="EmpInput" CausesValidation="False" Text="Reset" UseSubmitBehavior="False" CssClass="btn btn-danger" />
+                    </div>
+                </div>
+            </div>--%>
+        </ContentTemplate>
+        <Triggers>
+            <asp:PostBackTrigger ControlID="SubmitEmp" />
+        </Triggers>
+    </asp:UpdatePanel>
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="NewLocationPlaceholder" runat="server">
+    <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+        <ContentTemplate>
+            <div style="margin-top: 40px;">
+                <div class="row">
+                    <div class="w-100"></div>
+                    <div class="col">
+                        <div class="form-group">
+                            <asp:Label ID="Label7" CssClass="label" runat="server" Text="Location Name"></asp:Label>
+                            <asp:TextBox CssClass="input--style-4" ValidationGroup="LocationInput" ID="LocationNameText" runat="server" required="true" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <asp:Label ID="Label17" CssClass="label" runat="server" Text="Address"></asp:Label>
+                            <asp:TextBox CssClass="input--style-4" ValidationGroup="LocationInput" ID="LocationAddressText" runat="server" required="true" ValidateRequestMode="Inherit" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <asp:Label ID="Label20" CssClass="label" runat="server" Text="City"></asp:Label>
+                            <asp:TextBox CssClass="input--style-4" ValidationGroup="LocationInput" ID="LocationCity" runat="server" required="true" ValidateRequestMode="Inherit" />
+                        </div>
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="col">
+                        <div class="form-group">
+                            <asp:Label ID="Label21" CssClass="label" runat="server" Text="Zipcode"></asp:Label>
+                            <asp:TextBox CssClass="input--style-4" ValidationGroup="LocationInput" ID="LocationZip" runat="server" required="true" ValidateRequestMode="Inherit" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <asp:Button ID="SubmitLocation" runat="server" OnClick="AddLocation_Click" Text="Submit" Style="margin-left: 0%;" CssClass="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Button options for Submit, Commit Populate and Reset Distinguishable-->
+            <%-- <div class="container">
+                <div class="row">
+                    <div class="col-sm text-left">
+                        <asp:Button ID="SubmitLocation" runat="server" OnClick="AddLocation_Click" Text="Submit" Style="margin-left: 0%; padding: 2px;" CssClass="btn btn-primary btn-sm" />
+                    </div>
+                     <div class="col-sm text-right">
+                        <asp:Button ID="Button3" runat="server" OnClick="ResetLocationButton_Click" ValidationGroup="LocationInput" CausesValidation="False" Text="Reset" UseSubmitBehavior="False" CssClass="btn btn-danger" />
+                    </div>
+                </div>
+            </div>--%>
+        </ContentTemplate>
+        <Triggers>
+            <asp:PostBackTrigger ControlID="SubmitLocation" />
+        </Triggers>
+    </asp:UpdatePanel>
 </asp:Content>

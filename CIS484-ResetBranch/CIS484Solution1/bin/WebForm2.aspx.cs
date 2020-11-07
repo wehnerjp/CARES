@@ -1074,7 +1074,7 @@ namespace CIS484Solution1
             // the datasource is not available on postback, but you have all other controls
             var StaffName = (System.Web.UI.WebControls.Label)item.FindControl("StaffIdLabel");
             CommenteeID = int.Parse(StaffName.Text);
-            MessageBox.Show(CommenteeID.ToString());
+            //MessageBox.Show(CommenteeID.ToString());
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "basicExampleModal", "$('#basicExampleModal').modal();", true);
             RepeterData();
         }
@@ -1108,7 +1108,7 @@ namespace CIS484Solution1
 
                 cmd1 = new SqlCommand("Insert into StaffComments (StaffID, CommentID) values (@StaffID, (select CommentID from Comments where CommentContent = @CommentContent))", con);
                 cmd1.Parameters.Add("@CommentContent", SqlDbType.VarChar).Value = txtComment.Text.ToString();
-                MessageBox.Show(CommenteeID.ToString());
+                //MessageBox.Show(CommenteeID.ToString());
 
                 cmd1.Parameters.Add("@StaffID", SqlDbType.Int).Value = CommenteeID;
                 cmd1.ExecuteNonQuery();
@@ -1133,7 +1133,7 @@ namespace CIS484Solution1
                                  " inner join StaffComments SC on SC.CommentID = C.CommentID " +
                                  " inner join Staff S on S.StaffID = SC.StaffID " +
                                  " where S.StaffID = @CommenteeID", con);
-            MessageBox.Show("CommenteeID", CommenteeID.ToString());
+            //MessageBox.Show("CommenteeID", CommenteeID.ToString());
 
             cmd.Parameters.Add("@CommenteeID", SqlDbType.Int).Value = CommenteeID;
 
@@ -1143,6 +1143,118 @@ namespace CIS484Solution1
             RepterDetails.DataSource = ds;
             RepterDetails.DataBind();
             //MessageBox.Show("CommentsPopulated");
+        }
+
+        protected void AddEmp_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Emp");
+            //Inserting teacher query
+            String sqlQuery = "If Not Exists (select 1 from Staff where FirstName= @FirstName and LastName= @LastName)  Insert into Staff (FirstName, LastName, Type, LocationID, Manager, Email, Password, StaffPicture, StartDate) values " +
+                "(@FirstName, @LastName, '" + EmpTypeDropDown.SelectedValue + "', @LocationID, @Manager, @Email, @Password, @Image, CURRENT_TIMESTAMP); ";
+            //Get connection string from web.config file
+            string strcon = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
+            //Inserting teacher query
+
+            //Get connection string from web.config file
+            //create new sqlconnection and connection to database by using connection string from web.config file
+            SqlConnection con = new SqlConnection(strcon);
+            using (SqlCommand command = new SqlCommand(sqlQuery, con))
+            {
+                con.Open();
+                if (ImageUpload1.HasFile)
+                {
+                    ////using MemoryStream:
+                    //ms = new MemoryStream();
+                    //ImageUpload.Image.Save(ms, ImageFormat.Jpeg);
+                    //byte[] photo_aray = new byte[ms.Length];
+                    //ms.Position = 0;
+                    //ms.Read(photo_aray, 0, photo_aray.Length);
+                    //cmd.Parameters.AddWithValue("@photo", photo_aray);
+
+                    int imagefilelength = ImageUpload1.PostedFile.ContentLength;
+                    byte[] imgarray = new byte[imagefilelength];
+                    HttpPostedFile image = ImageUpload1.PostedFile;
+                    image.InputStream.Read(imgarray, 0, imagefilelength);
+                    command.Parameters.Add("@Image", SqlDbType.Image, imgarray.Length).Value = imgarray;
+                    //MessageBox.Show("Inserted image");
+                }
+                else
+                {
+                    //MessageBox.Show("Default image");
+                    string fName = "..\\defaultUserIcon.jpg";
+                    byte[] content = ImageToStream(fName);
+
+                    command.Parameters.Add("@Image", SqlDbType.Image, content.Length).Value = content;
+                }
+                command.Parameters.Add(new SqlParameter("@FirstName", EmpFirstName.Text));
+                command.Parameters.Add(new SqlParameter("@LastName", EmpLastName.Text));
+                command.Parameters.Add(new SqlParameter("@LocationID", EmpLocationDDL.SelectedValue));
+                command.Parameters.Add(new SqlParameter("@Manager", ManagerCheckBox.Checked));
+                command.Parameters.Add(new SqlParameter("@Email", EmpEmailTextBox.Text));
+                command.Parameters.Add(new SqlParameter("@Password", PasswordHash.HashPassword(EmpPasswordTextBox.Text)));
+
+                try
+                {
+                    command.ExecuteNonQuery();
+                    Console.Write("insert successful");
+                    //MessageBox.Show("insert emp success");
+
+                    ResetStaffButton_Click(sender, e);
+                }
+                catch (SqlException ex)
+                {
+                    Console.Write(ex.Message);
+                    //MessageBox.Show("insert emp failure");
+                }
+                con.Close();
+            }
+        }
+
+        protected void PopulateEmp_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected void ResetEmpButton_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected void AddLocation_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Emp");
+            //Inserting teacher query
+            String sqlQuery = "If Not Exists (select 1 from Location where LocationName= @LocationName)  Insert into Location (LocationName, LocationAddress, LocationCity, LocationZipCode) values " +
+                "(@LocationName, @LocationAddress, @LocationCity, @LocationZipCode); ";
+            //Get connection string from web.config file
+            string strcon = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
+            //Inserting teacher query
+
+            //Get connection string from web.config file
+            //create new sqlconnection and connection to database by using connection string from web.config file
+            SqlConnection con = new SqlConnection(strcon);
+            using (SqlCommand command = new SqlCommand(sqlQuery, con))
+            {
+                con.Open();
+
+                command.Parameters.Add(new SqlParameter("@LocationName", LocationNameText.Text));
+                command.Parameters.Add(new SqlParameter("@LocationAddress", LocationAddressText.Text));
+                command.Parameters.Add(new SqlParameter("@LocationCity", LocationCity.Text));
+                command.Parameters.Add(new SqlParameter("@LocationZipCode", LocationZip.Text));
+
+                try
+                {
+                    command.ExecuteNonQuery();
+                    Console.Write("insert successful");
+                    MessageBox.Show("insert Location success");
+                }
+                catch (SqlException ex)
+                {
+                    Console.Write(ex.Message);
+                    MessageBox.Show("insert Location failure");
+                }
+                con.Close();
+            }
         }
     }
 

@@ -321,11 +321,201 @@
                                 </div>
                             </asp:View>
                             <asp:View runat="server">
+                                <script>
+                                    // Hide all elements with class="containerTab", except for the one that matches the clickable grid column
+                                    function openTab(tabName) {
+                                        var i, x;
+                                        x = document.getElementsByClassName("tab-content");
+                                        //for (i = 0; i < x.length; i++) {
+                                        //    x[i].style.display = "none";
+                                        //}
+                                        document.getElementById(tabName).style.display = "block";
+                                    }
+                                </script>
+                                <style>
+                                    .row:after {
+                                        content: "";
+                                        display: table;
+                                        clear: both;
+                                    }
+
+                                    /* Closable button inside the image */
+                                    .closebtn {
+                                        float: right;
+                                        font-size: 35px;
+                                        cursor: pointer;
+                                    }
+
+                                    .containerTab {
+                                        padding: 20px;
+                                    }
+
+                                    .collapse-content .fa.fa-heart:hover {
+                                        color: #f44336 !important;
+                                    }
+
+                                    .collapse-content .fa.fa-share-alt:hover {
+                                        color: #0d47a1 !important;
+                                    }
+                                </style>
                                 <div style="width: 100%; margin-left: 20px; margin-top: 20px; margin-right: 20px;">
-                                    <h2>Admin Page</h2>
-                                    <h3>Add Employees</h3>
-                                    <h3>Data Breakdowns</h3>
-                                    <h3>Cash Flow</h3>
+                                    <div class="container-fluid">
+                                        <div class="grid">
+                                            <!-- The grid: three columns -->
+                                            <div class="row row-cols-1 row-cols-md-3">
+                                                <div class="col mb-4">
+                                                    <div class="card h-100">
+                                                        <!--Card image-->
+                                                        <div class="view overlay">
+                                                            <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg"
+                                                                alt="Card image cap">
+                                                            <a href="#!">
+                                                                <div class="mask rgba-white-slight"></div>
+                                                            </a>
+                                                        </div>
+
+                                                        <!--Card content-->
+                                                        <div class="card-body">
+
+                                                            <!--Title-->
+                                                            <h4 class="card-title">Add a CARES contributor</h4>
+                                                            <!--Text-->
+                                                            <p class="card-text">Want to add a Volunteer, Employee, or VolunHelper?</p>
+                                                            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                                                            <button type="button" class="btn btn-light-blue btn-md" data-toggle="modal" data-target="#fullHeightModalRight">Click Here</button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Card -->
+                                                </div>
+                                                <div class="col mb-4">
+                                                    <div class="card h-100">
+                                                        <!--Card image-->
+                                                        <div class="view overlay">
+                                                            <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg" alt="Card image cap">
+                                                            <a href="#!">
+                                                                <div class="mask rgba-white-slight"></div>
+                                                            </a>
+                                                        </div>
+
+                                                        <!--Card content-->
+                                                        <div class="card-body">
+
+                                                            <!--Title-->
+                                                            <h4 class="card-title">Add a Location</h4>
+                                                            <!--Text-->
+                                                            <p class="card-text">
+                                                                New Cares Location?
+          card's content.
+                                                            </p>
+                                                            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                                                            <button type="button" class="btn btn-light-blue btn-md" data-toggle="modal" data-target="#fullHeightModalRight1">Click Here</button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Card -->
+                                                </div>
+                                                <div class="col mb-4">
+                                                    <div class="card h-100">
+                                                        <!--Card image-->
+                                                        <div class="view overlay">
+                                                            <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg" alt="Card image cap">
+                                                            <a href="#!">
+                                                                <div class="mask rgba-white-slight"></div>
+                                                            </a>
+                                                        </div>
+
+                                                        <!--Card content-->
+                                                        <div class="card-body">
+
+                                                            <!--Title-->
+                                                            <h4 class="card-title">Card title</h4>
+                                                            <!--Text-->
+                                                            <p class="card-text">
+                                                                Some quick example text to build on the card title and make up the bulk of the
+          card's content. Some quick example text to build on the card title and make up the bulk of the
+          card's content.
+                                                            </p>
+                                                            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                                                            <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Card -->
+                                                </div>
+                                                <div class="col mb-4">
+                                                    <div class="card h-100">
+                                                        <!--Card image-->
+                                                        <div class="view overlay">
+                                                            <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg" alt="Card image cap">
+                                                            <a href="#!">
+                                                                <div class="mask rgba-white-slight"></div>
+                                                            </a>
+                                                        </div>
+
+                                                        <!--Card content-->
+                                                        <div class="card-body">
+
+                                                            <!--Title-->
+                                                            <h4 class="card-title">Card title</h4>
+                                                            <!--Text-->
+                                                            <p class="card-text">
+                                                                Some quick example text to build on the card title and make up the bulk of the
+          card's content.
+                                                            </p>
+                                                            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                                                            <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Card -->
+                                                </div>
+                                            </div>
+                                            <div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                                aria-hidden="true">
+
+                                                <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+                                                <div class="modal-dialog modal-full-height modal-right" role="document">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title w-100" id="myModalLabel">Add Employee</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <asp:ContentPlaceHolder runat="server" ID="NewEmployeePlaceholder"></asp:ContentPlaceHolder>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-center">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade right" id="fullHeightModalRight1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                                aria-hidden="true">
+
+                                                <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+                                                <div class="modal-dialog modal-full-height modal-right" role="document">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title w-100" id="myModalLabel1">Add Employee</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <asp:ContentPlaceHolder ID="NewLocationPlaceholder" runat="server">
+                                                            </asp:ContentPlaceHolder>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-center">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <%--<h3>Cash Flow</h3>--%>
+                                        </div>
+                                    </div>
                                 </div>
                             </asp:View>
                         </asp:MultiView>
