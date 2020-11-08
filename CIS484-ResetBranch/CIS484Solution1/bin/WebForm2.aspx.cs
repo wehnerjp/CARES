@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -10,6 +11,7 @@ using System.Web.Configuration;
 using System.Configuration;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
@@ -1163,14 +1165,6 @@ namespace CIS484Solution1
                 con.Open();
                 if (ImageUpload1.HasFile)
                 {
-                    ////using MemoryStream:
-                    //ms = new MemoryStream();
-                    //ImageUpload.Image.Save(ms, ImageFormat.Jpeg);
-                    //byte[] photo_aray = new byte[ms.Length];
-                    //ms.Position = 0;
-                    //ms.Read(photo_aray, 0, photo_aray.Length);
-                    //cmd.Parameters.AddWithValue("@photo", photo_aray);
-
                     int imagefilelength = ImageUpload1.PostedFile.ContentLength;
                     byte[] imgarray = new byte[imagefilelength];
                     HttpPostedFile image = ImageUpload1.PostedFile;
@@ -1207,6 +1201,10 @@ namespace CIS484Solution1
                     //MessageBox.Show("insert emp failure");
                 }
                 con.Close();
+                EmpFirstName.Text = "";
+                EmpLastName.Text = "";
+                EmpEmailTextBox.Text = "";
+                EmpPasswordTextBox.Text = "";
             }
         }
 
@@ -1222,7 +1220,6 @@ namespace CIS484Solution1
 
         protected void AddLocation_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Emp");
             //Inserting teacher query
             String sqlQuery = "If Not Exists (select 1 from Location where LocationName= @LocationName)  Insert into Location (LocationName, LocationAddress, LocationCity, LocationZipCode) values " +
                 "(@LocationName, @LocationAddress, @LocationCity, @LocationZipCode); ";
@@ -1254,6 +1251,77 @@ namespace CIS484Solution1
                     MessageBox.Show("insert Location failure");
                 }
                 con.Close();
+                LocationAddressText.Text = "";
+                LocationNameText.Text = "";
+                LocationCity.Text = "";
+                LocationZip.Text = "";
+            }
+        }
+
+        protected void AddDonation_Click(object sender, EventArgs e)
+        {
+            Decimal Amount = Convert.ToDecimal(DonationAmount.Text);
+
+            //Inserting teacher query
+            String sqlQuery = "Insert into MonetaryDonations (Amount, DonationDate, DonatorName) values " +
+                              "(@Amount, CURRENT_TIMESTAMP, @DonatorName); ";
+            //Get connection string from web.config file
+            string strcon = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
+            //Inserting teacher query
+
+            //Get connection string from web.config file
+            //create new sqlconnection and connection to database by using connection string from web.config file
+            SqlConnection con = new SqlConnection(strcon);
+            using (SqlCommand command = new SqlCommand(sqlQuery, con))
+            {
+                con.Open();
+
+                command.Parameters.Add(new SqlParameter("@Amount", Amount));
+                command.Parameters.Add(new SqlParameter("@DonatorName", DonatorName.Text));
+
+                try
+                {
+                    command.ExecuteNonQuery();
+                    Console.Write("insert successful");
+                    MessageBox.Show("insert Donation success");
+                }
+                catch (SqlException ex)
+                {
+                    Console.Write(ex.Message);
+                    MessageBox.Show("insert Location failure");
+                }
+
+                con.Close();
+            }
+
+            //Inserting teacher query
+            String sqlQuery1 = "Insert into CaresBank (TransAmount, Type, Description, Date) values " +
+                               "(@Amount, 'Donation', 'Donation Inputted by Admin', CURRENT_TIMESTAMP); ";
+
+            //Get connection string from web.config file
+            //create new sqlconnection and connection to database by using connection string from web.config file
+            SqlConnection con1 = new SqlConnection(strcon);
+            using (SqlCommand command1 = new SqlCommand(sqlQuery1, con))
+            {
+                con.Open();
+
+                command1.Parameters.Add(new SqlParameter("@Amount", Amount));
+
+                try
+                {
+                    command1.ExecuteNonQuery();
+                    Console.Write("insert successful");
+                    MessageBox.Show("insert Donation success");
+                }
+                catch (SqlException ex)
+                {
+                    Console.Write(ex.Message);
+                    MessageBox.Show("insert Donation failure");
+                }
+
+                con1.Close();
+                DonatorName.Text = "";
+                DonationAmount.Text = "";
             }
         }
     }

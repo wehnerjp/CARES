@@ -10,9 +10,9 @@
     <meta name="description" content="Wehner" />
     <meta name="author" content="Wehner" />
     <meta name="keywords" content="Wehner" />
-    <title>Cyber: John Paul Wehner, Max Vaughn</title>
+    <title>CARES</title>
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+
     <!-- Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
     <!-- Bootstrap core CSS -->
@@ -28,15 +28,20 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
     <!-- Font special for pages-->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
-    <!-- Main CSS-->
-    <link href="main.css" rel="stylesheet" media="all" />
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+
     <!-- Main JS-->
     <script src="jquery.js"></script>
     <script src="global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+    <!-- Main CSS-->
+    <link href="main.css" rel="stylesheet" media="all" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <style>
         * {
             box-sizing: border-box;
@@ -137,14 +142,14 @@
                     <!-- My Heading and my Name included in the Title and in the body-->
                     <div class="row">
                         <div class="col">
-                            <h2 class="title" style="width: 100%;">Cyber Day: John Paul Wehner, Max Vaughn </h2>
+                            <h2 class="title" style="width: 100%;">CARES </h2>
                         </div>
                         <div id="LoginDiv" class="col text-right" runat="server">
                             <a href="" class="btn btn-primary btn-sm float-right" data-toggle="modal" id="LoginForm" onclick='newwin()' style="padding-top: 0%; padding-bottom: 0%;" data-target="#modalLRForm">LogIn/Register</a>
                         </div>
 
                         <div id="LogoutDiv" style="display: none;" class="col text-right" runat="server">
-                            <a href="javascript: window.location.href = window.location.href; Session.abondon();" runat="server" id="Logout" class="btn btn-primary btn-sm float-right" style="padding-top: 0%; padding-bottom: 0%;">Logout</a>
+                            <a href="javascript: window.location.href = window.location.href; Session.abandon();" runat="server" id="Logout" class="btn btn-primary btn-sm float-right" style="padding-top: 0%; padding-bottom: 0%;">Logout</a>
                         </div>
                     </div>
                     <form id="LabForm" runat="server">
@@ -288,9 +293,8 @@
                                 <!--New and Existing Student Sub Menus-->
                                 <div style="width: 100%; margin-left: 20px; margin-top: 20px; margin-right: 20px;">
                                     <h2 style="text-align: center">Employee Page</h2>
-                                    <h3>Employee can Log Hours</h3>
-                                    <h3>Employee can view inventory mark item as sold </h3>
-                                    <h3>Employee can add item</h3>
+                                    <asp:ContentPlaceHolder ID="BasicEmployeeView" runat="server">
+                                    </asp:ContentPlaceHolder>
                                     <h2 style="text-align: center">Manger Functions</h2>
                                     <h3>Can view employees at location and approve hours</h3>
                                     <h3>Can see inventory statistics </h3>
@@ -362,12 +366,12 @@
                                     <div class="container-fluid">
                                         <div class="grid">
                                             <!-- The grid: three columns -->
-                                            <div class="row row-cols-1 row-cols-md-3">
+                                            <div class="row row-cols-1 row-cols-md-4">
                                                 <div class="col mb-4">
                                                     <div class="card h-100">
-                                                        <!--Card image-->
+                                                        <%--<!--Card image-->--%>
                                                         <div class="view overlay">
-                                                            <img class="card-img-top" src="https://www.canadahelps.org/media/5-Reasons-Why-You-Should-Donate-to-Charity.jpg"
+                                                            <img class="card-img-top" src="https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/8/2019/10/Promote-charity-event-1200x630.png"
                                                                 alt="Card image cap">
                                                             <a href="#!">
                                                                 <div class="mask rgba-white-slight"></div>
@@ -426,15 +430,13 @@
                                                         <div class="card-body">
 
                                                             <!--Title-->
-                                                            <h4 class="card-title">Card title</h4>
+                                                            <h4 class="card-title">Add Event</h4>
                                                             <!--Text-->
                                                             <p class="card-text">
-                                                                Some quick example text to build on the card title and make up the bulk of the
-          card's content. Some quick example text to build on the card title and make up the bulk of the
-          card's content.
+                                                                Have an Event idea you want to make happen?
                                                             </p>
                                                             <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                                                            <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+                                                            <button type="button" class="btn btn-light-blue btn-md">Click Here</button>
                                                         </div>
                                                     </div>
                                                     <!-- Card -->
@@ -443,7 +445,7 @@
                                                     <div class="card h-100">
                                                         <!--Card image-->
                                                         <div class="view overlay">
-                                                            <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg" alt="Card image cap">
+                                                            <img class="card-img-top" src="https://www.wpexplorer.com/wp-content/uploads/wordpress-best-donation-plugins.jpg" alt="Card image cap">
                                                             <a href="#!">
                                                                 <div class="mask rgba-white-slight"></div>
                                                             </a>
@@ -453,14 +455,13 @@
                                                         <div class="card-body">
 
                                                             <!--Title-->
-                                                            <h4 class="card-title">Card title</h4>
+                                                            <h4 class="card-title">Enter Donation</h4>
                                                             <!--Text-->
                                                             <p class="card-text">
-                                                                Some quick example text to build on the card title and make up the bulk of the
-          card's content.
+                                                                Have a new donation from one of our generous donors?
                                                             </p>
                                                             <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                                                            <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+                                                            <button type="button" class="btn btn-light-blue btn-md" data-toggle="modal" data-target="#fullHeightModalRight2">Click Here</button>
                                                         </div>
                                                     </div>
                                                     <!-- Card -->
@@ -496,7 +497,7 @@
 
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h4 class="modal-title w-100" id="myModalLabel1">Add Employee</h4>
+                                                            <h4 class="modal-title w-100" id="myModalLabel1">Add Location</h4>
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
@@ -511,7 +512,29 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="modal fade right" id="fullHeightModalRight2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                                aria-hidden="true">
 
+                                                <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+                                                <div class="modal-dialog modal-full-height modal-right" role="document">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title w-100" id="myModalLabel1">Add Donation</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <asp:ContentPlaceHolder ID="NewDonationPlaceholder" runat="server">
+                                                            </asp:ContentPlaceHolder>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-center">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <%--<h3>Cash Flow</h3>--%>
                                         </div>
                                     </div>
