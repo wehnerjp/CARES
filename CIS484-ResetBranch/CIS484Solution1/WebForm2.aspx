@@ -9,7 +9,7 @@
         <div class="card map-card">
 
             <!--Google map-->
-            <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 500px">
+            <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 50px">
                 <iframe src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
                     style="border: 0" allowfullscreen></iframe>
             </div>
@@ -77,128 +77,7 @@
         </div>
     </div>
 </asp:Content>
-<asp:Content ID="NewStudent" ContentPlaceHolderID="NewStudentPlaceholder" runat="server">
-    <asp:UpdatePanel ID="UpdatePanel2" runat="server">
-        <ContentTemplate>
-            <div style="margin-top: 40px;">
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <asp:Label ID="FirstName" CssClass="label" runat="server" Text="First Name"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" ValidationGroup="StudentInput" ID="FirstNameTextBox" runat="server" required="true" />
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <asp:Label ID="LastName" CssClass="label" runat="server" Text="Last Name"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" ValidationGroup="StudentInput" ID="LastNameTextBox" runat="server" required="true" ValidateRequestMode="Inherit" />
-                        </div>
-                    </div>
-                    <div class="w-100"></div>
-                    <div class="col">
-                        <div class="form-group">
-                            <asp:Label ID="Age" CssClass="label" runat="server" Text="Age"></asp:Label>
-                            <asp:DropDownList
-                                ID="StudentAgeList"
-                                runat="server"
-                                CssClass="js-example-basic-single"
-                                Width="50%">
-                                <asp:ListItem Value="6" />
-                                <asp:ListItem Value="7" />
-                                <asp:ListItem Value="8" />
-                                <asp:ListItem Value="9" />
-                                <asp:ListItem Value="10" />
-                                <asp:ListItem Value="11" />
-                            </asp:DropDownList>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <asp:Label ID="SchoolLabel" CssClass="label" runat="server" Text="School"></asp:Label>
-                            <asp:SqlDataSource runat="server"
-                                ID="StudentSchoolDataSource"
-                                DataSourceMode="DataReader"
-                                ConnectionString="<%$ ConnectionStrings:dbconnection%>"
-                                SelectCommand="SELECT SchoolID, SchoolName FROM School" />
-                            <asp:DropDownList
-                                ID="StudentSchoolDropDownList"
-                                DataSourceID="StudentSchoolDataSource"
-                                DataTextField="SchoolName"
-                                DataValueField="SchoolID"
-                                AutoPostBack="true"
-                                OnSelectedIndexChanged="StudentSchool_SelectedIndexChanged"
-                                CssClass="js-example-basic-single"
-                                Width="50%"
-                                runat="server" />
-                        </div>
-                    </div>
-                    <div class="w-100"></div>
-                    <div class="col">
-                        <div class="form-group">
-                            <asp:Label ID="TeacherLabel" CssClass="label" runat="server" Text="Teacher"></asp:Label>
-                            <!--Generated Dynamically in C# code based on school selection-->
-                            <asp:DropDownList
-                                ID="StudentTeacherDropDownList"
-                                AutoPostBack="true"
-                                CssClass="js-example-basic-single"
-                                Width="50%"
-                                runat="server" />
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <asp:Label ID="TshirtLabel" CssClass="label" runat="server" Text="T-shirt Size"></asp:Label>
-                            <asp:DropDownList
-                                ID="TshirtList"
-                                runat="server"
-                                CssClass="js-example-basic-single"
-                                Width="50%">
-                                <asp:ListItem Value="Small" />
-                                <asp:ListItem Value="Medium" />
-                                <asp:ListItem Value="Large" />
-                            </asp:DropDownList>
-                        </div>
-                    </div>
-                    <div class="w-100"></div>
-                    <div class="col">
-                        <div class="form-group">
-                            <asp:Label ID="TshirtColor" CssClass="label" runat="server" Text="T-shirt Color"></asp:Label>
-                            <asp:DropDownList
-                                ID="TshirtColorList"
-                                runat="server"
-                                CssClass="js-example-basic-single"
-                                Width="50%">
-                                <asp:ListItem Value="Green" />
-                                <asp:ListItem Value="Blue" />
-                                <asp:ListItem Value="Red" />
-                            </asp:DropDownList>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <asp:Label ID="NotesLable" CssClass="label" runat="server" Text="Notes"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" ID="NotesTextBox" runat="server" required="true" ValidationGroup="StudentInput" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--Button options for Submit, Commit Populate and Reset Distinguishable-->
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm text-left">
-                        <asp:Button ID="SubmitButton" runat="server" OnClick="AddStudent_Click" Text="Submit" Style="margin-left: 0%;" CssClass="btn btn-primary" />
-                    </div>
-                    <div class="col-sm text-center">
-                        <asp:Button ID="PopulateButton" runat="server" OnClick="PopulateText_Click" ValidationGroup="StudentInput" CausesValidation="False" Text=" Fill " CssClass="btn btn-success" ValidateRequestMode="Inherit" UseSubmitBehavior="False" />
-                    </div>
-                    <div class="col-sm text-right">
-                        <asp:Button ID="ResetButton" runat="server" OnClick="ResetButton_Click" ValidationGroup="StudentInput" CausesValidation="False" Text="Reset" UseSubmitBehavior="False" CssClass="btn btn-danger" />
-                    </div>
-                </div>
-            </div>
-        </ContentTemplate>
-    </asp:UpdatePanel>
-</asp:Content>
+
 <asp:Content ID="StudentExisting" ContentPlaceHolderID="StudentExistingPlaceholder" runat="server">
     <script type="text/javascript">
         $(document).ready(function () {
@@ -418,160 +297,7 @@
         </div>
     </div>
 </asp:Content>
-<%--<asp:Content ID="TeacherNew" ContentPlaceHolderID="TeacherNewPlaceholder" runat="server">
-    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <ContentTemplate>
-            <div style="margin-top: 40px;">
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <asp:Label ID="TeacherFirstName" CssClass="label" runat="server" Text="First Name"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" ID="TeacherFirstNameText" runat="server" CausesValidation="false" />
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2"
-                                ControlToValidate="TeacherFirstNameText"
-                                ValidationGroup="SignUpGroup"
-                                ErrorMessage="Enter Name."
-                                runat="Server">
-                            </asp:RequiredFieldValidator>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <asp:Label ID="TeacherLastName" CssClass="label" runat="server" Text="Last Name"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" ID="TeacherLastNameInput" runat="server" CausesValidation="false" />
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1"
-                                ControlToValidate="TeacherLastNameInput"
-                                ValidationGroup="SignUpGroup"
-                                ErrorMessage="Enter Name."
-                                runat="Server">
-                            </asp:RequiredFieldValidator>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
 
-                    <div class="col">
-                        <div class="form-group">
-                            <asp:Label ID="TeacherSchoolLabel" CssClass="label" runat="server" Text="School"></asp:Label>
-                            <asp:SqlDataSource runat="server"
-                                ID="TeacherSchoolDataSource"
-                                DataSourceMode="DataReader"
-                                ConnectionString="<%$ ConnectionStrings:dbconnection%>"
-                                SelectCommand="SELECT SchoolID, SchoolName FROM School" />
-                            <asp:DropDownList
-                                ID="TeacherSchoolList"
-                                DataSourceID="TeacherSchoolDataSource"
-                                DataTextField="SchoolName"
-                                DataValueField="SchoolID"
-                                AutoPostBack="true"
-                                runat="server"
-                                CssClass="js-example-basic-single"
-                                Width="50%" />
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <asp:Label ID="Label6" CssClass="label" runat="server" Text="T-shirt Size"></asp:Label>
-                            <asp:DropDownList
-                                ID="TeacherTshirtSize"
-                                runat="server"
-                                CssClass="js-example-basic-single"
-                                Width="50%">
-                                <asp:ListItem Value="Small" />
-                                <asp:ListItem Value="Medium" />
-                                <asp:ListItem Value="Large" />
-                            </asp:DropDownList>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <asp:Label ID="Label7" CssClass="label" runat="server" Text="T-shirt Color"></asp:Label>
-                            <asp:DropDownList
-                                ID="TeacherTshirtColor"
-                                runat="server"
-                                CssClass="js-example-basic-single"
-                                Width="50%">
-                                <asp:ListItem Value="Green" />
-                                <asp:ListItem Value="Blue" />
-                                <asp:ListItem Value="Red" />
-                            </asp:DropDownList>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <asp:Label ID="TeacherNoteLabel" CssClass="label" runat="server" Text="Notes"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" ID="TeacherNoteTextBox" runat="server" CausesValidation="false" />
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3"
-                                ControlToValidate="TeacherNoteTextBox"
-                                ValidationGroup="SignUpGroup"
-                                ErrorMessage="Enter Notes."
-                                runat="Server">
-                            </asp:RequiredFieldValidator>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <asp:Label ID="Label24" CssClass="label" runat="server" Text="Email"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" ID="EmailTextBox" runat="server" CausesValidation="false" />
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4"
-                                ControlToValidate="EmailTextBox"
-                                ValidationGroup="SignUpGroup"
-                                ErrorMessage="Enter Email."
-                                runat="Server">
-                            </asp:RequiredFieldValidator>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <asp:Label ID="Label3" CssClass="label" runat="server" Text="Grade"></asp:Label>
-                            <asp:DropDownList
-                                ID="GradeDDL"
-                                runat="server"
-                                CssClass="js-example-basic-single"
-                                Width="50%">
-                                <asp:ListItem Value="6" />
-                                <asp:ListItem Value="7" />
-                                <asp:ListItem Value="8" />
-                            </asp:DropDownList>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="md-form form-sm mb-5">
-                        <i class="fas fa-lock prefix"></i>
-                        <asp:Label ID="Label4" CssClass="label" runat="server" Text="Password" AssociatedControlID="modalLRInput14" />
-                        <asp:TextBox CssClass="form-control form-control-sm validate" type="password" ID="modalLRInput14" CausesValidation="false" runat="server" />
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5"
-                            ControlToValidate="modalLRInput14"
-                            ValidationGroup="SignUpGroup"
-                            ErrorMessage="Enter Email."
-                            runat="Server">
-                        </asp:RequiredFieldValidator>
-                    </div>
-                </div>
-            </div>
-            <!--Same button functions outside of commit in order to streamline process-->
-            <div class="container">
-                <div class="row text-center form-sm">
-                    <asp:Button ID="SubmitTeacher" runat="server" OnClick="AddTeacher_Click" ValidationGroup="SignUpGroup" Text="Submit" Style="margin-left: 0%;" CssClass="btn btn-info" />
-                </div>
-                <div class="row text-center form-sm">
-                    <asp:Button ID="PopulateTeacher" runat="server" OnClick="PopulateTextTeacher_Click" CausesValidation="False" Text=" Fill " CssClass="btn btn-success" UseSubmitBehavior="False" />
-                </div>
-                <div class="row text-center form-sm">
-                    <asp:Button ID="ResetTeacher" runat="server" OnClick="ResetTeacherButton_Click" CausesValidation="False" Text="Reset" UseSubmitBehavior="False" CssClass="btn btn-danger" />
-                </div>
-            </div>
-        </ContentTemplate>
-        <Triggers>
-            <asp:AsyncPostBackTrigger ControlID="TeacherSchoolList" />
-        </Triggers>
-    </asp:UpdatePanel>
-</asp:Content>--%>
 <asp:Content ID="NewStaff" ContentPlaceHolderID="NewStaffPlaceholder" runat="server">
     <asp:UpdatePanel ID="UpdatePanel3" runat="server">
         <ContentTemplate>
@@ -675,169 +401,6 @@
         </Triggers>
     </asp:UpdatePanel>
 </asp:Content>
-<asp:Content ID="TeacherExisting" ContentPlaceHolderID="TeacherExistingPlaceholder" runat="server">
-    <div style="margin-top: 40px;">
-        <div style="margin-top: 40px;">
-            <div class="form-group">
-                <asp:Label ID="Label1" CssClass="label" runat="server" Text="Teacher Name"></asp:Label>
-                <!--Existing Teacher Selection Menu and Info Display-->
-                <asp:SqlDataSource runat="server"
-                    ID="SqlTeacherDataSource"
-                    DataSourceMode="DataReader"
-                    ConnectionString="<%$ ConnectionStrings:dbconnection%>"
-                    SelectCommand="SELECT TeacherID, FirstName +' ' + LastName as TeacherName FROM Teacher" />
-                <asp:DropDownList ID="TeacherNameDDL"
-                    DataSourceID="SqlTeacherDataSource"
-                    DataTextField="TeacherName"
-                    DataValueField="TeacherID"
-                    AutoPostBack="true"
-                    OnSelectedIndexChanged="TeacherNameDDL_SelectedIndexChanged"
-                    runat="server"
-                    Width="50%"
-                    CssClass="js-example-basic-single" />
-            </div>
-            <div class="form-group">
-                <asp:FormView ID="TeacherFormView" runat="server">
-                    <ItemTemplate>
-                        <table>
-                            <tr>
-                                <td>Teacher Name:    </td>
-                                <td><%#Eval("TeacherName") %></td>
-                            </tr>
-                            <tr>
-                                <td>Email: </td>
-                                <td><%#Eval("Email") %></td>
-                            </tr>
-                            <tr>
-                                <td>Notes: </td>
-                                <td><%#Eval("Notes") %></td>
-                            </tr>
-                            <tr>
-                                <td>School: </td>
-                                <td><%#Eval("SchoolName") %></td>
-                            </tr>
-                            <tr>
-                                <td>Tshirt Color: </td>
-                                <td><%#Eval("Color") %></td>
-                            </tr>
-                            <tr>
-                                <td>Tshirt Size: </td>
-                                <td><%#Eval("Size") %></td>
-                            </tr>
-                        </table>
-                    </ItemTemplate>
-                </asp:FormView>
-            </div>
-        </div>
-        <div class="form-group">
-            <!--Interacts with backend allows DB and user interaction in a straightforward user friendly manner-->
-            <h2>Event List</h2>
-            <asp:SqlDataSource runat="server"
-                ID="EventDateDataSource"
-                DataSourceMode="DataReader"
-                ConnectionString="<%$ ConnectionStrings:dbconnection%>"
-                SelectCommand="SELECT FORMAT(Date,'yyyy-MM-dd') as Date FROM Event group by Date" />
-            <asp:DropDownList ID="EventDateDDL"
-                DataSourceID="EventDateDataSource"
-                DataTextField="Date"
-                DataValueField="Date"
-                OnSelectedIndexChanged="EventDateDDL_SelectedIndexChanged"
-                AutoPostBack="true"
-                runat="server"
-                Width="50%"
-                CssClass="js-example-basic-single"
-                AppendDataBoundItems="true">
-                <asp:ListItem Text="select " Value=""></asp:ListItem>
-            </asp:DropDownList>
-        </div>
-        <div class="form-group">
-            <fieldset>
-                <h2>Activities List</h2>
-                <div class="checkbox checkboxlist">
-                    <asp:CheckBoxList ID="CheckBoxList1" CssClass="radio-container" OnSelectedIndexChanged="CheckBoxList1_SelectedIndexChanged" AutoPostBack="true" RepeatDirection="Vertical" RepeatLayout="Flow" runat="server" />
-                </div>
-            </fieldset>
-        </div>
-    </div>
-</asp:Content>
-
-<asp:Content ID="VolunteerExisting" ContentPlaceHolderID="VolunteerExistingPlaceholder" runat="server">
-
-    <div style="margin-top: 40px;">
-        <asp:Label ID="Label2" CssClass="label" runat="server" Text="Volunteer Name"></asp:Label>
-        <asp:SqlDataSource runat="server"
-            ID="VolunteerListDataSource"
-            DataSourceMode="DataReader"
-            ConnectionString="<%$ ConnectionStrings:dbconnection%>"
-            SelectCommand="SELECT VolunteerID, FirstName +' ' + LastName as VolunteerName FROM EventPersonnel where PersonnelType='Volunteer'" />
-        <asp:DropDownList ID="VolunteerNameDDL"
-            DataSourceID="VolunteerListDataSource"
-            DataTextField="VolunteerName"
-            DataValueField="VolunteerID"
-            AutoPostBack="true"
-            OnSelectedIndexChanged="VolunteerNameDDL_SelectedIndexChanged"
-            runat="server"
-            Width="50%"
-            CssClass="js-example-basic-single" />
-    </div>
-    <div class="form-group">
-        <asp:FormView ID="VolunteerFormView" runat="server">
-            <ItemTemplate>
-                <table>
-                    <tr>
-                        <td>Volunteer Name:    </td>
-                        <td><%#Eval("VolunteerName") %></td>
-                    </tr>
-                    <tr>
-                        <td>Notes: </td>
-                        <td><%#Eval("Notes") %></td>
-                    </tr>
-                    <tr>
-                        <td>Tshirt Color: </td>
-                        <td><%#Eval("Color") %></td>
-                    </tr>
-                    <tr>
-                        <td>Tshirt Size: </td>
-                        <td><%#Eval("Size") %></td>
-                    </tr>
-                </table>
-            </ItemTemplate>
-        </asp:FormView>
-    </div>
-    <div class="form-group">
-        <fieldset>
-            <!--Javascript sign up recommended cap implemented as User interacts with the system-->
-            <script>
-                // javascript to add to your aspx page
-                function ValidateModuleList(source, args) {
-                    var tot = 0;
-                    var chkListModules = document.getElementById('<%=VolunteerEventCheckBoxList.ClientID %>');
-                    var chkListinputs = chkListModules.getElementsByTagName("input");
-                    for (var i = 0; i < chkListinputs.length; i++) {
-                        if (chkListinputs[i].checked) {
-                            ++tot;
-                            if (tot == 2) {
-                                $('input[id~=chkList]:checkbox').attr('disabled', 'disabled');
-                            }
-                            if (tot > 2) {
-                                args.IsValid = false;
-                                return false;
-                            }
-
-                        }
-                    }
-                    args.IsValid = true;
-                }
-            </script>
-            <!--Activity Check box list generated from backend-->
-            <h2>Activities List</h2>
-            <div class="checkbox checkboxlist">
-                <asp:CheckBoxList ID="VolunteerEventCheckBoxList" CssClass="radio-container" OnSelectedIndexChanged="VolunteerEventCheckBoxList_SelectedIndexChanged" onClientClick="javascript: CheckCheck();" AutoPostBack="true" RepeatDirection="Vertical" RepeatLayout="Flow" runat="server" CausesValidation="True" ValidationGroup="JScript" />
-            </div>
-            <asp:CustomValidator ID="VolunteerValidator" runat="server" ErrorMessage="It is recommended select a maximum of 2 options" ClientValidationFunction="ValidateModuleList" ValidationGroup="JScript" SetFocusOnError="True" Font-Bold="True"></asp:CustomValidator>
-        </fieldset>
-    </div>
-</asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="CoordinatorExistingPlaceholder" runat="server">
     <div style="margin-top: 40px;">
@@ -907,7 +470,7 @@
             <table class="table table-bordered table-striped" style="margin-left: 5px; margin-right: 5px;">
                 <tr>
                     <td>
-                        <img style="width: 100%; max-width: 200px; max-height: 230px;" src="<%# "ShowImage.ashx?id=" + Eval("StaffID") %>" />
+                        <img style="width: 100%; max-width: 200px; max-height: 200px;" src="<%# "ShowImage.ashx?id=" + Eval("StaffID") %>" />
                     </td>
                 </tr>
                 <tr>
@@ -928,9 +491,6 @@
             </table>
         </ItemTemplate>
     </asp:DataList>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#basicExampleModal">
-        Launch demo modal
-    </button>
 
     <!-- Modal -->
     <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -950,54 +510,38 @@
                             <tr>
                                 <td>Enter Comments:</td>
                                 <td>
-                                    <asp:TextBox ID="txtComment" runat="server" Rows="5" Columns="20" TextMode="MultiLine"></asp:TextBox></td>
+                                    <asp:TextBox ID="txtComment"  runat="server" Rows="5" Columns="20" TextMode="MultiLine"/></td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td>
-                                    <asp:Button ID="commentSubmit" runat="server" Text="Submit" OnClick="commentSubmit_click" /></td>
+                                    <asp:Button ID="commentSubmit" runat="server" CssClass="btn-secondary" Text="Submit" OnClick="commentSubmit_click" /></td>
                             </tr>
                         </table>
                     </div>
                     <div>
                         <asp:Repeater ID="RepterDetails" runat="server">
                             <HeaderTemplate>
-                                <table>
+                                <table class="table table-scroll-vertical scrollable" >
                                     <tr>
-                                        <td colspan="2">
+                                        <td colspan="3">
                                             <b>Comments</b>
                                         </td>
                                     </tr>
                             </HeaderTemplate>
                             <ItemTemplate>
-                                <tr style="background-color: #EBEFF0">
-                                    <td>
-                                        <table style="background-color: #EBEFF0; border-top: 1px dotted #df5015; width: 500px">
-                                            <tr>
-                                                <td>ID:
-    <asp:Label ID="lblSubject" runat="server" Text='<%#Eval("CommentID") %>' Font-Bold="true" />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
                                 <tr>
+                                    <td>ID:
+    <asp:Label ID="lblSubject" runat="server" Text='<%#Eval("CommentID") %>' Font-Bold="true" />
+                                    </td>
+
                                     <td>
                                         <asp:Label ID="lblComment" runat="server" Text='<%#Eval("CommentContent") %>' />
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table style="background-color: #EBEFF0; border-top: 1px dotted #df5015; border-bottom: 1px solid #df5015; width: 500px">
-                                            <tr>
-                                                <td>Post By:
-                                                    <asp:Label ID="lblUser" runat="server" Font-Bold="true" Text='<%#Eval("StaffName") %>' /></td>
-                                            </tr>
-                                        </table>
+
+                                    <td>Post By:
+                                        <asp:Label ID="lblUser" runat="server" Font-Bold="true" Text='<%#Eval("StaffName") %>' />
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"></td>
                                 </tr>
                             </ItemTemplate>
                             <FooterTemplate>
@@ -1008,7 +552,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
@@ -1197,12 +740,12 @@
         }
         function timeToSec(str) {
             var h = Number(str.match(/^\d+/));
-            alert(str);
-            alert(h);
+            //alert(str);
+            // alert(h);
             if (str.indexOf("PM") != -1)
                 h += 12;
             var m = Number(str.match(/^\d+:(\d+)/)[1]);
-            alert(str.match(/^\d+:(\d+)/));
+            // alert(str.match(/^\d+:(\d+)/));
             return (h * 60 + m);
         }
     </script>
@@ -1210,65 +753,140 @@
         <ContentTemplate>
             <div style="margin-top: 40px;">
                 <h3>Employee can Log Hours</h3>
-            </div>
-            <div class="form-group">
-                <asp:Label ID="lblresult" runat="server" Text='x' />
-            </div>
-            <div class="col">
-                <div class="row">
-                    <div class="form-group">
-                        <asp:Label ID="Label26" CssClass="label" runat="server" Text="Date"></asp:Label>
-                        <asp:Calendar CssClass="table table-bordered table-striped" ID="EmployeeHoursCalendar" runat="server" OnSelectionChanged="EmployeeHoursCalendar_OnSelectionChanged"></asp:Calendar>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
 
-                <div class="row">
-                    <div class="form-group">
-                        <asp:Label ID="EmployeeInTimeLabel" CssClass="label" runat="server" Text="Time In"></asp:Label>
-                        <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="HoursInput" ID="EmployeeTimeIn" runat="server" required="true" TextMode="Time" ValidateRequestMode="Inherit" />
+                <div class="col">
+                    <div class="row">
+                        <div class="form-group">
+                            <asp:Label ID="Label26" CssClass="label" runat="server" Text="Date"></asp:Label>
+                            <asp:Calendar CssClass="table table-bordered table-striped" ID="EmployeeHoursCalendar" runat="server" OnSelectionChanged="EmployeeHoursCalendar_OnSelectionChanged"></asp:Calendar>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="form-group">
-                        <asp:Label ID="Label24" CssClass="label" runat="server" Text="Time Out"></asp:Label>
-                        <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="HoursInput" ID="EmployeeTimeOut" TextMode="Time" runat="server" required="true" ValidateRequestMode="Inherit" />
-                        <asp:CustomValidator runat="server" Display="Dynamic" ValidationGroup="HoursInput" Text="Nope" EnableClientScript="True" ControlToValidate="EmployeeTimeOut" ClientValidationFunction="validTime"></asp:CustomValidator>
-                    </div>
-                </div>
+                <div class="col">
 
-                <div class="row">
-                    <div class="form-group">
-                        <asp:Button ID="SubmitHours" OnClientClick="validTime" OnClick="AddHours_Click" runat="server" ValidationGroup="HoursInput" Text="Submit" Style="margin-left: 0%;" CssClass="btn btn-primary" />
+                    <div class="row">
+                        <div class="form-group">
+                            <asp:Label ID="EmployeeInTimeLabel" CssClass="label" runat="server" Text="Time In"></asp:Label>
+                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="HoursInput" ID="EmployeeTimeIn" runat="server" required="true" TextMode="Time" ValidateRequestMode="Inherit" />
+                        </div>
                     </div>
-                </div>
-            </div>
-            <%--            <asp:CompareValidator runat="server" ID="cmpNumbers" ControlToValidate="EmployeeTimeIn" Display="Dynamic" ValidationGroup="HoursInput" ControlToCompare="EmployeeTimeOut" Operator="LessThan" Type="Date" ErrorMessage="The first time should be smaller than the second time!" /><br />--%>
-            <h3>Employee can view inventory mark item as sold </h3>
-            <h3>Employee can add item</h3>
-            <div class="col">
-                <div class="row">
-                    <div class="form-group">
+                    <div class="row">
+                        <div class="form-group">
+                            <asp:Label ID="Label24" CssClass="label" runat="server" Text="Time Out"></asp:Label>
+                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="HoursInput" ID="EmployeeTimeOut" TextMode="Time" runat="server" required="true" ValidateRequestMode="Inherit" />
+                            <asp:CustomValidator runat="server" Display="Dynamic" ValidationGroup="HoursInput" Text="Nope" EnableClientScript="True" ControlToValidate="EmployeeTimeOut" ClientValidationFunction="validTime"></asp:CustomValidator>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <asp:Label ID="Label25" CssClass="label" runat="server" Text="Donator"></asp:Label>
-                        <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="DonationInput" ID="TextBox2" runat="server" required="true" ValidateRequestMode="Inherit" />
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="form-group">
-                        <asp:Button ID="Button1" OnClick="AddDonation_Click" runat="server" ValidationGroup="DonationInput" Text="Submit" Style="margin-left: 0%;" CssClass="btn btn-primary" />
+                    <div class="row">
+                        <div class="form-group">
+                            <asp:Button ID="SubmitHours" OnClientClick="validTime" OnClick="AddHours_Click" runat="server" ValidationGroup="HoursInput" Text="Submit" Style="margin-left: 0%;" CssClass="btn btn-primary" />
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
         </ContentTemplate>
         <Triggers>
-            <asp:PostBackTrigger ControlID="Button1" />
+            <asp:PostBackTrigger ControlID="SubmitHours" />
+        </Triggers>
+    </asp:UpdatePanel>
+    <asp:UpdatePanel ID="UpdatePanel7" runat="server">
+        <ContentTemplate>
+            <div style="margin-top: 40px;">
+                <h3>Employee can add item</h3>
+                <div class="col">
+                    <div class="row">
+                        <div class="form-group">
+                            <asp:Label ID="Label27" CssClass="label" runat="server" Text="Article Name"></asp:Label>
+                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="ArticleInput" ID="ArticleNameText" runat="server" required="true" ValidateRequestMode="Inherit" />
+                        </div>
+                        <div class="form-group">
+                            <asp:Label ID="Label25" CssClass="label" runat="server" Text="Article Type"></asp:Label>
+                            <asp:DropDownList ID="ArticleTypeDDL"
+                                AutoPostBack="true"
+                                runat="server"
+                                CssClass="js-example-basic-single">
+                                <asp:ListItem Value="Shirt" />
+                                <asp:ListItem Value="Shorts" />
+                                <asp:ListItem Value="Pants" />
+                                <asp:ListItem Value="Shoes" />
+                                <asp:ListItem Value="Coat" />
+                                <asp:ListItem Value="Dress" />
+                                <asp:ListItem Value="Other" />
+                            </asp:DropDownList>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <asp:Label ID="Label30" CssClass="label" runat="server" Text="Description"></asp:Label>
+                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="ArticleInput" ID="ArticleDescriptionText" TextMode="MultiLine" runat="server" required="true" ValidateRequestMode="Inherit" />
+                        </div>
+                        <div class="form-group">
+                            <asp:Label ID="Label28" CssClass="label" runat="server" Text="Price"></asp:Label>
+                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="ArticleInput" ID="ArticlePriceText" TextMode="Number" runat="server" required="true" ValidateRequestMode="Inherit" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <asp:Label ID="Label29" CssClass="label" runat="server" Text="Size"></asp:Label>
+                            <asp:DropDownList ID="ArticleSizeDDL"
+                                AutoPostBack="true"
+                                runat="server"
+                                CssClass="js-example-basic-single">
+                                <asp:ListItem Value="Small" />
+                                <asp:ListItem Value="Medium" />
+                                <asp:ListItem Value="Large" />
+                            </asp:DropDownList>
+                        </div>
+                        <div class="form-group">
+                            <asp:Button ID="AddDonationButton" OnClick="AddClothingDonation_Click" runat="server" ValidationGroup="ArticleInput" Text="Submit" Style="margin-left: 0%;" CssClass="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ContentTemplate>
+        <Triggers>
+            <asp:PostBackTrigger ControlID="AddDonationButton" />
+        </Triggers>
+    </asp:UpdatePanel>
+    <style>
+        table .table a {
+            color: blue;
+        }
+    </style>
+    <asp:UpdatePanel ID="UpdatePanel8" runat="server">
+        <ContentTemplate>
+            <div style="margin-top: 40px;">
+                <h3>Employee can view items</h3>
+                <asp:GridView ID="InventoryGridview" runat="server" CssClass="table table-bordered table-striped"
+                    AutoGenerateColumns="false" OnSelectedIndexChanged="InventoryGridview_OnSelectedIndexChanged">
+                    <Columns>
+                        <asp:BoundField DataField="ArticleID" HeaderText="ArticleID" />
+                        <asp:BoundField DataField="ArticleName" HeaderText="Name" />
+                        <asp:BoundField DataField="ArticleType" HeaderText="Type" />
+                        <asp:BoundField DataField="ArticleLocationID" HeaderText="LocationID" />
+                        <asp:BoundField DataField="ArticleDescription" HeaderText="Description" />
+                        <asp:TemplateField HeaderText="Price">
+                            <ItemTemplate>
+                                <asp:Label ID="lblPrice" runat="server" Text='<%# Eval("ArticlePrice") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:BoundField DataField="ArticleSize" HeaderText="Size" />
+                        <asp:BoundField DataField="DateArrived" HeaderText="Arrived" />
+
+                        <asp:ButtonField Text="SELECT" CommandName="Select" />
+                    </Columns>
+                </asp:GridView>
+                <br />
+                <u>Selected Row Values: </u>
+                <br />
+                <br />
+                <asp:Label ID="lblValues" runat="server" Text=""></asp:Label>
+            </div>
+        </ContentTemplate>
+        <Triggers>
+            <asp:PostBackTrigger ControlID="AddDonationButton" />
         </Triggers>
     </asp:UpdatePanel>
 </asp:Content>

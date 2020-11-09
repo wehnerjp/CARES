@@ -125,7 +125,6 @@
             }
             $('#alert_container').append('<div class="alert ' + cssclass + ' alert-dismissible fade show" role="alert"> <strong>' + messagetype + '</strong> ' + message + ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span></button></div>');
         }
-
     </script>
 </head>
 <body>
@@ -303,9 +302,6 @@
 
                                     <!--Validating and Populable Student input with responsive list selection-->
 
-                                    <asp:ContentPlaceHolder ID="NewStudentPlaceHolder" runat="server">
-                                    </asp:ContentPlaceHolder>
-
                                     <asp:ContentPlaceHolder ID="StudentExistingPlaceholder" runat="server">
                                     </asp:ContentPlaceHolder>
                                 </div>
@@ -314,11 +310,6 @@
                                 <div style="width: 100%; margin-left: 20px; margin-top: 20px; margin-right: 20px;">
                                     <h2 style="text-align: center">Commendation Page</h2>
                                     <asp:ContentPlaceHolder runat="server" ID="CommedationPlaceholder">
-                                    </asp:ContentPlaceHolder>
-                                    <asp:ContentPlaceHolder ID="TeacherExistingPlaceholder" runat="server">
-                                    </asp:ContentPlaceHolder>
-
-                                    <asp:ContentPlaceHolder ID="VolunteerExistingPlaceholder" runat="server">
                                     </asp:ContentPlaceHolder>
 
                                     <asp:ContentPlaceHolder ID="CoordinatorExistingPlaceholder" runat="server">

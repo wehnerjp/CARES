@@ -14,6 +14,7 @@ namespace CIS484Solution1
         public static string UserLoginName = null;
         public static string UserLoginEmail = null;
         public static string UserLoginType = null;
+        public static int UserLoginLocation;
 
         public enum MessageType { Success, Error, Info, Warning };
 
@@ -23,6 +24,7 @@ namespace CIS484Solution1
             {
                 UserLoginType = null;
                 UserLoginID = -1;
+                UserLoginLocation = -1;
                 UserLoginName = null;
                 UserLoginEmail = null;
             }
@@ -63,6 +65,8 @@ namespace CIS484Solution1
             {
                 UserLoginType = null;
                 UserLoginID = -1;
+                UserLoginLocation = -1;
+
                 UserLoginName = null;
                 UserLoginEmail = null;
                 //LoginForm.InnerHtml = "Launch Login Form";
@@ -101,6 +105,7 @@ namespace CIS484Solution1
                             UserLoginEmail = email;
                             UserLoginType = reader.GetString(3).Trim();
                             UserLoginID = reader.GetInt32(0);
+                            UserLoginLocation = reader.GetInt32(4);
 
                             string qry1 = "select * from Staff where Email='" + email + "'";
                             SqlCommand cmd1 = new SqlCommand(qry1, dbConnection);
