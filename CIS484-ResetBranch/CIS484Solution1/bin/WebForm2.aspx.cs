@@ -1324,6 +1324,125 @@ namespace CIS484Solution1
                 DonationAmount.Text = "";
             }
         }
+
+        //protected void gvDetails_RowCommand(object sender, GridViewCommandEventArgs e)
+        //{
+        //    string strcon = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
+        //    //Inserting teacher query
+
+        //    //Get connection string from web.config file
+        //    //create new sqlconnection and connection to database by using connection string from web.config file
+        //    SqlConnection con = new SqlConnection(strcon);
+        //    if (e.CommandName.Equals("AddNew"))
+        //    {
+        //        System.Web.UI.WebControls.TextBox txtUsrname = (System.Web.UI.WebControls.TextBox)gvDetails.FooterRow.FindControl("txtftrusrname");
+        //        System.Web.UI.WebControls.TextBox txtStartTime = (System.Web.UI.WebControls.TextBox)gvDetails.FooterRow.FindControl("txtftrStartTime");
+        //        System.Web.UI.WebControls.TextBox txtEndTime = (System.Web.UI.WebControls.TextBox)gvDetails.FooterRow.FindControl("txtftrEndTime");
+        //        if (Convert.ToDateTime(txtEndTime.Text.Trim().ToString()) <= Convert.ToDateTime(txtStartTime.Text.Trim().ToString()))
+        //        {
+        //            lblresult.Text = "Please enter valid end time";
+        //        }
+        //        else
+        //        {
+        //            con.Open();
+        //            SqlCommand cmd =
+        //                new SqlCommand(
+        //                    "insert into tblEvents(EventName,StartTime,EndTime) values('" + txtUsrname.Text + "','" +
+        //                    txtStartTime.Text + "','" + txtEndTime.Text + "')", con);
+        //            int result = cmd.ExecuteNonQuery();
+        //            con.Close();
+        //            if (result == 1)
+        //            {
+        //                BindEmployeeDetails();
+        //                lblresult.ForeColor = Color.Green;
+        //                lblresult.Text = txtUsrname.Text + " Details inserted successfully";
+        //            }
+        //            else
+        //            {
+        //                lblresult.ForeColor = Color.Red;
+        //                lblresult.Text = txtUsrname.Text + " Details not inserted";
+        //            }
+        //        }
+        //    }
+        //}
+
+        private void BindEmployeeDetails()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected void AddHours_Click(object sender, EventArgs e)
+        {
+            //Inserting teacher query
+            String sqlQuery = "Insert into Hours (StaffID, TimeIn, TimeOut, Date) values " +
+                              "(@StaffID, @TimeIn, @TimeOut, @Date); ";
+            //Get connection string from web.config file
+            string strcon = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
+            //Inserting teacher query
+
+            //Get connection string from web.config file
+            //create new sqlconnection and connection to database by using connection string from web.config file
+            SqlConnection con = new SqlConnection(strcon);
+            using (SqlCommand command = new SqlCommand(sqlQuery, con))
+            {
+                con.Open();
+
+                command.Parameters.Add(new SqlParameter("@StaffID", Site1.UserLoginID));
+                command.Parameters.Add(new SqlParameter("@TimeIn", EmployeeTimeIn.Text));
+                command.Parameters.Add(new SqlParameter("@TimeOut", EmployeeTimeOut.Text));
+                command.Parameters.Add(new SqlParameter("@Date", EmployeeHoursCalendar.SelectedDate));
+
+                try
+                {
+                    command.ExecuteNonQuery();
+                    Console.Write("insert hours successful");
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), System.Guid.NewGuid().ToString(), "ShowMessage('Logged Hours','Success');", true);
+                }
+                catch (SqlException ex)
+                {
+                    Console.Write(ex.Message);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), System.Guid.NewGuid().ToString(), "ShowMessage('Couldn't Log Hours','Warning');", true);
+                }
+
+                con.Close();
+            }
+        }
+
+        protected void EmployeeHoursCalendar_OnSelectionChanged(object sender, EventArgs e)
+        {
+            //Inserting teacher query
+            String sqlQuery = "SELECT * from Hours where Date= @Date and StaffID = @StaffID";
+            //Get connection string from web.config file
+            string strcon = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
+            //Inserting teacher query
+
+            //Get connection string from web.config file
+            //create new sqlconnection and connection to database by using connection string from web.config file
+            SqlConnection con = new SqlConnection(strcon);
+            SqlCommand command = new SqlCommand(sqlQuery, con);
+            command.Parameters.Add(new SqlParameter("@Date", EmployeeHoursCalendar.SelectedDate));
+            command.Parameters.Add(new SqlParameter("@StaffID", Site1.UserLoginID));
+            con.Open();
+            SqlDataReader myReader = command.ExecuteReader();
+
+            if (myReader.Read())
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), System.Guid.NewGuid().ToString(), "ShowMessage('Hours already submitted for this date','Warning');", true);
+                SubmitHours.Enabled = false;
+            }
+            else if (EmployeeHoursCalendar.SelectedDate > DateTime.Today)
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), System.Guid.NewGuid().ToString(), "ShowMessage('You cannot select a future date','Warning');", true);
+                SubmitHours.Enabled = false;
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), System.Guid.NewGuid().ToString(), "ShowMessage('Date Selected','Success');", true);
+
+                SubmitHours.Enabled = true;
+            }
+            con.Close();
+        }
     }
 
     [Serializable]

@@ -100,6 +100,7 @@ namespace CIS484Solution1
                         {
                             UserLoginEmail = email;
                             UserLoginType = reader.GetString(3).Trim();
+                            UserLoginID = reader.GetInt32(0);
 
                             string qry1 = "select * from Staff where Email='" + email + "'";
                             SqlCommand cmd1 = new SqlCommand(qry1, dbConnection);

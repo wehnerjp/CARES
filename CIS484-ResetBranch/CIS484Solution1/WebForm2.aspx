@@ -1179,44 +1179,96 @@
     </asp:UpdatePanel>
 </asp:Content>
 <asp:Content ID="Content5" ContentPlaceHolderID="BasicEmployeeView" runat="server">
+    <script>
+        function validTime(source, args) {
+            var TimeIn = document.getElementById('<%=EmployeeTimeIn.ClientID %>').value;
+            var TimeOut = document.getElementById('<%=EmployeeTimeOut.ClientID %>').value;
+            if (timeToSec(TimeIn) >= timeToSec(TimeOut)) {
+                alert("Your time out needs to be later than your time in!");
+                document.getElementById('<%=SubmitHours.ClientID %>').disabled = true;
+                return false;
+            }
+            else {
+
+                document.getElementById('<%=SubmitHours.ClientID %>').disabled = false;
+                return true;
+
+            }
+        }
+        function timeToSec(str) {
+            var h = Number(str.match(/^\d+/));
+            alert(str);
+            alert(h);
+            if (str.indexOf("PM") != -1)
+                h += 12;
+            var m = Number(str.match(/^\d+:(\d+)/)[1]);
+            alert(str.match(/^\d+:(\d+)/));
+            return (h * 60 + m);
+        }
+    </script>
     <asp:UpdatePanel ID="UpdatePanel6" runat="server">
         <ContentTemplate>
             <div style="margin-top: 40px;">
                 <h3>Employee can Log Hours</h3>
-                <h3>Employee can view inventory mark item as sold </h3>
-                <h3>Employee can add item</h3>
-                <div class="col">
-                    <div class="row">
-                        <div class="form-group">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group">
-                            <asp:Label ID="Label25" CssClass="label" runat="server" Text="Donator"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="DonationInput" ID="TextBox2" runat="server" required="true" ValidateRequestMode="Inherit" />
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group">
-                            <asp:Button ID="Button1" OnClick="AddDonation_Click" runat="server" ValidationGroup="DonationInput" Text="Submit" Style="margin-left: 0%;" CssClass="btn btn-primary" />
-                        </div>
+            </div>
+            <div class="form-group">
+                <asp:Label ID="lblresult" runat="server" Text='x' />
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="form-group">
+                        <asp:Label ID="Label26" CssClass="label" runat="server" Text="Date"></asp:Label>
+                        <asp:Calendar CssClass="table table-bordered table-striped" ID="EmployeeHoursCalendar" runat="server" OnSelectionChanged="EmployeeHoursCalendar_OnSelectionChanged"></asp:Calendar>
                     </div>
                 </div>
+            </div>
+            <div class="col">
+
+                <div class="row">
+                    <div class="form-group">
+                        <asp:Label ID="EmployeeInTimeLabel" CssClass="label" runat="server" Text="Time In"></asp:Label>
+                        <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="HoursInput" ID="EmployeeTimeIn" runat="server" required="true" TextMode="Time" ValidateRequestMode="Inherit" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <asp:Label ID="Label24" CssClass="label" runat="server" Text="Time Out"></asp:Label>
+                        <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="HoursInput" ID="EmployeeTimeOut" TextMode="Time" runat="server" required="true" ValidateRequestMode="Inherit" />
+                        <asp:CustomValidator runat="server" Display="Dynamic" ValidationGroup="HoursInput" Text="Nope" EnableClientScript="True" ControlToValidate="EmployeeTimeOut" ClientValidationFunction="validTime"></asp:CustomValidator>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <asp:Button ID="SubmitHours" OnClientClick="validTime" OnClick="AddHours_Click" runat="server" ValidationGroup="HoursInput" Text="Submit" Style="margin-left: 0%;" CssClass="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+            <%--            <asp:CompareValidator runat="server" ID="cmpNumbers" ControlToValidate="EmployeeTimeIn" Display="Dynamic" ValidationGroup="HoursInput" ControlToCompare="EmployeeTimeOut" Operator="LessThan" Type="Date" ErrorMessage="The first time should be smaller than the second time!" /><br />--%>
+            <h3>Employee can view inventory mark item as sold </h3>
+            <h3>Employee can add item</h3>
+            <div class="col">
+                <div class="row">
+                    <div class="form-group">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <asp:Label ID="Label25" CssClass="label" runat="server" Text="Donator"></asp:Label>
+                        <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="DonationInput" ID="TextBox2" runat="server" required="true" ValidateRequestMode="Inherit" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <asp:Button ID="Button1" OnClick="AddDonation_Click" runat="server" ValidationGroup="DonationInput" Text="Submit" Style="margin-left: 0%;" CssClass="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
             </div>
         </ContentTemplate>
         <Triggers>
             <asp:PostBackTrigger ControlID="Button1" />
         </Triggers>
     </asp:UpdatePanel>
-    <script>
-        $(document).ready(function () {
-            // Date Time Picker Initialization
-            $('.date-time').dateTimePicker();
-            $('.date-time-2').dateTimePicker();
-        });
-        $(function () {
-            $('#datetimepicker1').datetimepicker();
-        });
-    </script>
 </asp:Content>
