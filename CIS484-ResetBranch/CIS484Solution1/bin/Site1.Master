@@ -142,7 +142,7 @@
                     <!-- My Heading and my Name included in the Title and in the body-->
                     <div class="row">
                         <div class="col">
-                            <h2 class="title" style="width: 100%;">CARES </h2>
+                            <h2 class="title" style="width: 100%;">Shenandoah CARES</h2>
                         </div>
                         <div id="LoginDiv" class="col text-right" runat="server">
                             <a href="" class="btn btn-primary btn-sm float-right" data-toggle="modal" id="LoginForm" onclick='newwin()' style="padding-top: 0%; padding-bottom: 0%;" data-target="#modalLRForm">LogIn/Register</a>
@@ -281,12 +281,7 @@
                                 <div style="margin-top: 40px;">
                                     <asp:ContentPlaceHolder ID="HomePlaceHolder" runat="server">
                                     </asp:ContentPlaceHolder>
-                                    <div class="form-group">
-                                        <h2 style="text-align: center">Welcome to CARES</h2>
-                                        <h3>Cares Image Panel</h3>
-                                        <h3>Cares Donation Box</h3>
-                                        <h3>FAQ For Cares</h3>
-                                    </div>
+                                   
                                 </div>
                             </asp:View>
                             <asp:View runat="server">
@@ -316,7 +311,7 @@
                                                             <!--Text-->
                                                             <p class="card-text">Want to log work hours?</p>
                                                             <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                                                            <button type="button" class="btn btn-light-blue" data-toggle="modal" data-target="#centralModalHours">Click Here</button>
+                                                            <button type="button" class="btn btn-light-blue btn-md" data-toggle="modal" data-target="#centralModalHours">Click Here</button>
                                                         </div>
                                                     </div>
                                                     <!-- Card -->
@@ -341,7 +336,7 @@
                                                                 New Clothing Donation?
                                                             </p>
                                                             <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                                                            <button type="button" class="btn btn-light-blue" data-toggle="modal" data-target="#centralModalInventoryAdd">Click Here</button>
+                                                            <button type="button" class="btn btn-light-blue btn-md" data-toggle="modal" data-target="#centralModalInventoryAdd">Click Here</button>
                                                         </div>
                                                     </div>
                                                     <!-- Card -->
@@ -366,7 +361,7 @@
                                                                 Want to document a sale or check current inventory?
                                                             </p>
                                                             <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                                                            <button type="button" class="btn btn-light-blue" data-toggle="modal" data-target="#centralModalInventoryCurrent">Click Here</button>
+                                                            <button type="button" class="btn btn-light-blue btn-md" data-toggle="modal" data-target="#centralModalInventoryCurrent">Click Here</button>
                                                         </div>
                                                     </div>
                                                     <!-- Card -->
@@ -385,7 +380,7 @@
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
-                                                        <div class="modal-body">
+                                                        <div class="modal-body ">
                                                             <asp:ContentPlaceHolder ID="BasicEmployeeView" runat="server">
                                                             </asp:ContentPlaceHolder>
                                                         </div>

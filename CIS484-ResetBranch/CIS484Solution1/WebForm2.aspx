@@ -57,7 +57,7 @@
 
                 <div class="mySlides fade">
                     <div class="numbertext">2 / 2</div>
-                    <img src="https://cdn.vox-cdn.com/thumbor/WvbsmFJcBPEAnsCmjOW_U4c3CxM=/0x0:800x533/1200x800/filters:focal(336x203:464x331)/cdn.vox-cdn.com/uploads/chorus_image/image/50787565/michaels-consignment.0.jpg" style="width: 100%; max-height: 400px;" >
+                    <img src="https://cdn.vox-cdn.com/thumbor/WvbsmFJcBPEAnsCmjOW_U4c3CxM=/0x0:800x533/1200x800/filters:focal(336x203:464x331)/cdn.vox-cdn.com/uploads/chorus_image/image/50787565/michaels-consignment.0.jpg" style="width: 100%; max-height: 400px;">
                     <div class="text">Come with us at many of our convenient consignment stores</div>
                 </div>
 
@@ -89,7 +89,6 @@
             <div class="panel">
                 <p class="answer">Shenandoah CARES has been in operation since 1968 in the NW part of Virginia </p>
             </div>
-            
         </div>
     </div>
     <style>
@@ -882,13 +881,14 @@
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="NewDonationPlaceholder" runat="server">
     <asp:UpdatePanel ID="UpdatePanel5" runat="server">
+
         <ContentTemplate>
             <div style="margin-top: 40px;">
                 <div class="col">
                     <div class="row">
                         <div class="form-group">
                             <asp:Label ID="Label22" CssClass="label" runat="server" Text="Amount"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="DonationInput" ID="DonationAmount" runat="server" required="true" />
+                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="DonationInput" ID="DonationAmount" runat="server" />
                             <asp:RequiredFieldValidator ID="RVF1" runat="server" ControlToValidate="DonationAmount" ValidationGroup="DonationInput"
                                 ErrorMessage="Required" Display="Dynamic" />
                             <asp:CompareValidator ID="CheckFormat1" ValidationGroup="DonationInput" runat="server" ControlToValidate="DonationAmount" Operator="DataTypeCheck"
@@ -900,7 +900,7 @@
                     <div class="row">
                         <div class="form-group">
                             <asp:Label ID="Label23" CssClass="label" runat="server" Text="Donator"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="DonationInput" ID="DonatorName" runat="server" required="true" ValidateRequestMode="Inherit" />
+                            <asp:TextBox CssClass="input--style-4" ValidationGroup="DonationInput" ID="DonatorName" runat="server" />
                         </div>
                     </div>
 
@@ -953,17 +953,17 @@
 
                     <div class="form-group">
                         <asp:Label ID="Label26" CssClass="label" runat="server" Text="Date"></asp:Label>
-                        <asp:Calendar CssClass="table table-bordered table-striped" ID="EmployeeHoursCalendar" Height="50%" Width="50%" runat="server" OnSelectionChanged="EmployeeHoursCalendar_OnSelectionChanged"></asp:Calendar>
+                        <asp:Calendar CssClass="table table-bordered table-striped" ID="EmployeeHoursCalendar" Height="50%" runat="server" OnSelectionChanged="EmployeeHoursCalendar_OnSelectionChanged"></asp:Calendar>
                     </div>
 
                     <div class="col-2">
                         <div class="form-group">
                             <asp:Label ID="EmployeeInTimeLabel" CssClass="label" runat="server" Text="Time In"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="HoursInput" ID="EmployeeTimeIn" runat="server" required="true" TextMode="Time" ValidateRequestMode="Inherit" />
+                            <asp:TextBox CssClass="input--style-4" ValidationGroup="HoursInput" Width="100%" ID="EmployeeTimeIn" runat="server" TextMode="Time" ValidateRequestMode="Inherit" />
                         </div>
                         <div class="form-group">
                             <asp:Label ID="Label24" CssClass="label" runat="server" Text="Time Out"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="HoursInput" ID="EmployeeTimeOut" TextMode="Time" runat="server" required="true" ValidateRequestMode="Inherit" />
+                            <asp:TextBox CssClass="input--style-4" ValidationGroup="HoursInput" Width="100%" ID="EmployeeTimeOut" TextMode="Time" runat="server" ValidateRequestMode="Inherit" />
                             <asp:CustomValidator runat="server" Display="Dynamic" ValidationGroup="HoursInput" Text="Nope" EnableClientScript="True" ControlToValidate="EmployeeTimeOut" ClientValidationFunction="validTime"></asp:CustomValidator>
                         </div>
                         <div class="row">
@@ -989,7 +989,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <asp:Label ID="Label27" CssClass="label" runat="server" Text="Article Name"></asp:Label>
-                                <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="ArticleInput" ID="ArticleNameText" runat="server" required="true" ValidateRequestMode="Inherit" />
+                                <asp:TextBox CssClass="input--style-4" ValidationGroup="ArticleInput" ID="ArticleNameText" runat="server" />
                             </div>
                         </div>
                         <div class="col">
@@ -1016,14 +1016,14 @@
 
                             <div class="form-group">
                                 <asp:Label ID="Label30" CssClass="label" runat="server" Text="Description"></asp:Label>
-                                <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="ArticleInput" ID="ArticleDescriptionText" TextMode="MultiLine" runat="server" required="true" ValidateRequestMode="Inherit" />
+                                <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="ArticleInput" ID="ArticleDescriptionText" TextMode="MultiLine" runat="server" ValidateRequestMode="Inherit" />
                             </div>
                         </div>
                         <div class="col">
 
                             <div class="form-group">
                                 <asp:Label ID="Label28" CssClass="label" runat="server" Text="Price"></asp:Label>
-                                <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="ArticleInput" ID="ArticlePriceText" TextMode="Number" runat="server" required="true" ValidateRequestMode="Inherit" />
+                                <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="ArticleInput" ID="ArticlePriceText" TextMode="Number" runat="server" ValidateRequestMode="Inherit" />
                             </div>
                         </div>
                     </div>
@@ -1067,7 +1067,7 @@
     <asp:UpdatePanel ID="UpdatePanel8" runat="server">
         <ContentTemplate>
             <div style="margin-top: 40px;">
-                <h3>Employee can view items</h3>
+                <h3>View Inventory or Document a Sale</h3>
                 <asp:GridView ID="InventoryGridview" runat="server" CssClass="table table-bordered table-striped"
                     AutoGenerateColumns="false" OnSelectedIndexChanged="InventoryGridview_OnSelectedIndexChanged">
                     <Columns>

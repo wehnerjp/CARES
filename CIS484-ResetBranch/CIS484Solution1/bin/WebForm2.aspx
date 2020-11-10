@@ -47,18 +47,18 @@
     </script>
     <div class="container" style="width: 100%; margin-left: 20px; margin-top: 20px; margin-right: 20px;">
         <div class="form-group">
-            <h2 style="text-align: center">Welcome to Cyber Day 2021</h2>
+            <h2 style="text-align: center">Welcome to Shenandoah CARES! Thanks for stopping by</h2>
             <div class="slideshow-container">
                 <div class="mySlides fade">
                     <div class="numbertext">1 / 2</div>
-                    <img src="https://media4.s-nbcnews.com/j/newscms/2018_30/1343185/shenandoah-national-park-today-main-180601_fcac47c1cb39475c92ef15d924932360.fit-760w.jpg" style="width: 100%">
-                    <div class="text">Share your excitement in the field of computer information systems and cultivate the interests of young people in future business/technology related careers</div>
+                    <img src="https://media4.s-nbcnews.com/j/newscms/2018_30/1343185/shenandoah-national-park-today-main-180601_fcac47c1cb39475c92ef15d924932360.fit-760w.jpg" style="width: 100%; max-height: 400px;">
+                    <div class="text">Help make your a community a better place by getting involved with CARES</div>
                 </div>
 
                 <div class="mySlides fade">
                     <div class="numbertext">2 / 2</div>
-                    <img src="https://cdn.vox-cdn.com/thumbor/WvbsmFJcBPEAnsCmjOW_U4c3CxM=/0x0:800x533/1200x800/filters:focal(336x203:464x331)/cdn.vox-cdn.com/uploads/chorus_image/image/50787565/michaels-consignment.0.jpg" style="width: 100%">
-                    <div class="text">You will learn to develop advanced competencies and diagnostic skills to correct software problems</div>
+                    <img src="https://cdn.vox-cdn.com/thumbor/WvbsmFJcBPEAnsCmjOW_U4c3CxM=/0x0:800x533/1200x800/filters:focal(336x203:464x331)/cdn.vox-cdn.com/uploads/chorus_image/image/50787565/michaels-consignment.0.jpg" style="width: 100%; max-height: 400px;">
+                    <div class="text">Come with us at many of our convenient consignment stores</div>
                 </div>
 
                 <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -75,27 +75,19 @@
         <br />
         <div id="accordion-div">
             <h3>FAQ</h3>
-            <button type="button" class="accordion">Who signs up the students?</button>
+            <button type="button" class="accordion">What is Shenandoah CARES motto?</button>
             <div class="panel">
-                <p class="answer">Teachers/Admins will send information out to the parents, Parents can then sign  their kid's up for Cyber Day</p>
+                <p class="answer">"Bringing Help to the Needy"</p>
             </div>
 
-            <button type="button" class="accordion">What does Cyberday consist of?</button>
+            <button type="button" class="accordion">What is a brief history of CARES?</button>
             <div class="panel">
-                <p class="answer">Computer programming activities, Team building exercises, and Lunch</p>
+                <p class="answer">First starting as a work-placement service for at-risk youth and those emerging from recovery and re-integration programs, CARES has since grown to provide 20+ services of various and valuable types to individuals across the social spectrum in the area.</p>
             </div>
 
-            <button type="button" class="accordion">What age is this event catered for?</button>
+            <button type="button" class="accordion">How long has CARES been around?</button>
             <div class="panel">
-                <p class="answer">This event typically caters to Middle Schoolers aged 10-12</p>
-            </div>
-            <button type="button" class="accordion">Want your organization to join? Sign up here</button>
-            <div class="panel">
-                <div class="answer">
-                    <div class="form-group">
-                        <%--            <h2 style="text-align: center">Want your organization to join a cyber day? Submit a request here</h2>--%>
-                    </div>
-                </div>
+                <p class="answer">Shenandoah CARES has been in operation since 1968 in the NW part of Virginia </p>
             </div>
         </div>
     </div>
@@ -960,17 +952,17 @@
 
                     <div class="form-group">
                         <asp:Label ID="Label26" CssClass="label" runat="server" Text="Date"></asp:Label>
-                        <asp:Calendar CssClass="table table-bordered table-striped" ID="EmployeeHoursCalendar" Height="50%" Width="50%" runat="server" OnSelectionChanged="EmployeeHoursCalendar_OnSelectionChanged"></asp:Calendar>
+                        <asp:Calendar CssClass="table table-bordered table-striped" ID="EmployeeHoursCalendar" Height="50%" runat="server" OnSelectionChanged="EmployeeHoursCalendar_OnSelectionChanged"></asp:Calendar>
                     </div>
 
                     <div class="col-2">
                         <div class="form-group">
                             <asp:Label ID="EmployeeInTimeLabel" CssClass="label" runat="server" Text="Time In"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="HoursInput" ID="EmployeeTimeIn" runat="server" required="true" TextMode="Time" ValidateRequestMode="Inherit" />
+                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="HoursInput" Width="100%" ID="EmployeeTimeIn" runat="server" required="true" TextMode="Time" ValidateRequestMode="Inherit" />
                         </div>
                         <div class="form-group">
                             <asp:Label ID="Label24" CssClass="label" runat="server" Text="Time Out"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="HoursInput" ID="EmployeeTimeOut" TextMode="Time" runat="server" required="true" ValidateRequestMode="Inherit" />
+                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="HoursInput" Width="100%" ID="EmployeeTimeOut" TextMode="Time" runat="server" required="true" ValidateRequestMode="Inherit" />
                             <asp:CustomValidator runat="server" Display="Dynamic" ValidationGroup="HoursInput" Text="Nope" EnableClientScript="True" ControlToValidate="EmployeeTimeOut" ClientValidationFunction="validTime"></asp:CustomValidator>
                         </div>
                         <div class="row">
@@ -1074,7 +1066,7 @@
     <asp:UpdatePanel ID="UpdatePanel8" runat="server">
         <ContentTemplate>
             <div style="margin-top: 40px;">
-                <h3>Employee can view items</h3>
+                <h3>View Inventory or Document a Sale</h3>
                 <asp:GridView ID="InventoryGridview" runat="server" CssClass="table table-bordered table-striped"
                     AutoGenerateColumns="false" OnSelectedIndexChanged="InventoryGridview_OnSelectedIndexChanged">
                     <Columns>

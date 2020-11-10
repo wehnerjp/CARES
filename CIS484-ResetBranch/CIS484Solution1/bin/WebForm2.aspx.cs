@@ -220,11 +220,11 @@ namespace CIS484Solution1
                     HttpPostedFile image = ImageUpload.PostedFile;
                     image.InputStream.Read(imgarray, 0, imagefilelength);
                     command.Parameters.Add("@Image", SqlDbType.Image, imgarray.Length).Value = imgarray;
-                    MessageBox.Show("Inserted image");
+                    //MessageBox.Show("Inserted image");
                 }
                 else
                 {
-                    MessageBox.Show("Default image");
+                    //MessageBox.Show("Default image");
                     string fName = "..\\defaultUserIcon.jpg";
                     byte[] content = ImageToStream(fName);
 
@@ -240,14 +240,14 @@ namespace CIS484Solution1
                 {
                     command.ExecuteNonQuery();
                     Console.Write("insert successful");
-                    MessageBox.Show("insert admin success");
+                    //MessageBox.Show("insert admin success");
 
                     ResetStaffButton_Click(sender, e);
                 }
                 catch (SqlException ex)
                 {
                     Console.Write(ex.Message);
-                    MessageBox.Show("insert admin failure");
+                    //MessageBox.Show("insert admin failure");
                 }
                 con.Close();
             }
@@ -784,14 +784,14 @@ namespace CIS484Solution1
             //Get connection string from web.config file
             string strcon = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
             //Inserting teacher query
-            MessageBox.Show("F");
+            //MessageBox.Show("F");
             //Get connection string from web.config file
             //create new sqlconnection and connection to database by using connection string from web.config file
             SqlConnection con = new SqlConnection(strcon);
             using (SqlCommand command = new SqlCommand(sqlQuery, con))
             {
                 con.Open();
-                MessageBox.Show("W");
+                //MessageBox.Show("W");
 
                 command.Parameters.Add(new SqlParameter("@ArticleName", ArticleNameText.Text));
                 command.Parameters.Add(new SqlParameter("@ArticleType", ArticleTypeDDL.SelectedValue));
@@ -802,10 +802,10 @@ namespace CIS484Solution1
 
                 try
                 {
-                    MessageBox.Show("D");
+                    //MessageBox.Show("D");
 
                     command.ExecuteNonQuery();
-                    MessageBox.Show("a");
+                    //MessageBox.Show("a");
 
                     Console.Write("insert Donation successful");
                     ScriptManager.RegisterStartupScript(this, this.GetType(), System.Guid.NewGuid().ToString(), "ShowMessage('Recorded Donation','Success');", true);
