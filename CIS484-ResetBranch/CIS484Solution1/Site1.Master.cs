@@ -128,6 +128,14 @@ namespace CIS484Solution1
                             // LoginForm.InnerHtml = "LogOut";
                             LoginDiv.Style.Add("display", "none");
                             LogoutDiv.Style.Add("display", "block");
+                            if (UserLoginType != "Admin")
+                            {
+                                MasterMenu.Items[3].Enabled = false;
+                            }
+                            else
+                            {
+                                MasterMenu.Items[3].Enabled = true;
+                            }
                         }
                         else
                         {

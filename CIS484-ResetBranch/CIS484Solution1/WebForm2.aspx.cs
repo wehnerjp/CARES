@@ -818,6 +818,11 @@ namespace CIS484Solution1
                     ScriptManager.RegisterStartupScript(this, this.GetType(), System.Guid.NewGuid().ToString(), "ShowMessage('Couldn't Record Donation','Warning');", true);
                 }
                 BindInventoryGrid();
+                ArticleNameText.Text = "";
+                ArticleDescriptionText.Text = "";
+                ArticlePriceText.Text = "";
+
+
                 con.Close();
             }
         }

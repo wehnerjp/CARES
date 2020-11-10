@@ -761,13 +761,13 @@
                     <div class="row">
                         <div class="form-group">
                             <asp:Label ID="Label3" CssClass="label" runat="server" Text="First Name"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="EmpInput" ID="EmpFirstName" runat="server" required="true" />
+                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="EmpInput" ID="EmpFirstName" runat="server"  />
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group">
                             <asp:Label ID="Label4" CssClass="label" runat="server" Text="Last Name"></asp:Label>
-                            <asp:TextBox CausesValidation="false" CssClass="input--style-4" ValidationGroup="EmpInput" ID="EmpLastName" runat="server" required="true" ValidateRequestMode="Inherit" />
+                            <asp:TextBox CausesValidation="false" CssClass="input--style-4" ValidationGroup="EmpInput" ID="EmpLastName" runat="server"  ValidateRequestMode="Inherit" />
                         </div>
                     </div>
                     <div class="row">
@@ -811,13 +811,13 @@
                     <div class="row">
                         <div class="form-group">
                             <asp:Label ID="Label15" CssClass="label" runat="server" Text="Email"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="EmpInput" ID="EmpEmailTextBox" runat="server" required="true" ValidateRequestMode="Inherit" />
+                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="EmpInput" ID="EmpEmailTextBox" runat="server" ValidateRequestMode="Inherit" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group">
                             <asp:Label ID="Label16" CssClass="label" runat="server" Text="Password"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="EmpInput" ID="EmpPasswordTextBox" runat="server" required="true" ValidateRequestMode="Inherit" />
+                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="EmpInput" ID="EmpPasswordTextBox" runat="server"  ValidateRequestMode="Inherit" />
                         </div>
                     </div>
                     <div class="row">
@@ -845,25 +845,25 @@
                     <div class="row">
                         <div class="form-group">
                             <asp:Label ID="Label7" CssClass="label" runat="server" Text="Name"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="LocationInput" ID="LocationNameText" runat="server" required="true" />
+                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="LocationInput" ID="LocationNameText" runat="server"  />
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group">
                             <asp:Label ID="Label17" CssClass="label" runat="server" Text="Address"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="LocationInput" ID="LocationAddressText" runat="server" required="true" ValidateRequestMode="Inherit" />
+                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="LocationInput" ID="LocationAddressText" runat="server"  ValidateRequestMode="Inherit" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group">
                             <asp:Label ID="Label20" CssClass="label" runat="server" Text="City"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="LocationInput" ID="LocationCity" runat="server" required="true" ValidateRequestMode="Inherit" />
+                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="LocationInput" ID="LocationCity" runat="server"  ValidateRequestMode="Inherit" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group">
                             <asp:Label ID="Label21" CssClass="label" runat="server" Text="Zipcode"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="LocationInput" ID="LocationZip" runat="server" required="true" ValidateRequestMode="Inherit" />
+                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="LocationInput" ID="LocationZip" runat="server"  ValidateRequestMode="Inherit" />
                         </div>
                     </div>
                     <div class="row">
@@ -956,7 +956,7 @@
                         <asp:Calendar CssClass="table table-bordered table-striped" ID="EmployeeHoursCalendar" Height="50%" runat="server" OnSelectionChanged="EmployeeHoursCalendar_OnSelectionChanged"></asp:Calendar>
                     </div>
 
-                    <div class="col-2">
+                    <div class="col">
                         <div class="form-group">
                             <asp:Label ID="EmployeeInTimeLabel" CssClass="label" runat="server" Text="Time In"></asp:Label>
                             <asp:TextBox CssClass="input--style-4" ValidationGroup="HoursInput" Width="100%" ID="EmployeeTimeIn" runat="server" TextMode="Time" ValidateRequestMode="Inherit" />
@@ -1068,6 +1068,7 @@
         <ContentTemplate>
             <div style="margin-top: 40px;">
                 <h3>View Inventory or Document a Sale</h3>
+            <div style="width: 100%; height: 400px; overflow: scroll">
                 <asp:GridView ID="InventoryGridview" runat="server" CssClass="table table-bordered table-striped"
                     AutoGenerateColumns="false" OnSelectedIndexChanged="InventoryGridview_OnSelectedIndexChanged">
                     <Columns>
@@ -1087,12 +1088,14 @@
                         <asp:ButtonField Text="SELECT" CommandName="Select" />
                     </Columns>
                 </asp:GridView>
+                </div>
                 <br />
                 <u>Selected Row Values: </u>
                 <br />
                 <br />
                 <asp:Label ID="lblValues" runat="server" Text=""></asp:Label>
             </div>
+
         </ContentTemplate>
         <%-- <Triggers>
             <asp:PostBackTrigger ControlID="AddDonationButton" />

@@ -807,7 +807,7 @@ namespace CIS484Solution1
                     command.ExecuteNonQuery();
                     //MessageBox.Show("a");
 
-                    Console.Write("insert Donation successful");
+                    //Console.Write("insert Donation successful");
                     ScriptManager.RegisterStartupScript(this, this.GetType(), System.Guid.NewGuid().ToString(), "ShowMessage('Recorded Donation','Success');", true);
                 }
                 catch (SqlException ex)
@@ -818,6 +818,11 @@ namespace CIS484Solution1
                     ScriptManager.RegisterStartupScript(this, this.GetType(), System.Guid.NewGuid().ToString(), "ShowMessage('Couldn't Record Donation','Warning');", true);
                 }
                 BindInventoryGrid();
+                ArticleNameText.Text = "";
+                ArticleDescriptionText.Text = "";
+                ArticlePriceText.Text = "";
+
+
                 con.Close();
             }
         }

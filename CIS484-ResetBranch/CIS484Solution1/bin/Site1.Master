@@ -153,7 +153,8 @@
                         </div>
                     </div>
                     <form id="LabForm" runat="server">
-                        <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true" />
+                    <asp:ScriptManager EnablePartialRendering="true"
+                                       ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
                         <!-- Macro Menu for overarching personnel type selection-->
 
@@ -293,12 +294,12 @@
                                             <!-- The grid: three columns -->
                                             <div class="row row-cols-1 row-cols-md-3">
                                                 <div class="col mb-3">
-                                                    <div class="card h-75">
+                                                    <div class="card h-100">
                                                         <%--<!--Card image-->--%>
                                                         <div class="view overlay">
                                                             <img class="card-img-top" src="https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/8/2019/10/Promote-charity-event-1200x630.png"
                                                                 alt="Card image cap">
-                                                            <a href="#!">
+                                                            <a href="#!" data-toggle="modal" data-target="#centralModalHours">
                                                                 <div class="mask rgba-white-slight"></div>
                                                             </a>
                                                         </div>
@@ -311,17 +312,16 @@
                                                             <!--Text-->
                                                             <p class="card-text">Want to log work hours?</p>
                                                             <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                                                            <button type="button" class="btn btn-light-blue btn-md" data-toggle="modal" data-target="#centralModalHours">Click Here</button>
                                                         </div>
                                                     </div>
                                                     <!-- Card -->
                                                 </div>
                                                 <div class="col mb-3">
-                                                    <div class="card h-75">
+                                                    <div class="card h-100">
                                                         <!--Card image-->
                                                         <div class="view overlay">
                                                             <img class="card-img-top" src="https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" alt="Card image cap">
-                                                            <a href="#!">
+                                                            <a href="#!" data-toggle="modal" data-target="#centralModalInventoryAdd">
                                                                 <div class="mask rgba-white-slight"></div>
                                                             </a>
                                                         </div>
@@ -336,17 +336,16 @@
                                                                 New Clothing Donation?
                                                             </p>
                                                             <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                                                            <button type="button" class="btn btn-light-blue btn-md" data-toggle="modal" data-target="#centralModalInventoryAdd">Click Here</button>
                                                         </div>
                                                     </div>
                                                     <!-- Card -->
                                                 </div>
                                                 <div class="col mb-3">
-                                                    <div class="card h-75">
+                                                    <div class="card h-100">
                                                         <!--Card image-->
                                                         <div class="view overlay">
                                                             <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg" alt="Card image cap">
-                                                            <a href="#!">
+                                                            <a href="#!" data-toggle="modal" data-target="#centralModalInventoryCurrent">
                                                                 <div class="mask rgba-white-slight"></div>
                                                             </a>
                                                         </div>
@@ -361,7 +360,6 @@
                                                                 Want to document a sale or check current inventory?
                                                             </p>
                                                             <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                                                            <button type="button" class="btn btn-light-blue btn-md" data-toggle="modal" data-target="#centralModalInventoryCurrent">Click Here</button>
                                                         </div>
                                                     </div>
                                                     <!-- Card -->
@@ -511,7 +509,7 @@
                                                         <div class="view overlay">
                                                             <img class="card-img-top" src="https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/8/2019/10/Promote-charity-event-1200x630.png"
                                                                 alt="Card image cap">
-                                                            <a href="#!">
+                                                            <a href="#!" data-toggle="modal" data-target="#fullHeightModalRight">
                                                                 <div class="mask rgba-white-slight"></div>
                                                             </a>
                                                         </div>
@@ -524,7 +522,6 @@
                                                             <!--Text-->
                                                             <p class="card-text">Want to add a Volunteer, Employee, or VolunHelper?</p>
                                                             <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                                                            <button type="button" class="btn btn-light-blue btn-md" data-toggle="modal" data-target="#fullHeightModalRight">Click Here</button>
                                                         </div>
                                                     </div>
                                                     <!-- Card -->
@@ -534,7 +531,7 @@
                                                         <!--Card image-->
                                                         <div class="view overlay">
                                                             <img class="card-img-top" src="https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" alt="Card image cap">
-                                                            <a href="#!">
+                                                            <a href="#!" data-toggle="modal" data-target="#fullHeightModalRight1">
                                                                 <div class="mask rgba-white-slight"></div>
                                                             </a>
                                                         </div>
@@ -549,7 +546,6 @@
                                                                 New Cares Location?
                                                             </p>
                                                             <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                                                            <button type="button" class="btn btn-light-blue btn-md" data-toggle="modal" data-target="#fullHeightModalRight1">Click Here</button>
                                                         </div>
                                                     </div>
                                                     <!-- Card -->
@@ -574,7 +570,6 @@
                                                                 Have an Event idea you want to make happen?
                                                             </p>
                                                             <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                                                            <button type="button" class="btn btn-light-blue btn-md">Click Here</button>
                                                         </div>
                                                     </div>
                                                     <!-- Card -->
@@ -584,7 +579,7 @@
                                                         <!--Card image-->
                                                         <div class="view overlay">
                                                             <img class="card-img-top" src="https://www.wpexplorer.com/wp-content/uploads/wordpress-best-donation-plugins.jpg" alt="Card image cap">
-                                                            <a href="#!">
+                                                            <a href="#!" data-toggle="modal" data-target="#fullHeightModalRight2">
                                                                 <div class="mask rgba-white-slight"></div>
                                                             </a>
                                                         </div>
@@ -599,7 +594,6 @@
                                                                 Have a new donation from one of our generous donors?
                                                             </p>
                                                             <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                                                            <button type="button" class="btn btn-light-blue btn-md" data-toggle="modal" data-target="#fullHeightModalRight2">Click Here</button>
                                                         </div>
                                                     </div>
                                                     <!-- Card -->
