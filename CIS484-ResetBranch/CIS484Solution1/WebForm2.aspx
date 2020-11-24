@@ -597,7 +597,7 @@
     </asp:UpdatePanel>
 </asp:Content>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="CoordinatorExistingPlaceholder" runat="server">
+<asp:Content ID="CordExisting" ContentPlaceHolderID="CoordinatorExistingPlaceholder" runat="server">
     <div style="margin-top: 40px;">
         <div style="margin-top: 40px;">
             <asp:Label ID="CoordinatorNameLabel" CssClass="label" runat="server" Text="Coordinator Name"></asp:Label>
@@ -753,7 +753,7 @@
     </div>
 </asp:Content>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="NewEmployeePlaceholder" runat="server">
+<asp:Content ID="NewEmployee" ContentPlaceHolderID="NewEmployeePlaceholder" runat="server">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
             <div style="margin-top: 40px;">
@@ -761,13 +761,13 @@
                     <div class="row">
                         <div class="form-group">
                             <asp:Label ID="Label3" CssClass="label" runat="server" Text="First Name"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="EmpInput" ID="EmpFirstName" runat="server"  />
+                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="EmpInput" ID="EmpFirstName" runat="server" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group">
                             <asp:Label ID="Label4" CssClass="label" runat="server" Text="Last Name"></asp:Label>
-                            <asp:TextBox CausesValidation="false" CssClass="input--style-4" ValidationGroup="EmpInput" ID="EmpLastName" runat="server"  ValidateRequestMode="Inherit" />
+                            <asp:TextBox CausesValidation="false" CssClass="input--style-4" ValidationGroup="EmpInput" ID="EmpLastName" runat="server" ValidateRequestMode="Inherit" />
                         </div>
                     </div>
                     <div class="row">
@@ -817,7 +817,7 @@
                     <div class="row">
                         <div class="form-group">
                             <asp:Label ID="Label16" CssClass="label" runat="server" Text="Password"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="EmpInput" ID="EmpPasswordTextBox" runat="server"  ValidateRequestMode="Inherit" />
+                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="EmpInput" ID="EmpPasswordTextBox" runat="server" ValidateRequestMode="Inherit" />
                         </div>
                     </div>
                     <div class="row">
@@ -837,7 +837,7 @@
         </Triggers>
     </asp:UpdatePanel>
 </asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="NewLocationPlaceholder" runat="server">
+<asp:Content ID="NewLocation" ContentPlaceHolderID="NewLocationPlaceholder" runat="server">
     <asp:UpdatePanel ID="UpdatePanel4" runat="server">
         <ContentTemplate>
             <div style="margin-top: 40px;">
@@ -845,25 +845,25 @@
                     <div class="row">
                         <div class="form-group">
                             <asp:Label ID="Label7" CssClass="label" runat="server" Text="Name"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="LocationInput" ID="LocationNameText" runat="server"  />
+                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="LocationInput" ID="LocationNameText" runat="server" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group">
                             <asp:Label ID="Label17" CssClass="label" runat="server" Text="Address"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="LocationInput" ID="LocationAddressText" runat="server"  ValidateRequestMode="Inherit" />
+                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="LocationInput" ID="LocationAddressText" runat="server" ValidateRequestMode="Inherit" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group">
                             <asp:Label ID="Label20" CssClass="label" runat="server" Text="City"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="LocationInput" ID="LocationCity" runat="server"  ValidateRequestMode="Inherit" />
+                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="LocationInput" ID="LocationCity" runat="server" ValidateRequestMode="Inherit" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group">
                             <asp:Label ID="Label21" CssClass="label" runat="server" Text="Zipcode"></asp:Label>
-                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="LocationInput" ID="LocationZip" runat="server"  ValidateRequestMode="Inherit" />
+                            <asp:TextBox CssClass="input--style-4" CausesValidation="false" ValidationGroup="LocationInput" ID="LocationZip" runat="server" ValidateRequestMode="Inherit" />
                         </div>
                     </div>
                     <div class="row">
@@ -879,7 +879,7 @@
         </Triggers>
     </asp:UpdatePanel>
 </asp:Content>
-<asp:Content ID="Content4" ContentPlaceHolderID="NewDonationPlaceholder" runat="server">
+<asp:Content ID="NewDonation" ContentPlaceHolderID="NewDonationPlaceholder" runat="server">
     <asp:UpdatePanel ID="UpdatePanel5" runat="server">
 
         <ContentTemplate>
@@ -917,7 +917,60 @@
         </Triggers>
     </asp:UpdatePanel>
 </asp:Content>
-<asp:Content ID="Content5" ContentPlaceHolderID="BasicEmployeeView" runat="server">
+<asp:Content ID="AddEvent" ContentPlaceHolderID="AddEventView" runat="server">
+
+    <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+        <ContentTemplate>
+            <div style="margin-top: 40px;">
+                <h3>Employee can Log Hours</h3>
+                <div class="container-fluid" style="display: flex;">
+
+                    <div class="form-group">
+                        <asp:Label ID="Label1" CssClass="label" runat="server" Text="Date"></asp:Label>
+                        <asp:Calendar CssClass="table table-bordered table-striped" ID="EventCalendar" Height="50%" runat="server" OnSelectionChanged="EventCalendar_OnSelectionChanged"></asp:Calendar>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <asp:Label ID="Label32" CssClass="label" runat="server" Text="Location"></asp:Label>
+                            <asp:SqlDataSource runat="server"
+                                ID="SqlDataSourceEventLocation"
+                                DataSourceMode="DataReader"
+                                ConnectionString="<%$ ConnectionStrings:CARESconnection%>"
+                                SelectCommand="SELECT LocationID, LocationName FROM Location" />
+                            <asp:DropDownList
+                                ID="EventLocationDDL"
+                                DataSourceID="SqlDataSourceEventLocation"
+                                OnSelectionChanged="EventCalendar_OnSelectionChanged"
+                                DataTextField="LocationName"
+                                DataValueField="LocationID"
+                                AutoPostBack="true"
+                                runat="server"
+                                CssClass="js-example-basic-single" />
+                        </div>
+                        <div class="form-group">
+                            <asp:Label ID="Label2" CssClass="label" runat="server" Text="Event Name"></asp:Label>
+                            <asp:TextBox CssClass="input--style-4" ValidationGroup="EventInput" Width="100%" ID="EventNameTextBox" runat="server" ValidateRequestMode="Inherit" />
+                        </div>
+                        <div class="form-group">
+                            <asp:Label ID="Label31" CssClass="label" runat="server" Text="Event Description"></asp:Label>
+                            <asp:TextBox CssClass="input--style-4" ValidationGroup="EventInput" TextMode="MultiLine" Width="100%" ID="EventDescription" runat="server" ValidateRequestMode="Inherit" />
+                        </div>
+                        <div class="row">
+                            <div class="form-group" style="width: 50%">
+                                <asp:Button ID="SubmitEvent" OnClientClick="validTime" OnClick="AddEvent_Click" runat="server" ValidationGroup="EventInput" Text="Submit" CssClass="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ContentTemplate>
+        <Triggers>
+            <asp:PostBackTrigger ControlID="SubmitEvent" />
+        </Triggers>
+    </asp:UpdatePanel>
+</asp:Content>
+<asp:Content ID="TimeIn" ContentPlaceHolderID="BasicEmployeeView" runat="server">
     <script>
         function validTime(source, args) {
             var TimeIn = document.getElementById('<%=EmployeeTimeIn.ClientID %>').value;
@@ -999,6 +1052,7 @@
                                 <asp:DropDownList ID="ArticleTypeDDL"
                                     AutoPostBack="true"
                                     runat="server"
+                                    Width="100%"
                                     CssClass="js-example-basic-single">
                                     <asp:ListItem Value="Shirt" />
                                     <asp:ListItem Value="Shorts" />
@@ -1068,37 +1122,88 @@
         <ContentTemplate>
             <div style="margin-top: 40px;">
                 <h3>View Inventory or Document a Sale</h3>
-            <div style="width: 100%; height: 400px; overflow: scroll">
-                <asp:GridView ID="InventoryGridview" runat="server" CssClass="table table-bordered table-striped"
-                    AutoGenerateColumns="false" OnSelectedIndexChanged="InventoryGridview_OnSelectedIndexChanged">
-                    <Columns>
-                        <asp:BoundField DataField="ArticleID" HeaderText="ArticleID" />
-                        <asp:BoundField DataField="ArticleName" HeaderText="Name" />
-                        <asp:BoundField DataField="ArticleType" HeaderText="Type" />
-                        <asp:BoundField DataField="ArticleLocationID" HeaderText="LocationID" />
-                        <asp:BoundField DataField="ArticleDescription" HeaderText="Description" />
-                        <asp:TemplateField HeaderText="Price">
-                            <ItemTemplate>
-                                <asp:Label ID="lblPrice" runat="server" Text='<%# Eval("ArticlePrice") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:BoundField DataField="ArticleSize" HeaderText="Size" />
-                        <asp:BoundField DataField="DateArrived" HeaderText="Arrived" />
+                <div style="width: 100%; height: 400px; overflow: scroll">
+                    <asp:GridView ID="InventoryGridview" runat="server" CssClass="table table-bordered table-striped"
+                        AutoGenerateColumns="false" OnSelectedIndexChanged="InventoryGridview_OnSelectedIndexChanged">
+                        <Columns>
+                            <asp:BoundField DataField="ArticleID" HeaderText="ArticleID" />
+                            <asp:BoundField DataField="ArticleName" HeaderText="Name" />
+                            <asp:BoundField DataField="ArticleType" HeaderText="Type" />
+                            <asp:BoundField DataField="ArticleLocationID" HeaderText="LocationID" />
+                            <asp:BoundField DataField="ArticleDescription" HeaderText="Description" />
+                            <asp:TemplateField HeaderText="Price">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblPrice" runat="server" Text='<%# Eval("ArticlePrice") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:BoundField DataField="ArticleSize" HeaderText="Size" />
+                            <asp:BoundField DataField="DateArrived" HeaderText="Arrived" />
 
-                        <asp:ButtonField Text="SELECT" CommandName="Select" />
-                    </Columns>
-                </asp:GridView>
+                            <asp:ButtonField Text="SELL" CommandName="Select" ButtonType="Button" />
+                        </Columns>
+                    </asp:GridView>
                 </div>
-                <br />
-                <u>Selected Row Values: </u>
-                <br />
-                <br />
-                <asp:Label ID="lblValues" runat="server" Text=""></asp:Label>
             </div>
-
         </ContentTemplate>
-        <%-- <Triggers>
-            <asp:PostBackTrigger ControlID="AddDonationButton" />
-        </Triggers>--%>
     </asp:UpdatePanel>
+</asp:Content>
+<asp:Content ID="EventSignUp" ContentPlaceHolderID="EventSignUpPlaceholder" runat="server">
+    <div style="margin-top: 40px;">
+        <div style="margin-top: 40px;">
+            <asp:Label ID="Label33" CssClass="label" runat="server" Text="Location"></asp:Label>
+            <asp:SqlDataSource runat="server"
+                ID="SqlDataSource1"
+                DataSourceMode="DataReader"
+                ConnectionString="<%$ ConnectionStrings:CARESconnection%>"
+                SelectCommand="SELECT LocationID, LocationName FROM Location" />
+            <asp:DropDownList
+                ID="DropDownList1"
+                DataSourceID="SqlDataSource1"
+                DataTextField="LocationName"
+                DataValueField="LocationID"
+                AutoPostBack="true"
+                OnSelectedIndexChanged="EventLocationDDL_SelectedIndexChanged"
+                runat="server"
+                CssClass="js-example-basic-single" />
+        </div>
+
+        <div class="form-group">
+            <fieldset>
+                <h2>Activities List</h2>
+                <div class="checkbox checkboxlist">
+                    <asp:CheckBoxList ID="EventCheckBoxList" CssClass="radio-container" OnSelectedIndexChanged="WorkerEventCheckBoxList_SelectedIndexChanged" AutoPostBack="true" RepeatDirection="Vertical" RepeatLayout="Flow" runat="server" />
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</asp:Content>
+<asp:Content ID="Content1" ContentPlaceHolderID="EmployeePayPlaceholder" runat="server">
+    <div style="margin-top: 40px;">
+        <div style="margin-top: 40px;">
+            <asp:Label ID="Label34" CssClass="label" runat="server" Text="Location"></asp:Label>
+            <asp:SqlDataSource runat="server"
+                ID="SqlDataSource2"
+                DataSourceMode="DataReader"
+                ConnectionString="<%$ ConnectionStrings:CARESconnection%>"
+                SelectCommand="SELECT LocationID, LocationName FROM Location" />
+            <asp:DropDownList
+                ID="DropDownList2"
+                DataSourceID="SqlDataSource1"
+                DataTextField="LocationName"
+                DataValueField="LocationID"
+                AutoPostBack="true"
+                OnSelectedIndexChanged="EventLocationDDL_SelectedIndexChanged"
+                runat="server"
+                CssClass="js-example-basic-single" />
+        </div>
+
+        <div class="form-group">
+            <fieldset>
+                <h2>Activities List</h2>
+                <div class="checkbox checkboxlist">
+                    <asp:CheckBoxList ID="CheckBoxList1" CssClass="radio-container" OnSelectedIndexChanged="WorkerEventCheckBoxList_SelectedIndexChanged" AutoPostBack="true" RepeatDirection="Vertical" RepeatLayout="Flow" runat="server" />
+                </div>
+            </fieldset>
+        </div>
+    </div>
 </asp:Content>

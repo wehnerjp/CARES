@@ -365,6 +365,56 @@
                                                     <!-- Card -->
                                                 </div>
                                             </div>
+
+                                            <div class="row row-cols-1 row-cols-md-2">
+                                                <div class="col mb-2">
+                                                    <div class="card h-100">
+                                                        <%--<!--Card image-->--%>
+                                                        <div class="view overlay">
+                                                            <img class="card-img-top" src="https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/8/2019/10/Promote-charity-event-1200x630.png"
+                                                                alt="Card image cap">
+                                                            <a href="#!" data-toggle="modal" data-target="#centralModalSignUp">
+                                                                <div class="mask rgba-white-slight"></div>
+                                                            </a>
+                                                        </div>
+
+                                                        <!--Card content-->
+                                                        <div class="card-body">
+
+                                                            <!--Title-->
+                                                            <h4 class="card-title">View Events</h4>
+                                                            <!--Text-->
+                                                            <p class="card-text">Want to sign up and view Events?</p>
+                                                            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                                                        </div>
+                                                    </div>
+                                                    <!-- Card -->
+                                                </div>
+                                                <div class="col mb-2">
+                                                    <div class="card h-100">
+                                                        <!--Card image-->
+                                                        <div class="view overlay">
+                                                            <img class="card-img-top" src="https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" alt="Card image cap">
+                                                            <a href="#!" data-toggle="modal" data-target="#centralModalWorkerView">
+                                                                <div class="mask rgba-white-slight"></div>
+                                                            </a>
+                                                        </div>
+
+                                                        <!--Card content-->
+                                                        <div class="card-body">
+
+                                                            <!--Title-->
+                                                            <h4 class="card-title">View Your Info</h4>
+                                                            <!--Text-->
+                                                            <p class="card-text">
+                                                                Want to view your Employee Information?
+                                                            </p>
+                                                            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                                                        </div>
+                                                    </div>
+                                                    <!-- Card -->
+                                                </div>
+                                            </div>
                                             <div class="modal fade" id="centralModalHours" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                                                 aria-hidden="true">
 
@@ -426,6 +476,52 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <asp:ContentPlaceHolder ID="InventoryManagement2Placeholder" runat="server">
+                                                            </asp:ContentPlaceHolder>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade" id="centralModalSignUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                                aria-hidden="true">
+
+                                                <!-- Change class .modal-sm to change the size of the modal -->
+                                                <div class="modal-dialog modal-lg" role="document">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title w-100" id="myModalLabel">Event Sign Up</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body ">
+                                                            <asp:ContentPlaceHolder ID="EventSignUpPlaceholder" runat="server">
+                                                            </asp:ContentPlaceHolder>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade" id="centralModalWorkerView" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                                aria-hidden="true">
+
+                                                <!-- Change class .modal-sm to change the size of the modal -->
+                                                <div class="modal-dialog modal-lg" role="document">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title w-100" id="myModalLabel">Worker View</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <asp:ContentPlaceHolder ID="EmployeePayPlaceholder" runat="server">
                                                             </asp:ContentPlaceHolder>
                                                         </div>
                                                         <div class="modal-footer">
@@ -555,7 +651,7 @@
                                                         <!--Card image-->
                                                         <div class="view overlay">
                                                             <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg" alt="Card image cap">
-                                                            <a href="#!">
+                                                            <a href="#!" data-toggle="modal" data-target="#fullHeightModalRight3">
                                                                 <div class="mask rgba-white-slight"></div>
                                                             </a>
                                                         </div>
@@ -659,6 +755,30 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <asp:ContentPlaceHolder ID="NewDonationPlaceholder" runat="server">
+                                                            </asp:ContentPlaceHolder>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-center">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal fade" id="fullHeightModalRight3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                                aria-hidden="true">
+
+                                                <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+                                                <div class="modal-dialog modal-lg" role="document">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title w-100" id="myModalLabel1">Add Event</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <asp:ContentPlaceHolder ID="AddEventView" runat="server">
                                                             </asp:ContentPlaceHolder>
                                                         </div>
                                                         <div class="modal-footer justify-content-center">

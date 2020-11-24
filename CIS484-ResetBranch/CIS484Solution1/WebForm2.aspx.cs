@@ -18,6 +18,7 @@ using System.Windows.Forms;
 using System.Web.Services;
 using CIS484Solution1;
 using System.Windows.Media.Imaging;
+using System.Text;
 
 namespace CIS484Solution1
 {
@@ -315,6 +316,117 @@ namespace CIS484Solution1
                 CoordinatorCheckBoxListSelect();
             }
             con.Close();
+        }
+
+        protected void EventLocationDDL_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Similar process for reacting to coordinator selection as with volunteer
+
+            String sqlQuery1 = "Select EventID, EventName, EventName + '    ' +  convert(nvarchar, convert(nvarchar, EventDate, 0)) as EventNameTime, EventDate from Event where LocationID='" + DropDownList1.SelectedValue + "'";
+
+            //Get connection string from web.config file
+            string strcon = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
+            //create new sqlconnection and connection to database by using connection string from web.config file
+            SqlConnection con = new SqlConnection(strcon);
+            con.Open();
+            DataTable dtx = new DataTable();
+            SqlDataAdapter sqlAdapter1 = new SqlDataAdapter(sqlQuery1, con);
+            sqlAdapter1.Fill(dtx);
+            DataSet ds = new DataSet();
+
+            //Displaying events below for coordinator sign up
+            if (dtx.Rows.Count > 0)
+            {
+                EventCheckBoxList.DataSource = dtx;
+                EventCheckBoxList.DataTextField = "EventNameTime";
+                EventCheckBoxList.DataValueField = "EventID";
+                EventCheckBoxList.DataBind();
+            }
+
+            if (EventCheckBoxList.Items.Count > 1 && DropDownList1.SelectedItem.Value != null)
+            {
+                EventSignUpCheckBoxListSelect();
+            }
+            con.Close();
+        }
+
+        protected void EventSignUpCheckBoxListSelect()
+        {
+            //Determines inital boolean values for selection Coo. Event List
+            string strcon = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
+            //create new sqlconnection and connection to database by using connection string from web.config file
+            SqlConnection con = new SqlConnection(strcon);
+            con.Open();
+
+            if (Site1.UserLoginID != null)
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand("Select EP.EventID from EventAttendees EP where EP.StaffID = '" + Site1.UserLoginID + "'", con);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    for (int i = 0; i < EventCheckBoxList.Items.Count; i++)
+                        EventCheckBoxList.Items[i].Selected = false;
+
+                    while (reader.Read())
+                    {
+                        ListItem li = EventCheckBoxList.Items.FindByValue(reader["EventID"].ToString());
+                        if (li != null)
+                        {
+                            li.Selected = true;
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    Response.Redirect("user.aspx", false);
+                }
+            }
+        }
+
+        protected void WorkerEventCheckBoxList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Enables coordinator sign up interaction with DB and live modification
+
+            string strcon = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
+            SqlConnection connection = new SqlConnection(strcon);
+            SqlCommand cmd;
+            string sqlStatement = string.Empty;
+            if (Site1.UserLoginID != null)
+            {
+                try
+                {
+                    // open the Sql connection
+                    connection.Open();
+                    foreach (ListItem item in EventCheckBoxList.Items)
+                    {
+                        if (item.Selected)
+                        {
+                            sqlStatement = "If Not Exists (select 1 from EventAttendees where StaffID= '" + Site1.UserLoginID + "' and EventID= '" + item.Value + "') Insert into EventAttendees (EventID, StaffID) values('" + item.Value + "', '" + Site1.UserLoginID + "') ";
+                            cmd = new SqlCommand(sqlStatement, connection);
+                            cmd.CommandType = CommandType.Text;
+                            cmd.ExecuteNonQuery();
+                        }
+                        else
+                        {
+                            sqlStatement = "DELETE FROM EventAttendees WHERE StaffID ='" + Site1.UserLoginID + "' and EventID ='" + item.Value + "' ";
+                            cmd = new SqlCommand(sqlStatement, connection);
+                            cmd.CommandType = CommandType.Text;
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+                catch (System.Data.SqlClient.SqlException ex)
+                {
+                    string msg = "Insert/Update Error:";
+                    msg += ex.Message;
+                    throw new Exception(msg);
+                }
+                finally
+                {
+                    // close the Sql Connection
+                    connection.Close();
+                }
+            }
         }
 
         protected void CoordinatorCheckBoxListSelect()
@@ -740,6 +852,45 @@ namespace CIS484Solution1
             }
         }
 
+        protected void AddEvent_Click(object sender, EventArgs e)
+        {
+            //Inserting teacher query
+            //Inserting teacher query
+            String sqlQuery = "Insert into Event (EventName, EventDate, EventDescription, LocationID) values " +
+                              "(@EventName, @EventDate, @EventDescription, @LocationID); ";
+            string strcon = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
+            //Inserting teacher query
+
+            //Get connection string from web.config file
+            //create new sqlconnection and connection to database by using connection string from web.config file
+            SqlConnection con = new SqlConnection(strcon);
+            using (SqlCommand command = new SqlCommand(sqlQuery, con))
+            {
+                con.Open();
+
+                command.Parameters.Add(new SqlParameter("@EventName", EventNameTextBox.Text));
+                command.Parameters.Add(new SqlParameter("@EventDate", EventCalendar.SelectedDate));
+                command.Parameters.Add(new SqlParameter("@EventDescription", EventDescription.Text));
+                command.Parameters.Add(new SqlParameter("@LocationID", EventLocationDDL.SelectedValue));
+
+                try
+                {
+                    command.ExecuteNonQuery();
+                    Console.Write("insert hours successful");
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), System.Guid.NewGuid().ToString(), "ShowMessage('Event Added','Success');", true);
+                    EventNameTextBox.Text = "";
+                    EventDescription.Text = "";
+                }
+                catch (SqlException ex)
+                {
+                    Console.Write(ex.Message);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), System.Guid.NewGuid().ToString(), "ShowMessage('Couldn't Add Event','Warning');", true);
+                }
+
+                con.Close();
+            }
+        }
+
         protected void EmployeeHoursCalendar_OnSelectionChanged(object sender, EventArgs e)
         {
             //Inserting teacher query
@@ -772,6 +923,42 @@ namespace CIS484Solution1
                 ScriptManager.RegisterStartupScript(this, this.GetType(), System.Guid.NewGuid().ToString(), "ShowMessage('Date Selected','Success');", true);
 
                 SubmitHours.Enabled = true;
+            }
+            con.Close();
+        }
+
+        protected void EventCalendar_OnSelectionChanged(object sender, EventArgs e)
+        {
+            //Inserting teacher query
+            String sqlQuery = "SELECT * from Event where EventDate= @Date and LocationID = @LocationID";
+            //Get connection string from web.config file
+            string strcon = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
+            //Inserting teacher query
+
+            //Get connection string from web.config file
+            //create new sqlconnection and connection to database by using connection string from web.config file
+            SqlConnection con = new SqlConnection(strcon);
+            SqlCommand command = new SqlCommand(sqlQuery, con);
+            command.Parameters.Add(new SqlParameter("@Date", EventCalendar.SelectedDate));
+            command.Parameters.Add(new SqlParameter("@LocationID", EventLocationDDL.SelectedValue));
+            con.Open();
+            SqlDataReader myReader = command.ExecuteReader();
+
+            if (myReader.Read())
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), System.Guid.NewGuid().ToString(), "ShowMessage('Event Already Exists This Day!','Warning');", true);
+                SubmitEvent.Enabled = false;
+            }
+            else if (EventCalendar.SelectedDate < DateTime.Today)
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), System.Guid.NewGuid().ToString(), "ShowMessage('You cannot select a past date','Warning');", true);
+                SubmitEvent.Enabled = false;
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), System.Guid.NewGuid().ToString(), "ShowMessage('Date Selected','Success');", true);
+
+                SubmitEvent.Enabled = true;
             }
             con.Close();
         }
@@ -822,7 +1009,6 @@ namespace CIS484Solution1
                 ArticleDescriptionText.Text = "";
                 ArticlePriceText.Text = "";
 
-
                 con.Close();
             }
         }
@@ -832,15 +1018,15 @@ namespace CIS484Solution1
             string sqlQuery;
             if (Site1.UserLoginType == "Admin")
             {
-                sqlQuery = "Select * from DonationInventory;";
+                sqlQuery = "Select * from DonationInventory where ArticleSold IS NULL;";
             }
-            if (Site1.UserLoginType == null)
+            else if (Site1.UserLoginType == null)
             {
-                sqlQuery = "Select * from DonationInventory;";
+                sqlQuery = "Select * from DonationInventory where ArticleSold IS NULL;";
             }
             else
             {
-                sqlQuery = "Select * from DonationInventory where ArticleLocationID = '" + Site1.UserLoginLocation + "';";
+                sqlQuery = "Select * from DonationInventory where ArticleLocationID = '" + Site1.UserLoginLocation + "' and ArticleSold IS NULL;";
             }
 
             string constr = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
@@ -865,12 +1051,77 @@ namespace CIS484Solution1
 
         protected void InventoryGridview_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            string name = InventoryGridview.SelectedRow.Cells[1].Text;
+            //If filled out and non duplicate it inserts into object
+            string strcon = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
+            SqlConnection connection = new SqlConnection(strcon);
+            SqlCommand cmd;
+            int sub;
+            try
+            {
+                // open the Sql connection
+                connection.Open();
+                //Check for size in Note field and insert temporarily or permanently into DB if it does not exist
 
-            //Accessing TemplateField Column controls.
-            string country = (InventoryGridview.SelectedRow.FindControl("lblPrice") as System.Web.UI.WebControls.Label).Text;
+                if (StudentNotesData.Text.Length > 20)
+                {
+                    sub = 20;
+                }
+                else
+                {
+                    sub = StudentNotesData.Text.Length;
+                }
+                string sqlStatement = "UPDATE DonationInventory SET ArticleSold = 1, DateSold = GETDATE()" +
+                    "Where ArticleID ='" + InventoryGridview.SelectedRow.Cells[0].Text + "'";
+                cmd = new SqlCommand(sqlStatement, connection);
+                cmd.CommandType = CommandType.Text;
+                cmd.ExecuteNonQuery();
+            }
+            //If it does not work
+            catch (System.Data.SqlClient.SqlException ex)
+            {
+                string msg = "Update Error:";
+                msg += ex.Message;
+                throw new Exception(msg);
+            }
+            finally
+            {
+                // close the Sql Connection
+                connection.Close();
+            }
+            //Inserting teacher query
+            String sqlQuery1 = "Insert into CaresBank (TransAmount, Type, Description, StaffID, LocationID, Date) values " +
+                               "(@Amount, 'Sale', 'Clothing Sale', '" + Site1.UserLoginID + "', '" + Site1.UserLoginLocation + "', CURRENT_TIMESTAMP); ";
 
-            lblValues.Text = "<b>Name:</b> " + name + " <b>Country:</b> " + country;
+            //Get connection string from web.config file
+            //create new sqlconnection and connection to database by using connection string from web.config file
+            SqlConnection con1 = new SqlConnection(strcon);
+            using (SqlCommand command1 = new SqlCommand(sqlQuery1, con1))
+            {
+                con1.Open();
+
+                command1.Parameters.Add(new SqlParameter("@Amount", InventoryGridview.SelectedRow.Cells[5].Text));
+
+                try
+                {
+                    command1.ExecuteNonQuery();
+                    Console.Write("insert successful");
+                    //MessageBox.Show("insert Sale success");
+                }
+                catch (SqlException ex)
+                {
+                    Console.Write(ex.Message);
+                    MessageBox.Show("insert Sale failure");
+                }
+
+                con1.Close();
+            }
+            //string name = InventoryGridview.SelectedRow.Cells[1].Text;
+
+            ////Accessing TemplateField Column controls.
+            //string country = (InventoryGridview.SelectedRow.FindControl("lblPrice") as System.Web.UI.WebControls.Label).Text;
+
+            //lblValues.Text = "<b>Name:</b> " + name + " <b>Country:</b> " + country;
+            BindInventoryGrid();
         }
     }
 
