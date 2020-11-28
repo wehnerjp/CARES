@@ -124,6 +124,11 @@
                     cssclass = 'alert-info';
             }
             $('#alert_container').append('<div class="alert ' + cssclass + ' alert-dismissible fade show" role="alert"> <strong>' + messagetype + '</strong> ' + message + ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span></button></div>');
+            $('#alert_container1').append('<div class="alert ' + cssclass + ' alert-dismissible fade show" role="alert"> <strong>' + messagetype + '</strong> ' + message + ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span></button></div>');
+
+        }
+        function openModal() {
+            $('#centralModalSignUp').modal('show');
         }
     </script>
 </head>
@@ -429,6 +434,10 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body ">
+                                                            <div class="text-center">
+                                                                <div class="messagealert" id="alert_container1">
+                                                                </div>
+                                                            </div>
                                                             <asp:ContentPlaceHolder ID="BasicEmployeeView" runat="server">
                                                             </asp:ContentPlaceHolder>
                                                         </div>
@@ -521,7 +530,7 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+                                                            <asp:ContentPlaceHolder ID="EmployeePayPlaceholder" runat="server">
                                                             </asp:ContentPlaceHolder>
                                                         </div>
                                                         <div class="modal-footer">

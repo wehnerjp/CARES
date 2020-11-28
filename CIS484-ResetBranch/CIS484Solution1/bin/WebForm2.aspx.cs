@@ -19,6 +19,7 @@ using System.Web.Services;
 using CIS484Solution1;
 using System.Windows.Media.Imaging;
 using System.Text;
+using System.Web.UI.DataVisualization.Charting;
 
 namespace CIS484Solution1
 {
@@ -29,6 +30,7 @@ namespace CIS484Solution1
         public DataTable Cart;
         public DataView CartView;
         public static int CommenteeID;
+        private object rblChartType;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -47,6 +49,7 @@ namespace CIS484Solution1
             Page.Form.Attributes.Add("enctype", "multipart/form-data");
             //RepeterData();
             this.BindInventoryGrid();
+            this.BindHoursGrid();
         }
 
         protected void Page_LoadComplete(object sender, EventArgs e)
@@ -375,6 +378,7 @@ namespace CIS484Solution1
                             li.Selected = true;
                         }
                     }
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
                 catch (Exception)
                 {
@@ -847,7 +851,7 @@ namespace CIS484Solution1
                     Console.Write(ex.Message);
                     ScriptManager.RegisterStartupScript(this, this.GetType(), System.Guid.NewGuid().ToString(), "ShowMessage('Couldn't Log Hours','Warning');", true);
                 }
-
+                BindHoursGrid();
                 con.Close();
             }
         }
@@ -1105,7 +1109,7 @@ namespace CIS484Solution1
                 {
                     command1.ExecuteNonQuery();
                     Console.Write("insert successful");
-                    MessageBox.Show("insert Sale success");
+                    //MessageBox.Show("insert Sale success");
                 }
                 catch (SqlException ex)
                 {
@@ -1115,80 +1119,82 @@ namespace CIS484Solution1
 
                 con1.Close();
             }
-            string name = InventoryGridview.SelectedRow.Cells[1].Text;
+            //string name = InventoryGridview.SelectedRow.Cells[1].Text;
 
-            //Accessing TemplateField Column controls.
-            string country = (InventoryGridview.SelectedRow.FindControl("lblPrice") as System.Web.UI.WebControls.Label).Text;
+            ////Accessing TemplateField Column controls.
+            //string country = (InventoryGridview.SelectedRow.FindControl("lblPrice") as System.Web.UI.WebControls.Label).Text;
 
-            lblValues.Text = "<b>Name:</b> " + name + " <b>Country:</b> " + country;
+            //lblValues.Text = "<b>Name:</b> " + name + " <b>Country:</b> " + country;
             BindInventoryGrid();
         }
 
-        protected void MarkClothingSold_Click(object sender, EventArgs e)
+        public void BindHoursGrid()
         {
-            //If filled out and non duplicate it inserts into object
-            string strcon = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
-            SqlConnection connection = new SqlConnection(strcon);
-            SqlCommand cmd;
-            int sub;
-            try
-            {
-                // open the Sql connection
-                connection.Open();
-                //Check for size in Note field and insert temporarily or permanently into DB if it does not exist
+            string query = string.Format("SELECT the_table.Last_Seven_Days_Dates, ISNULL(DATEDIFF(hour, H.TimeIn, H.TimeOut), 0) as Hour FROM (SELECT CAST(GETDATE() AS DATE) AS Last_Seven_Days_Dates UNION SELECT CAST(DATEADD(DAY, -1, GETDATE()) AS DATE) AS Last_Seven_Days_Dates UNION SELECT CAST(DATEADD(DAY, -2, GETDATE()) AS DATE) AS Last_Seven_Days_Dates UNION SELECT CAST(DATEADD(DAY, -3, GETDATE()) AS DATE) AS Last_Seven_Days_Dates UNION SELECT CAST(DATEADD(DAY, -4, GETDATE()) AS DATE) AS Last_Seven_Days_Dates UNION SELECT CAST(DATEADD(DAY, -5, GETDATE()) AS DATE) AS Last_Seven_Days_Dates UNION SELECT CAST(DATEADD(DAY, -6, GETDATE()) AS DATE) AS Last_Seven_Days_Dates) AS the_table left join (select * from Hours where StaffID = '" + Site1.UserLoginID + "') H on the_table.Last_Seven_Days_Dates = H.Date");
 
-                if (StudentNotesData.Text.Length > 20)
-                {
-                    sub = 20;
-                }
-                else
-                {
-                    sub = StudentNotesData.Text.Length;
-                }
-                string sqlStatement = "UPDATE DonationInventory SET ArticleSold = 1, DateSold = GETDATE()" +
-                    "Where ArticleID ='" + InventoryGridview.SelectedRow.Cells[0].Text + "'";
-                cmd = new SqlCommand(sqlStatement, connection);
-                cmd.CommandType = CommandType.Text;
-                cmd.ExecuteNonQuery();
-            }
-            //If it does not work
-            catch (System.Data.SqlClient.SqlException ex)
-            {
-                string msg = "Update Error:";
-                msg += ex.Message;
-                throw new Exception(msg);
-            }
-            finally
-            {
-                // close the Sql Connection
-                connection.Close();
-            }
-            //Inserting teacher query
-            String sqlQuery1 = "Insert into CaresBank (TransAmount, Type, Description, StaffID, LocationID, Date) values " +
-                               "(@Amount, 'Sale', 'Clothing Sale', '" + Site1.UserLoginID + "', '" + Site1.UserLoginLocation + "', CURRENT_TIMESTAMP); ";
+            DataTable dt = GetData(query);
+            Chart1.DataSource = dt;
+            //string[] x = new string[dt.Rows.Count];
+            //int[] y = new int[dt.Rows.Count];
+            //for (int i = 0; i < dt.Rows.Count; i++)
+            //{
+            //    x[i] = dt.Rows[i][0].ToString();
+            //    y[i] = Convert.ToInt32(dt.Rows[i][1]);
+            //}
+
+            //Chart1.Series[0].Points.DataBindXY(x, y);
+            Chart1.Series[0].ChartType = SeriesChartType.Bar;
+            Chart1.Legends[0].Enabled = true;
+            Chart1.Series[0].XValueMember = "Last_Seven_Days_Dates";
+            Chart1.Series[0].YValueMembers = "Hour";
+            Chart1.DataBind();
+            String sqlQuery1 = "Select SUM(DATEDIFF(hour, H.TimeIn, H.TimeOut)) as Hour, (SUM(DATEDIFF(hour, H.TimeIn, H.TimeOut)) * (select PayRate.PerHour from PayRate where StaffType='" + Site1.UserLoginType + "')) as Pay from Hours H WHERE Date >= DATEADD(day, -7, GETDATE())  and StaffID = '" + Site1.UserLoginID + "'; ";
 
             //Get connection string from web.config file
             //create new sqlconnection and connection to database by using connection string from web.config file
-            SqlConnection con1 = new SqlConnection(strcon);
+            string constr = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
+
+            SqlConnection con1 = new SqlConnection(constr);
             using (SqlCommand command1 = new SqlCommand(sqlQuery1, con1))
             {
                 con1.Open();
 
-                command1.Parameters.Add(new SqlParameter("@Amount", InventoryGridview.SelectedRow.Cells[5].Text));
-
                 try
                 {
-                    command1.ExecuteNonQuery();
-                    Console.Write("insert successful");
-                    MessageBox.Show("insert Sale success");
+                    SqlDataReader myReader = command1.ExecuteReader();
+                    while (myReader.Read())
+                    {
+                        WeeklyHoursLabel.Text = (HttpUtility.HtmlEncode(myReader[0].ToString()));
+                        WeeklyPayLabel.Text = (HttpUtility.HtmlEncode(myReader[1].ToString()));
+                    }
+
+                    Console.Write("Hours and Pay successful");
+                    //MessageBox.Show("insert Sale success");
                 }
                 catch (SqlException ex)
                 {
                     Console.Write(ex.Message);
-                    MessageBox.Show("insert Sale failure");
+                    MessageBox.Show("Hours and Pay failure");
                 }
+            }
+            con1.Close();
+        }
 
-                con1.Close();
+        private static DataTable GetData(string query)
+        {
+            string constr = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                using (SqlCommand cmd = new SqlCommand(query))
+                {
+                    DataTable dt = new DataTable();
+                    using (SqlDataAdapter sda = new SqlDataAdapter(query, con))
+                    {
+                        sda.Fill(dt);
+                    }
+
+                    return dt;
+                }
             }
         }
     }

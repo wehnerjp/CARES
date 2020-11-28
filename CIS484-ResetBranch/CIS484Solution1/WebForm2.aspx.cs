@@ -19,6 +19,7 @@ using System.Web.Services;
 using CIS484Solution1;
 using System.Windows.Media.Imaging;
 using System.Text;
+using System.Web.UI.DataVisualization.Charting;
 
 namespace CIS484Solution1
 {
@@ -29,6 +30,7 @@ namespace CIS484Solution1
         public DataTable Cart;
         public DataView CartView;
         public static int CommenteeID;
+        private object rblChartType;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -47,6 +49,7 @@ namespace CIS484Solution1
             Page.Form.Attributes.Add("enctype", "multipart/form-data");
             //RepeterData();
             this.BindInventoryGrid();
+            this.BindHoursGrid();
         }
 
         protected void Page_LoadComplete(object sender, EventArgs e)
@@ -375,6 +378,7 @@ namespace CIS484Solution1
                             li.Selected = true;
                         }
                     }
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                 }
                 catch (Exception)
                 {
@@ -847,7 +851,7 @@ namespace CIS484Solution1
                     Console.Write(ex.Message);
                     ScriptManager.RegisterStartupScript(this, this.GetType(), System.Guid.NewGuid().ToString(), "ShowMessage('Couldn't Log Hours','Warning');", true);
                 }
-
+                BindHoursGrid();
                 con.Close();
             }
         }
@@ -1122,6 +1126,77 @@ namespace CIS484Solution1
 
             //lblValues.Text = "<b>Name:</b> " + name + " <b>Country:</b> " + country;
             BindInventoryGrid();
+        }
+
+        public void BindHoursGrid()
+        {
+            string query = string.Format("SELECT the_table.Last_Seven_Days_Dates, ISNULL(DATEDIFF(hour, H.TimeIn, H.TimeOut), 0) as Hour FROM (SELECT CAST(GETDATE() AS DATE) AS Last_Seven_Days_Dates UNION SELECT CAST(DATEADD(DAY, -1, GETDATE()) AS DATE) AS Last_Seven_Days_Dates UNION SELECT CAST(DATEADD(DAY, -2, GETDATE()) AS DATE) AS Last_Seven_Days_Dates UNION SELECT CAST(DATEADD(DAY, -3, GETDATE()) AS DATE) AS Last_Seven_Days_Dates UNION SELECT CAST(DATEADD(DAY, -4, GETDATE()) AS DATE) AS Last_Seven_Days_Dates UNION SELECT CAST(DATEADD(DAY, -5, GETDATE()) AS DATE) AS Last_Seven_Days_Dates UNION SELECT CAST(DATEADD(DAY, -6, GETDATE()) AS DATE) AS Last_Seven_Days_Dates) AS the_table left join (select * from Hours where StaffID = '" + Site1.UserLoginID + "') H on the_table.Last_Seven_Days_Dates = H.Date");
+
+            DataTable dt = GetData(query);
+            Chart1.DataSource = dt;
+            //string[] x = new string[dt.Rows.Count];
+            //int[] y = new int[dt.Rows.Count];
+            //for (int i = 0; i < dt.Rows.Count; i++)
+            //{
+            //    x[i] = dt.Rows[i][0].ToString();
+            //    y[i] = Convert.ToInt32(dt.Rows[i][1]);
+            //}
+
+            //Chart1.Series[0].Points.DataBindXY(x, y);
+            Chart1.Series[0].ChartType = SeriesChartType.Bar;
+            Chart1.Legends[0].Enabled = true;
+            Chart1.Series[0].XValueMember = "Last_Seven_Days_Dates";
+            Chart1.Series[0].YValueMembers = "Hour";
+            Chart1.DataBind();
+            String sqlQuery1 = "Select SUM(DATEDIFF(hour, H.TimeIn, H.TimeOut)) as Hour, (SUM(DATEDIFF(hour, H.TimeIn, H.TimeOut)) * (select PayRate.PerHour from PayRate where StaffType='" + Site1.UserLoginType + "')) as Pay from Hours H WHERE Date >= DATEADD(day, -7, GETDATE())  and StaffID = '" + Site1.UserLoginID + "'; ";
+
+            //Get connection string from web.config file
+            //create new sqlconnection and connection to database by using connection string from web.config file
+            string constr = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
+
+            SqlConnection con1 = new SqlConnection(constr);
+            using (SqlCommand command1 = new SqlCommand(sqlQuery1, con1))
+            {
+                con1.Open();
+
+                try
+                {
+                    SqlDataReader myReader = command1.ExecuteReader();
+                    while (myReader.Read())
+                    {
+                        WeeklyHoursLabel.Text = (HttpUtility.HtmlEncode(myReader[0].ToString()));
+                        WeeklyPayLabel.Text = (HttpUtility.HtmlEncode(myReader[1].ToString()));
+                        TypeLabel.Text = Site1.UserLoginType;
+                    }
+
+                    Console.Write("Hours and Pay successful");
+                    //MessageBox.Show("insert Sale success");
+                }
+                catch (SqlException ex)
+                {
+                    Console.Write(ex.Message);
+                    MessageBox.Show("Hours and Pay failure");
+                }
+            }
+            con1.Close();
+        }
+
+        private static DataTable GetData(string query)
+        {
+            string constr = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                using (SqlCommand cmd = new SqlCommand(query))
+                {
+                    DataTable dt = new DataTable();
+                    using (SqlDataAdapter sda = new SqlDataAdapter(query, con))
+                    {
+                        sda.Fill(dt);
+                    }
+
+                    return dt;
+                }
+            }
         }
     }
 

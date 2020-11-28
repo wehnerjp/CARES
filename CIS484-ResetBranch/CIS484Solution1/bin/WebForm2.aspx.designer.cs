@@ -1104,24 +1104,6 @@ namespace CIS484Solution1
         protected global::System.Web.UI.WebControls.GridView InventoryGridview;
 
         /// <summary>
-        /// lblValues control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblValues;
-
-        /// <summary>
-        /// MarkClothingOld control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button MarkClothingOld;
-
-        /// <summary>
         /// Label33 control.
         /// </summary>
         /// <remarks>
@@ -1156,5 +1138,50 @@ namespace CIS484Solution1
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBoxList EventCheckBoxList;
+
+        /// <summary>
+        /// Label34 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label34;
+
+        /// <summary>
+        /// WeeklyHoursLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label WeeklyHoursLabel;
+
+        /// <summary>
+        /// Label38 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label38;
+
+        /// <summary>
+        /// WeeklyPayLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label WeeklyPayLabel;
+
+        /// <summary>
+        /// Chart1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.DataVisualization.Charting.Chart Chart1;
     }
 }

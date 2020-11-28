@@ -124,6 +124,11 @@
                     cssclass = 'alert-info';
             }
             $('#alert_container').append('<div class="alert ' + cssclass + ' alert-dismissible fade show" role="alert"> <strong>' + messagetype + '</strong> ' + message + ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span></button></div>');
+            $('#alert_container1').append('<div class="alert ' + cssclass + ' alert-dismissible fade show" role="alert"> <strong>' + messagetype + '</strong> ' + message + ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span></button></div>');
+
+        }
+        function openModal() {
+            $('#centralModalSignUp').modal('show');
         }
     </script>
 </head>
@@ -371,7 +376,7 @@
                                                     <div class="card h-100">
                                                         <%--<!--Card image-->--%>
                                                         <div class="view overlay">
-                                                            <img class="card-img-top" src="https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/8/2019/10/Promote-charity-event-1200x630.png"
+                                                            <img class="card-img-top" src="https://lh3.googleusercontent.com/proxy/R-EosNHuwbC0UGc4q-gnnWEpmF1ZKKiS0faOgv3h60czdgNRBktf7rwEhWnONY31mTnB-Tm0eR0PD88XaRctK0PN7JDFjsUuIW1OCGXELIF75u1-X498Xzv6BaCHGbwUvw"
                                                                 alt="Card image cap">
                                                             <a href="#!" data-toggle="modal" data-target="#centralModalSignUp">
                                                                 <div class="mask rgba-white-slight"></div>
@@ -394,7 +399,7 @@
                                                     <div class="card h-100">
                                                         <!--Card image-->
                                                         <div class="view overlay">
-                                                            <img class="card-img-top" src="https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" alt="Card image cap">
+                                                            <img class="card-img-top" src="https://miro.medium.com/max/3712/1*GUNgvKbFguAGo21p5XqpWg.png" alt="Card image cap">
                                                             <a href="#!" data-toggle="modal" data-target="#centralModalWorkerView">
                                                                 <div class="mask rgba-white-slight"></div>
                                                             </a>
@@ -429,6 +434,10 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body ">
+                                                            <div class="text-center">
+                                                                <div class="messagealert" id="alert_container1">
+                                                                </div>
+                                                            </div>
                                                             <asp:ContentPlaceHolder ID="BasicEmployeeView" runat="server">
                                                             </asp:ContentPlaceHolder>
                                                         </div>

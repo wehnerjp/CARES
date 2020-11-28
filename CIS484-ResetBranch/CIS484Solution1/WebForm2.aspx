@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="WebForm2.aspx.cs" Inherits="CIS484Solution1.WebForm2" %>
 
+<%@ Register Assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
+
 <%@ Import Namespace="System.Data" %>
 
 <asp:Content ID="Home" ContentPlaceHolderID="HomePlaceholder" runat="server">
@@ -1180,30 +1182,42 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="EmployeePayPlaceholder" runat="server">
     <div style="margin-top: 40px;">
         <div style="margin-top: 40px;">
-            <asp:Label ID="Label34" CssClass="label" runat="server" Text="Location"></asp:Label>
-            <asp:SqlDataSource runat="server"
-                ID="SqlDataSource2"
-                DataSourceMode="DataReader"
-                ConnectionString="<%$ ConnectionStrings:CARESconnection%>"
-                SelectCommand="SELECT LocationID, LocationName FROM Location" />
-            <asp:DropDownList
-                ID="DropDownList2"
-                DataSourceID="SqlDataSource1"
-                DataTextField="LocationName"
-                DataValueField="LocationID"
-                AutoPostBack="true"
-                OnSelectedIndexChanged="EventLocationDDL_SelectedIndexChanged"
-                runat="server"
-                CssClass="js-example-basic-single" />
-        </div>
+            <div class="row">
+                <div class="col">
 
-        <div class="form-group">
-            <fieldset>
-                <h2>Activities List</h2>
-                <div class="checkbox checkboxlist">
-                    <asp:CheckBoxList ID="CheckBoxList1" CssClass="radio-container" OnSelectedIndexChanged="WorkerEventCheckBoxList_SelectedIndexChanged" AutoPostBack="true" RepeatDirection="Vertical" RepeatLayout="Flow" runat="server" />
+                    <div class="form-group">
+                        <asp:Label ID="Label34" CssClass="label" Font-Bold="true" runat="server" Text="Hours Worked This Week"></asp:Label>
+                        <asp:Label ID="WeeklyHoursLabel" CssClass="label" runat="server" Text="Hours Worked This Week"></asp:Label>
+                        <asp:Label ID="Label38" CssClass="label" runat="server" Font-Bold="true" Text="Pay This Week"></asp:Label>
+                        <asp:Label ID="WeeklyPayLabel" CssClass="label" runat="server" Text="Pay This Week"></asp:Label>
+                        <asp:Label ID="Label37" CssClass="label" runat="server" Font-Bold="true" Text="Worker Classification"></asp:Label>
+                        <asp:Label ID="TypeLabel" CssClass="label" runat="server" Text="Pay This Week"></asp:Label>
+                    </div>
                 </div>
-            </fieldset>
+                <div class="col">
+
+                    <div class="form-group">
+
+                        <asp:Chart ID="Chart1" runat="server" Height="400px" Width="350px" IsYValueIndexed="true" IsXValueIndexed="false">
+                            <Titles>
+                                <asp:Title ShadowOffset="3" Name="Date" />
+                            </Titles>
+                            <Legends>
+                                <asp:Legend Alignment="Center" Docking="Bottom" IsTextAutoFit="False" Name="Weekly Hours"
+                                    LegendStyle="Row" />
+                            </Legends>
+                            <Series>
+                                <asp:Series Name="Hours">
+                                    <EmptyPointStyle IsValueShownAsLabel="true" IsVisibleInLegend="true" />
+                                </asp:Series>
+                            </Series>
+                            <ChartAreas>
+                                <asp:ChartArea Name="ChartArea1" BorderWidth="0" />
+                            </ChartAreas>
+                        </asp:Chart>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </asp:Content>

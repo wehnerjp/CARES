@@ -1149,30 +1149,57 @@ namespace CIS484Solution1
         protected global::System.Web.UI.WebControls.Label Label34;
 
         /// <summary>
-        /// SqlDataSource2 control.
+        /// WeeklyHoursLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource2;
+        protected global::System.Web.UI.WebControls.Label WeeklyHoursLabel;
 
         /// <summary>
-        /// DropDownList2 control.
+        /// Label38 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList2;
+        protected global::System.Web.UI.WebControls.Label Label38;
 
         /// <summary>
-        /// CheckBoxList1 control.
+        /// WeeklyPayLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList CheckBoxList1;
+        protected global::System.Web.UI.WebControls.Label WeeklyPayLabel;
+
+        /// <summary>
+        /// Label37 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label37;
+
+        /// <summary>
+        /// TypeLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label TypeLabel;
+
+        /// <summary>
+        /// Chart1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.DataVisualization.Charting.Chart Chart1;
     }
 }

@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="WebForm2.aspx.cs" Inherits="CIS484Solution1.WebForm2" %>
 
+<%@ Register Assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
+
 <%@ Import Namespace="System.Data" %>
 
 <asp:Content ID="Home" ContentPlaceHolderID="HomePlaceholder" runat="server">
@@ -1139,21 +1141,12 @@
                             <asp:BoundField DataField="ArticleSize" HeaderText="Size" />
                             <asp:BoundField DataField="DateArrived" HeaderText="Arrived" />
 
-                            <asp:ButtonField Text="SELECT" CommandName="Select" ButtonType="Button" />
+                            <asp:ButtonField Text="SELL" CommandName="Select" ButtonType="Button" />
                         </Columns>
                     </asp:GridView>
                 </div>
-                <br />
-                <u>Selected Item: </u>
-                <br />
-                <br />
-                <asp:Label ID="lblValues" runat="server" Text=""></asp:Label>
-                <asp:Button ID="MarkClothingOld" OnClick="MarkClothingSold_Click" runat="server" Text="Submit" Style="margin-left: 0%;" CssClass="btn btn-primary" />
             </div>
         </ContentTemplate>
-        <Triggers>
-            <asp:PostBackTrigger ControlID="MarkClothingOld" />
-        </Triggers>
     </asp:UpdatePanel>
 </asp:Content>
 <asp:Content ID="EventSignUp" ContentPlaceHolderID="EventSignUpPlaceholder" runat="server">
@@ -1183,6 +1176,46 @@
                     <asp:CheckBoxList ID="EventCheckBoxList" CssClass="radio-container" OnSelectedIndexChanged="WorkerEventCheckBoxList_SelectedIndexChanged" AutoPostBack="true" RepeatDirection="Vertical" RepeatLayout="Flow" runat="server" />
                 </div>
             </fieldset>
+        </div>
+    </div>
+</asp:Content>
+<asp:Content ID="Content1" ContentPlaceHolderID="EmployeePayPlaceholder" runat="server">
+    <div style="margin-top: 40px;">
+        <div style="margin-top: 40px;">
+            <div class="row">
+                <div class="col">
+
+                    <div class="form-group">
+                        <asp:Label ID="Label34" CssClass="label" Font-Bold="true" runat="server" Text="Hours Worked This Week"></asp:Label>
+                        <asp:Label ID="WeeklyHoursLabel" CssClass="label" runat="server" Text="Hours Worked This Week"></asp:Label>
+                        <asp:Label ID="Label38" CssClass="label" runat="server" Font-Bold="true" Text="Pay This Week"></asp:Label>
+                        <asp:Label ID="WeeklyPayLabel" CssClass="label" runat="server" Text="Pay This Week"></asp:Label>
+                    </div>
+                </div>
+                <div class="col">
+
+                    <div class="form-group">
+
+                        <asp:Chart ID="Chart1" runat="server" Height="400px" Width="350px" IsYValueIndexed="true" IsXValueIndexed="false">
+                            <Titles>
+                                <asp:Title ShadowOffset="3" Name="Date" />
+                            </Titles>
+                            <Legends>
+                                <asp:Legend Alignment="Center" Docking="Bottom" IsTextAutoFit="False" Name="Weekly Hours"
+                                    LegendStyle="Row" />
+                            </Legends>
+                            <Series>
+                                <asp:Series Name="Hours">
+                                    <EmptyPointStyle IsValueShownAsLabel="true" IsVisibleInLegend="true" />
+                                </asp:Series>
+                            </Series>
+                            <ChartAreas>
+                                <asp:ChartArea Name="ChartArea1" BorderWidth="0" />
+                            </ChartAreas>
+                        </asp:Chart>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </asp:Content>
