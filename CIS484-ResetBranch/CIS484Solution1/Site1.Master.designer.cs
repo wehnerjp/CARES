@@ -222,6 +222,15 @@ namespace CIS484Solution1
         protected global::System.Web.UI.WebControls.ContentPlaceHolder CoordinatorExistingPlaceholder;
 
         /// <summary>
+        /// BusAnPlaceholder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder BusAnPlaceholder;
+
+        /// <summary>
         /// NewEmployeePlaceholder control.
         /// </summary>
         /// <remarks>

@@ -784,8 +784,8 @@ namespace CIS484Solution1
             }
 
             //Inserting teacher query
-            String sqlQuery1 = "Insert into CaresBank (TransAmount, Type, Description, Date) values " +
-                               "(@Amount, 'Donation', 'Donation Inputted by Admin', CURRENT_TIMESTAMP); ";
+            String sqlQuery1 = "Insert into CaresBank (TransAmount, Type, Description, Date, LocationID) values " +
+                               "(@Amount, 'Donation', 'Donation Inputted by Admin', CURRENT_TIMESTAMP, " + Site1.UserLoginLocation + "); ";
 
             //Get connection string from web.config file
             //create new sqlconnection and connection to database by using connection string from web.config file
@@ -1094,7 +1094,7 @@ namespace CIS484Solution1
             }
             //Inserting teacher query
             String sqlQuery1 = "Insert into CaresBank (TransAmount, Type, Description, StaffID, LocationID, Date) values " +
-                               "(@Amount, 'Sale', 'Clothing Sale', '" + Site1.UserLoginID + "', '" + Site1.UserLoginLocation + "', CURRENT_TIMESTAMP); ";
+                               "((Select ArticlePrice from DonationInventory where ArticleID ='" + InventoryGridview.SelectedRow.Cells[0].Text + "'), 'Sale', 'Clothing Sale', '" + Site1.UserLoginID + "', '" + Site1.UserLoginLocation + "', CURRENT_TIMESTAMP); ";
 
             //Get connection string from web.config file
             //create new sqlconnection and connection to database by using connection string from web.config file
@@ -1102,8 +1102,14 @@ namespace CIS484Solution1
             using (SqlCommand command1 = new SqlCommand(sqlQuery1, con1))
             {
                 con1.Open();
+                ////MessageBox.Show(Decimal.Parse(InventoryGridview.SelectedRow.Cells[5].Text).ToString());
+                //MessageBox.Show(InventoryGridview.SelectedRow.Cells[0].Text);
+                //MessageBox.Show(InventoryGridview.SelectedRow.Cells[1].Text);
+                //MessageBox.Show(InventoryGridview.SelectedRow.Cells[2].Text);
+                //MessageBox.Show(InventoryGridview.SelectedRow.Cells[3].Text);
+                //MessageBox.Show(InventoryGridview.SelectedRow.Cells[4].Text);
 
-                command1.Parameters.Add(new SqlParameter("@Amount", InventoryGridview.SelectedRow.Cells[5].Text));
+                //command1.Parameters.Add(new SqlParameter("@Amount", Decimal.Parse(InventoryGridview.SelectedRow.Cells[5].Text)));
 
                 try
                 {
@@ -1166,6 +1172,7 @@ namespace CIS484Solution1
                     {
                         WeeklyHoursLabel.Text = (HttpUtility.HtmlEncode(myReader[0].ToString()));
                         WeeklyPayLabel.Text = (HttpUtility.HtmlEncode(myReader[1].ToString()));
+                        TypeLabel.Text = Site1.UserLoginType;
                     }
 
                     Console.Write("Hours and Pay successful");

@@ -1176,6 +1176,24 @@ namespace CIS484Solution1
         protected global::System.Web.UI.WebControls.Label WeeklyPayLabel;
 
         /// <summary>
+        /// Label37 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label37;
+
+        /// <summary>
+        /// TypeLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label TypeLabel;
+
+        /// <summary>
         /// Chart1 control.
         /// </summary>
         /// <remarks>

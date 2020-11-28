@@ -1190,6 +1190,8 @@
                         <asp:Label ID="WeeklyHoursLabel" CssClass="label" runat="server" Text="Hours Worked This Week"></asp:Label>
                         <asp:Label ID="Label38" CssClass="label" runat="server" Font-Bold="true" Text="Pay This Week"></asp:Label>
                         <asp:Label ID="WeeklyPayLabel" CssClass="label" runat="server" Text="Pay This Week"></asp:Label>
+                        <asp:Label ID="Label37" CssClass="label" runat="server" Font-Bold="true" Text="Worker Classification"></asp:Label>
+                        <asp:Label ID="TypeLabel" CssClass="label" runat="server" Text="Pay This Week"></asp:Label>
                     </div>
                 </div>
                 <div class="col">
@@ -1213,6 +1215,31 @@
                                 <asp:ChartArea Name="ChartArea1" BorderWidth="0" />
                             </ChartAreas>
                         </asp:Chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="BusAnPlaceholder" runat="server">
+    <div style="margin-top: 40px;">
+        <div style="margin-top: 40px;">
+            <div class="row">
+                <div class="col">
+
+                    <div class="form-group">
+                        <script type='text/javascript' src='https://prod-useast-b.online.tableau.com/javascripts/api/viz_v1.js'></script>
+                        <div class='tableauPlaceholder' style='width: 1000px; height: 827px;'>
+                            <object class='tableauViz' width='1000' height='827' style='display: none;'>
+                                <param name='host_url' value='https%3A%2F%2Fprod-useast-b.online.tableau.com%2F' />
+                                <param name='embed_code_version' value='3' />
+                                <param name='site_root' value='&#47;t&#47;cis484' />
+                                <param name='name' value='CIS484Book&#47;CARESFinancialDashboard' />
+                                <param name='tabs' value='no' />
+                                <param name='toolbar' value='yes' />
+                                <param name='showAppBanner' value='false' />
+                            </object>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -376,7 +376,7 @@
                                                     <div class="card h-100">
                                                         <%--<!--Card image-->--%>
                                                         <div class="view overlay">
-                                                            <img class="card-img-top" src="https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/8/2019/10/Promote-charity-event-1200x630.png"
+                                                            <img class="card-img-top" src="https://lh3.googleusercontent.com/proxy/R-EosNHuwbC0UGc4q-gnnWEpmF1ZKKiS0faOgv3h60czdgNRBktf7rwEhWnONY31mTnB-Tm0eR0PD88XaRctK0PN7JDFjsUuIW1OCGXELIF75u1-X498Xzv6BaCHGbwUvw"
                                                                 alt="Card image cap">
                                                             <a href="#!" data-toggle="modal" data-target="#centralModalSignUp">
                                                                 <div class="mask rgba-white-slight"></div>
@@ -399,7 +399,7 @@
                                                     <div class="card h-100">
                                                         <!--Card image-->
                                                         <div class="view overlay">
-                                                            <img class="card-img-top" src="https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" alt="Card image cap">
+                                                            <img class="card-img-top" src="https://miro.medium.com/max/3712/1*GUNgvKbFguAGo21p5XqpWg.png" alt="Card image cap">
                                                             <a href="#!" data-toggle="modal" data-target="#centralModalWorkerView">
                                                                 <div class="mask rgba-white-slight"></div>
                                                             </a>
@@ -702,6 +702,78 @@
                                                         </div>
                                                     </div>
                                                     <!-- Card -->
+                                                </div>
+                                            </div>
+                                            <div class="row row-cols-1 row-cols-md-2">
+                                                <div class="col mb-2">
+                                                    <div class="card h-100">
+                                                        <%--<!--Card image-->--%>
+                                                        <div class="view overlay">
+                                                            <img class="card-img-top" src="https://lh3.googleusercontent.com/proxy/R-EosNHuwbC0UGc4q-gnnWEpmF1ZKKiS0faOgv3h60czdgNRBktf7rwEhWnONY31mTnB-Tm0eR0PD88XaRctK0PN7JDFjsUuIW1OCGXELIF75u1-X498Xzv6BaCHGbwUvw"
+                                                                alt="Card image cap">
+                                                            <a href="#!" data-toggle="modal" data-target="#centralModalBusAn">
+                                                                <div class="mask rgba-white-slight"></div>
+                                                            </a>
+                                                        </div>
+
+                                                        <!--Card content-->
+                                                        <div class="card-body">
+
+                                                            <!--Title-->
+                                                            <h4 class="card-title">View Business Analytics</h4>
+                                                            <!--Text-->
+                                                            <p class="card-text">Interested in the Companies Financials?</p>
+                                                            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                                                        </div>
+                                                    </div>
+                                                    <!-- Card -->
+                                                </div>
+                                                <div class="col mb-2">
+                                                    <div class="card h-100">
+                                                        <!--Card image-->
+                                                        <div class="view overlay">
+                                                            <img class="card-img-top" src="https://miro.medium.com/max/3712/1*GUNgvKbFguAGo21p5XqpWg.png" alt="Card image cap">
+                                                            <a href="#!" data-toggle="modal" data-target="#centralModalWorkerView">
+                                                                <div class="mask rgba-white-slight"></div>
+                                                            </a>
+                                                        </div>
+
+                                                        <!--Card content-->
+                                                        <div class="card-body">
+
+                                                            <!--Title-->
+                                                            <h4 class="card-title">View Location Breakdown</h4>
+                                                            <!--Text-->
+                                                            <p class="card-text">
+                                                                Explore Data Breakdowns about Each Location
+                                                            </p>
+                                                            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                                                        </div>
+                                                    </div>
+                                                    <!-- Card -->
+                                                </div>
+                                            </div>
+                                            <div class="modal fade" id="centralModalBusAn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                                aria-hidden="true">
+
+                                                <!-- Change class .modal-sm to change the size of the modal -->
+                                                <div class="modal-dialog modal-lg" role="document">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title w-100" id="myModalLabel">Business View</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <asp:ContentPlaceHolder ID="BusAnPlaceholder" runat="server">
+                                                            </asp:ContentPlaceHolder>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
