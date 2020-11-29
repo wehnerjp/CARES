@@ -130,6 +130,9 @@
         function openModal() {
             $('#centralModalSignUp').modal('show');
         }
+        function openModal1() {
+            $('#centralModalLocation').modal('show');
+        }
     </script>
 </head>
 <body>
@@ -550,9 +553,6 @@
                                     <h3 >Basic Statistics</h3>--%>
 
                                     <!--Validating and Populable Student input with responsive list selection-->
-
-                                    <asp:ContentPlaceHolder Visible="False" ID="StudentExistingPlaceholder" runat="server">
-                                    </asp:ContentPlaceHolder>
                                 </div>
                             </asp:View>
                             <asp:View runat="server">
@@ -709,7 +709,7 @@
                                                     <div class="card h-100">
                                                         <%--<!--Card image-->--%>
                                                         <div class="view overlay">
-                                                            <img class="card-img-top" src="https://lh3.googleusercontent.com/proxy/R-EosNHuwbC0UGc4q-gnnWEpmF1ZKKiS0faOgv3h60czdgNRBktf7rwEhWnONY31mTnB-Tm0eR0PD88XaRctK0PN7JDFjsUuIW1OCGXELIF75u1-X498Xzv6BaCHGbwUvw"
+                                                            <img class="card-img-top" src="https://images.prismic.io/meltwater/5456e736-ea88-4f21-82bf-5132326cbd99_eng-0303-BONUS+Data+Visualization+Designed+for+PR+and+Comms+Professionals.png?auto=compress,format&rect=0,20,596,397&w=1920&h=1280"
                                                                 alt="Card image cap">
                                                             <a href="#!" data-toggle="modal" data-target="#centralModalBusAn">
                                                                 <div class="mask rgba-white-slight"></div>
@@ -732,8 +732,8 @@
                                                     <div class="card h-100">
                                                         <!--Card image-->
                                                         <div class="view overlay">
-                                                            <img class="card-img-top" src="https://miro.medium.com/max/3712/1*GUNgvKbFguAGo21p5XqpWg.png" alt="Card image cap">
-                                                            <a href="#!" data-toggle="modal" data-target="#centralModalWorkerView">
+                                                            <img class="card-img-top" src="https://www.virginia.org/-/media/VTC/Default-Images/DefaultVirginiaSharejpg.ashx" alt="Card image cap">
+                                                            <a href="#!" data-toggle="modal" data-target="#centralModalLocation">
                                                                 <div class="mask rgba-white-slight"></div>
                                                             </a>
                                                         </div>
@@ -768,6 +768,29 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <asp:ContentPlaceHolder ID="BusAnPlaceholder" runat="server">
+                                                            </asp:ContentPlaceHolder>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade" id="centralModalLocation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                                aria-hidden="true">
+
+                                                <!-- Change class .modal-sm to change the size of the modal -->
+                                                <div class="modal-dialog modal-lg" role="document">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title w-100" id="myModalLabel">Location View</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <asp:ContentPlaceHolder ID="LocationViewPlaceholder" runat="server">
                                                             </asp:ContentPlaceHolder>
                                                         </div>
                                                         <div class="modal-footer">

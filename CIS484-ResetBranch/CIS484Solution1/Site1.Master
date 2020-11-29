@@ -130,6 +130,9 @@
         function openModal() {
             $('#centralModalSignUp').modal('show');
         }
+        function openModal1() {
+            $('#centralModalLocation').modal('show');
+        }
     </script>
 </head>
 <body>
@@ -550,9 +553,6 @@
                                     <h3 >Basic Statistics</h3>--%>
 
                                     <!--Validating and Populable Student input with responsive list selection-->
-
-                                    <asp:ContentPlaceHolder Visible="False" ID="StudentExistingPlaceholder" runat="server">
-                                    </asp:ContentPlaceHolder>
                                 </div>
                             </asp:View>
                             <asp:View runat="server">
@@ -733,7 +733,7 @@
                                                         <!--Card image-->
                                                         <div class="view overlay">
                                                             <img class="card-img-top" src="https://www.virginia.org/-/media/VTC/Default-Images/DefaultVirginiaSharejpg.ashx" alt="Card image cap">
-                                                            <a href="#!" data-toggle="modal" data-target="#centralModalWorkerView">
+                                                            <a href="#!" data-toggle="modal" data-target="#centralModalLocation">
                                                                 <div class="mask rgba-white-slight"></div>
                                                             </a>
                                                         </div>
@@ -768,6 +768,29 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <asp:ContentPlaceHolder ID="BusAnPlaceholder" runat="server">
+                                                            </asp:ContentPlaceHolder>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade" id="centralModalLocation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                                aria-hidden="true">
+
+                                                <!-- Change class .modal-sm to change the size of the modal -->
+                                                <div class="modal-dialog modal-lg" role="document">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title w-100" id="myModalLabel">Location View</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <asp:ContentPlaceHolder ID="LocationViewPlaceholder" runat="server">
                                                             </asp:ContentPlaceHolder>
                                                         </div>
                                                         <div class="modal-footer">

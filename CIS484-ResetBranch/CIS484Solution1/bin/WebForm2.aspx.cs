@@ -61,34 +61,31 @@ namespace CIS484Solution1
             //Connect to DB
         }
 
-        protected void EventList_SelectedIndexChanged(object sender, EventArgs e)
+        protected void LocationViewDDL_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Queries Relevant to home page, fetching event info student info and more
             String sqlQuery =
-                "Select EventName, Time, FORMAT(Date,'dd/MM/yyyy') as Date,  RoomNbr from Event where EventID = " +
-                EventList.SelectedItem.Value;
+                "Select * from Location where LocationID = " +
+                LocationViewDDL.SelectedItem.Value;
             String sqlQuery1 =
-                "SELECT Student.FirstName +' ' + Student.LastName as StudentName, Student.TeacherID from Student " +
-                "inner join Teacher on Student.TeacherID = Teacher.TeacherID " +
-                "inner join EventAttendanceList on EventAttendanceList.TeacherID = Teacher.TeacherID " +
-                "where EventAttendanceList.EventID = " + EventList.SelectedItem.Value;
-            String sqlQuery2 =
-                "select EventPersonnel.FirstName +' ' + EventPersonnel.LastName as VolunteerName, EventPersonnel.PersonnelType from EventPresenters " +
-                "inner join EventPersonnel on EventPersonnel.VolunteerID = EventPresenters.PersonnelID where EventPresenters.Role = 'Volunteer' and EventPresenters.EventID = " +
-                EventList.SelectedItem.Value;
+                "SELECT StaffID, FirstName + ' ' + LastName as Name from Staff " +
+                "where LocationID = " + LocationViewDDL.SelectedItem.Value;
             String sqlQuery3 =
-                "select EventPersonnel.FirstName + ' ' + EventPersonnel.LastName as CoordinatorName from EventPresenters " +
-                "inner join EventPersonnel on EventPersonnel.VolunteerID = EventPresenters.PersonnelID where EventPresenters.Role = 'Coordinator' and EventPresenters.EventID = " +
-                EventList.SelectedItem.Value;
+                "select * from Event where LocationID = " +
+                LocationViewDDL.SelectedItem.Value;
+            String sqlQuery2 =
+                "select StaffID, FirstName + ' ' + LastName as Name from Staff where Type = 'Admin' and LocationID = " +
+                LocationViewDDL.SelectedItem.Value;
 
             //Get connection string from web.config file
-            string strcon = ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString;
+            string strcon = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
             //create new sqlconnection and connection to database by using connection string from web.config file
             SqlConnection con = new SqlConnection(strcon);
             con.Open();
             SqlDataAdapter sqlAdapter = new SqlDataAdapter(sqlQuery, con);
             SqlDataAdapter sqlAdapter1 = new SqlDataAdapter(sqlQuery1, con);
             SqlDataAdapter sqlAdapter2 = new SqlDataAdapter(sqlQuery2, con);
+            SqlDataAdapter sqlAdapter3 = new SqlDataAdapter(sqlQuery3, con);
 
             var items = new List<string>();
 
@@ -99,43 +96,91 @@ namespace CIS484Solution1
                     while (reader.Read())
                     {
                         //Read info into List
-                        items.Add(reader.GetString(0));
+                        items.Add(reader.GetString(1));
                     }
                 }
             }
 
-            rep1.DataSource = items;
-            rep1.DataBind();
+            Repeater1.DataSource = items;
+            Repeater1.DataBind();
             //Fill table with data
             DataTable dt = new DataTable();
             sqlAdapter1.Fill(dt);
 
-            var items1 = new List<string>();
-
-            using (SqlCommand command = new SqlCommand(sqlQuery3, con))
+            if (dt.Rows.Count > 0)
             {
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        //Read info into List
-                        items1.Add(reader.GetString(0));
-                    }
-                }
-            }
+                WorkerListLabel.Text = "Employees At This Location: ";
 
-            CoordinatorRepeater.DataSource = items1;
-            CoordinatorRepeater.DataBind();
-            //Fill table with data
+                WorkerListBox.DataSource = dt;
+                WorkerListBox.DataValueField = "StaffID";
+
+                WorkerListBox.DataTextField = "Name";
+                WorkerListBox.DataBind();
+            }
             DataTable dt2 = new DataTable();
-            sqlAdapter2.Fill(dt2);
+            sqlAdapter3.Fill(dt2);
+
+            if (dt2.Rows.Count > 0)
+            {
+                EventListBox.DataSource = dt2;
+                EventListBox.DataValueField = "EventID";
+                EventListBox.DataTextField = "EventName";
+                EventListBox.DataBind();
+            }
+            DataSet ds = new DataSet();
+
+            sqlAdapter.Fill(ds);
+
+            FormView2.DataSource = ds;
+            FormView2.DataBind();
+            con.Close();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
+        }
+
+        protected void EventListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String sqlQuery = "select * from Event where EventID = " + EventListBox.SelectedItem.Value;
+            String sqlQuery1 = "select S.StaffID, S.FirstName + ' ' + S.LastName as Name from Staff S inner join EventAttendees E on E.StaffID = S.StaffID where EventID = " + EventListBox.SelectedItem.Value;
+
+            //Get connection string from web.config file
+            string strcon = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
+            //create new sqlconnection and connection to database by using connection string from web.config file
+            SqlConnection con = new SqlConnection(strcon);
+            con.Open();
+            SqlDataAdapter sqlAdapter = new SqlDataAdapter(sqlQuery, con);
+            SqlDataAdapter sqlAdapter1 = new SqlDataAdapter(sqlQuery1, con);
+
+            DataSet ds = new DataSet();
+
+            sqlAdapter.Fill(ds);
+
+            FormView4.DataSource = ds;
+            FormView4.DataBind();
+            DataTable dt = new DataTable();
+            sqlAdapter1.Fill(dt);
 
             if (dt.Rows.Count > 0)
             {
-                ListBox1.DataSource = dt;
-                ListBox1.DataTextField = "StudentName";
-                ListBox1.DataBind();
+                WorkerListLabel.Text = "Employees Attending Event: ";
+                WorkerListBox.DataSource = dt;
+                EventListBox.DataValueField = "StaffID";
+                WorkerListBox.DataTextField = "Name";
+                WorkerListBox.DataBind();
             }
+            con.Close();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
+        }
+
+        protected void WorkerListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String sqlQuery = "Select StaffID, FirstName + ' ' + LastName as Name, StartDate, Email, Type from Staff where StaffID = " + WorkerListBox.SelectedItem.Value;
+
+            //Get connection string from web.config file
+            string strcon = ConfigurationManager.ConnectionStrings["CARESconnection"].ConnectionString;
+            //create new sqlconnection and connection to database by using connection string from web.config file
+            SqlConnection con = new SqlConnection(strcon);
+            con.Open();
+            SqlDataAdapter sqlAdapter = new SqlDataAdapter(sqlQuery, con);
 
             DataSet ds = new DataSet();
 
@@ -143,53 +188,8 @@ namespace CIS484Solution1
 
             FormView1.DataSource = ds;
             FormView1.DataBind();
-            con.Close();
-        }
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
 
-        protected void StudentNameDDL_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //Student Selection information for user display
-            String sqlQuery =
-                "Select Student.StudentID, TRIM(Student.FirstName) + ' ' + TRIM(Student.LastName) as StudentName, Student.Age, Student.Notes, TRIM(Teacher.FirstName) + ' ' + TRIM(Teacher.LastName) as TeacherName, Tshirt.Size, Tshirt.Color, TRIM(School.SchoolName) from Student " +
-                "inner join Tshirt on Tshirt.TshirtID = Student.TshirtID " +
-                "inner join Teacher on Student.TeacherID = Teacher.TeacherID " +
-                "inner join School on School.SchoolID = Student.SchoolID " +
-                "where Student.StudentID = " + StudentNameDDL.SelectedItem.Value +
-                " and Student.SchoolID = (select SchoolID from student where StudentID= " +
-                StudentNameDDL.SelectedItem.Value + ") " +
-                " and Student.TeacherID = (select TeacherID from student where StudentID = " +
-                StudentNameDDL.SelectedItem.Value + ") " +
-                " and Tshirt.TshirtID = (select TshirtID from Student where StudentID = " +
-                StudentNameDDL.SelectedItem.Value + ")";
-
-            //Get connection string from web.config file
-            string strcon = ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString;
-            //create new sqlconnection and connection to database by using connection string from web.config file
-
-            SqlConnection con = new SqlConnection(strcon);
-            SqlConnection con1 = new SqlConnection(strcon);
-            con1.Open();
-            SqlCommand myCommand = new SqlCommand(sqlQuery, con1);
-            SqlDataReader myReader = myCommand.ExecuteReader();
-            con.Open();
-            while (myReader.Read())
-            {
-                StID = Int32.Parse(myReader[0].ToString());
-                StudentNameData.Text = (HttpUtility.HtmlEncode(myReader[1].ToString()));
-                StudentAgeEdit.SelectedValue = (myReader[2].ToString());
-                StudentNotesData.Text = (HttpUtility.HtmlEncode(myReader[3].ToString()));
-                StudentSchoolData.Text = (HttpUtility.HtmlEncode(myReader[7].ToString()));
-                StudentTeacherData.Text = (HttpUtility.HtmlEncode(myReader[4].ToString()));
-                StudentColorEdit.SelectedValue = (myReader[6].ToString());
-                StudentSizeEdit.SelectedValue = (myReader[5].ToString());
-            }
-
-            //Filling out data for display
-            // SqlDataAdapter sqlAdapter = new SqlDataAdapter(sqlQuery, con);
-            // DataSet ds = new DataSet();
-            // sqlAdapter.Fill(ds);
-            // StudentFormView.DataSource = ds;
-            // StudentFormView.DataBind();
             con.Close();
         }
 
@@ -516,47 +516,47 @@ namespace CIS484Solution1
             }
         }
 
-        protected void StudentUpdateButton_Click(object sender, EventArgs e)
-        {
-            //If filled out and non duplicate it inserts into object
-            string strcon = ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString;
-            SqlConnection connection = new SqlConnection(strcon);
-            SqlCommand cmd;
-            int sub;
-            try
-            {
-                // open the Sql connection
-                connection.Open();
-                //Check for size in Note field and insert temporarily or permanently into DB if it does not exist
+        //protected void StudentUpdateButton_Click(object sender, EventArgs e)
+        //{
+        //    //If filled out and non duplicate it inserts into object
+        //    string strcon = ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString;
+        //    SqlConnection connection = new SqlConnection(strcon);
+        //    SqlCommand cmd;
+        //    int sub;
+        //    try
+        //    {
+        //        // open the Sql connection
+        //        connection.Open();
+        //        //Check for size in Note field and insert temporarily or permanently into DB if it does not exist
 
-                if (StudentNotesData.Text.Length > 20)
-                {
-                    sub = 20;
-                }
-                else
-                {
-                    sub = StudentNotesData.Text.Length;
-                }
-                string sqlStatement = "UPDATE Student SET Age ='" + StudentAgeEdit.SelectedValue + "', Notes = @Notes, TshirtID = (SELECT  TshirtID FROM[Lab1].[dbo].Tshirt where Size = '" + StudentSizeEdit.SelectedValue + "' and Color = '" + StudentColorEdit.SelectedValue + "')" +
-                    "Where StudentID ='" + StID + "'";
-                cmd = new SqlCommand(sqlStatement, connection);
-                cmd.Parameters.AddWithValue("@Notes", StudentNotesData.Text.Substring(0, sub));
-                cmd.CommandType = CommandType.Text;
-                cmd.ExecuteNonQuery();
-            }
-            //If it does not work
-            catch (System.Data.SqlClient.SqlException ex)
-            {
-                string msg = "Update Error:";
-                msg += ex.Message;
-                throw new Exception(msg);
-            }
-            finally
-            {
-                // close the Sql Connection
-                connection.Close();
-            }
-        }
+        //        if (StudentNotesData.Text.Length > 20)
+        //        {
+        //            sub = 20;
+        //        }
+        //        else
+        //        {
+        //            sub = StudentNotesData.Text.Length;
+        //        }
+        //        string sqlStatement = "UPDATE Student SET Age ='" + StudentAgeEdit.SelectedValue + "', Notes = @Notes, TshirtID = (SELECT  TshirtID FROM[Lab1].[dbo].Tshirt where Size = '" + StudentSizeEdit.SelectedValue + "' and Color = '" + StudentColorEdit.SelectedValue + "')" +
+        //            "Where StudentID ='" + StID + "'";
+        //        cmd = new SqlCommand(sqlStatement, connection);
+        //        cmd.Parameters.AddWithValue("@Notes", StudentNotesData.Text.Substring(0, sub));
+        //        cmd.CommandType = CommandType.Text;
+        //        cmd.ExecuteNonQuery();
+        //    }
+        //    //If it does not work
+        //    catch (System.Data.SqlClient.SqlException ex)
+        //    {
+        //        string msg = "Update Error:";
+        //        msg += ex.Message;
+        //        throw new Exception(msg);
+        //    }
+        //    finally
+        //    {
+        //        // close the Sql Connection
+        //        connection.Close();
+        //    }
+        //}
 
         protected void AddComment_Click(object sender, EventArgs e)
         {
@@ -1066,14 +1066,6 @@ namespace CIS484Solution1
                 connection.Open();
                 //Check for size in Note field and insert temporarily or permanently into DB if it does not exist
 
-                if (StudentNotesData.Text.Length > 20)
-                {
-                    sub = 20;
-                }
-                else
-                {
-                    sub = StudentNotesData.Text.Length;
-                }
                 string sqlStatement = "UPDATE DonationInventory SET ArticleSold = 1, DateSold = GETDATE()" +
                     "Where ArticleID ='" + InventoryGridview.SelectedRow.Cells[0].Text + "'";
                 cmd = new SqlCommand(sqlStatement, connection);

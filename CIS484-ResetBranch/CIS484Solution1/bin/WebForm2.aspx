@@ -275,226 +275,6 @@
     </script>
 </asp:Content>
 
-<asp:Content ID="StudentExisting" ContentPlaceHolderID="StudentExistingPlaceholder" runat="server">
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $(".js-example-basic-single").select2();
-        });
-    </script>
-    <div style="margin-top: 40px;">
-        <div class="container-fluid">
-            <div class="grid">
-
-                <div class="grid-item">
-                    <div class="form-group">
-                        <asp:Label ID="Label5" CssClass="label" runat="server" Text="Event"></asp:Label>
-                        <asp:SqlDataSource runat="server"
-                            ID="dtasrcEventList"
-                            DataSourceMode="DataReader"
-                            ConnectionString="<%$ ConnectionStrings:dbconnection%>"
-                            SelectCommand="SELECT EventID, EventName FROM Event" />
-                        <asp:DropDownList
-                            ID="EventList"
-                            DataSourceID="dtasrcEventList"
-                            DataTextField="EventName"
-                            DataValueField="EventID"
-                            AutoPostBack="true"
-                            OnSelectedIndexChanged="EventList_SelectedIndexChanged"
-                            runat="server"
-                            OnClientClick="javascript: needToConfirm = false;"
-                            CssClass="js-example-basic-single" />
-                    </div>
-                </div>
-                <div class="grid-item grid-item--width2 grid-item--height3">
-                    <!-- Info Display -->
-                    <div class="form-group">
-                        <asp:Label ID="Label8" CssClass="label" runat="server" Text="Event Details"></asp:Label>
-                        <asp:FormView CssClass="container" ID="FormView1" EmptyDataText=" " runat="server">
-
-                            <ItemTemplate>
-                                <table class="table table-bordered table-striped">
-                                    <tr>
-                                        <td>Event Name: </td>
-                                        <td><%#Eval("EventName") %></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Date: </td>
-                                        <td><%#Eval("Date") %></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Time: </td>
-                                        <td><%#Eval("Time") %></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Room Number: </td>
-                                        <td><%#Eval("RoomNbr") %></td>
-                                    </tr>
-                                </table>
-                            </ItemTemplate>
-                        </asp:FormView>
-                    </div>
-                </div>
-                <div class="grid-item grid-item--height2">
-                    <h4>Coordinator: </h4>
-                    <asp:Repeater ID="CoordinatorRepeater" runat="server">
-                        <ItemTemplate>
-                            <table>
-                                <tr>
-                                    <td><%# Container.DataItem %></td>
-                                </tr>
-                            </table>
-                        </ItemTemplate>
-                    </asp:Repeater>
-                    <!-- Repeater Displays all Volunteers-->
-                    <h4>Volunteer: </h4>
-                    <asp:Repeater ID="rep1" runat="server">
-                        <ItemTemplate>
-                            <table>
-                                <tr>
-                                    <td><%# Container.DataItem %></td>
-                                </tr>
-                            </table>
-                        </ItemTemplate>
-                    </asp:Repeater>
-                </div>
-                <div class="grid-item grid-item--width2 grid-item--height2 ">
-                    <div class="form-group">
-                        <asp:Label ID="Label9" CssClass="label" runat="server" Text="Students Attending Event"></asp:Label>
-                        <asp:ListBox ID="ListBox1" CssClass="custom-select" runat="server"></asp:ListBox>
-                    </div>
-                </div>
-
-                <div class="grid-item">
-                    <div class="form-group">
-                        <!--Student Dropdown allows for profile data viewing-->
-                        <asp:Label ID="StudentNameLabel" CssClass="label" runat="server" Text="Student Name"></asp:Label>
-                        <asp:SqlDataSource runat="server"
-                            ID="StudentNameDataSource"
-                            DataSourceMode="DataReader"
-                            ConnectionString="<%$ ConnectionStrings:dbconnection%>"
-                            SelectCommand="SELECT StudentID, TRIM(FirstName +' ' + LastName) as StudentName FROM Student" />
-                        <asp:DropDownList ID="StudentNameDDL"
-                            DataSourceID="StudentNameDataSource"
-                            DataTextField="StudentName"
-                            DataValueField="StudentID"
-                            AutoPostBack="true"
-                            OnSelectedIndexChanged="StudentNameDDL_SelectedIndexChanged"
-                            runat="server"
-                            Width="100%"
-                            CssClass="js-example-basic-single" />
-                    </div>
-                </div>
-                <div class="grid-item grid-item--height2 grid-item--width2" style="align-items: flex-end">
-                    <div class="form-group">
-                        <table class="table table-bordered table-striped" style="margin-left: 5px">
-                            <tr>
-                                <td>Name:    </td>
-                                <td>
-                                    <asp:Label ID="StudentNameData" runat="server"></asp:Label></td>
-                            </tr>
-                            <tr>
-                                <td>Age: </td>
-                                <td>
-                                    <asp:DropDownList
-                                        ID="StudentAgeEdit"
-                                        runat="server"
-                                        CssClass="js-example-basic-single"
-                                        Width="50%">
-                                        <asp:ListItem Value="6" />
-                                        <asp:ListItem Value="7" />
-                                        <asp:ListItem Value="8" />
-                                        <asp:ListItem Value="9" />
-                                        <asp:ListItem Value="10" />
-                                        <asp:ListItem Value="11" />
-                                    </asp:DropDownList></td>
-                            </tr>
-                            <tr>
-                                <td>Notes: </td>
-                                <td>
-                                    <asp:TextBox ID="StudentNotesData" runat="server"></asp:TextBox></td>
-                            </tr>
-                            <tr>
-                                <td>School: </td>
-                                <td>
-                                    <asp:Label ID="StudentSchoolData" runat="server"></asp:Label></td>
-                            </tr>
-                            <tr>
-                                <td>Teacher: </td>
-                                <td>
-                                    <asp:Label ID="StudentTeacherData" runat="server"></asp:Label></td>
-                            </tr>
-                            <tr>
-                                <td>Tshirt Color: </td>
-                                <td>
-                                    <asp:DropDownList
-                                        ID="StudentColorEdit"
-                                        runat="server"
-                                        CssClass="js-example-basic-single"
-                                        Width="50%">
-                                        <asp:ListItem Value="Green" />
-                                        <asp:ListItem Value="Blue" />
-                                        <asp:ListItem Value="Red" />
-                                    </asp:DropDownList></td>
-                            </tr>
-                            <tr>
-                                <td>Tshirt Size: </td>
-                                <td>
-                                    <asp:DropDownList
-                                        ID="StudentSizeEdit"
-                                        runat="server"
-                                        CssClass="js-example-basic-single"
-                                        Width="50%">
-                                        <asp:ListItem Value="Small" />
-                                        <asp:ListItem Value="Medium" />
-                                        <asp:ListItem Value="Large" />
-                                    </asp:DropDownList></td>
-                            </tr>
-                        </table>
-                        <asp:FormView ID="StudentFormView" runat="server">
-                            <ItemTemplate>
-                                <table class="table table-bordered table-striped" style="margin-left: 5px">
-                                    <tr>
-                                        <td>Student Name:    </td>
-                                        <td><%#Eval("StudentName") %></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Age: </td>
-                                        <td><%#Eval("Age") %></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Notes: </td>
-                                        <td><%#Eval("Notes") %></td>
-                                    </tr>
-                                    <tr>
-                                        <td>School: </td>
-                                        <td><%#Eval("SchoolName") %></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Teacher: </td>
-                                        <td><%#Eval("TeacherName") %></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tshirt Color: </td>
-                                        <td><%#Eval("Color") %></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tshirt Size: </td>
-                                        <td><%#Eval("Size") %></td>
-                                    </tr>
-                                </table>
-                            </ItemTemplate>
-                        </asp:FormView>
-                    </div>
-                </div>
-
-                <div class="grid-item">
-                    <asp:Button ID="StudentUpdateButton" runat="server" OnClick="StudentUpdateButton_Click" Style="padding-top: 0%; padding-bottom: 0%;" CssClass="btn btn-primary btn-sm" Text="Update" />
-                </div>
-            </div>
-        </div>
-    </div>
-</asp:Content>
-
 <asp:Content ID="NewStaff" ContentPlaceHolderID="NewStaffPlaceholder" runat="server">
     <asp:UpdatePanel ID="UpdatePanel3" runat="server">
         <ContentTemplate>
@@ -1229,8 +1009,8 @@
 
                     <div class="form-group">
                         <script type='text/javascript' src='https://prod-useast-b.online.tableau.com/javascripts/api/viz_v1.js'></script>
-                        <div class='tableauPlaceholder' style='width: 1000px; height: 827px;'>
-                            <object class='tableauViz' width='1000' height='827' style='display: none;'>
+                        <div class='tableauPlaceholder' style='width: 100%; height: 100%;'>
+                            <object class='tableauViz' style='display: flex; width: 100%; height: 500px;'>
                                 <param name='host_url' value='https%3A%2F%2Fprod-useast-b.online.tableau.com%2F' />
                                 <param name='embed_code_version' value='3' />
                                 <param name='site_root' value='&#47;t&#47;cis484' />
@@ -1240,6 +1020,141 @@
                                 <param name='showAppBanner' value='false' />
                             </object>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</asp:Content>
+<asp:Content ID="LocationView" ContentPlaceHolderID="LocationViewPlaceholder" runat="server">
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".js-example-basic-single").select2();
+        });
+    </script>
+    <div style="margin-top: 40px;">
+        <div class="container-fluid">
+            <div class="grid">
+
+                <div class="grid-item  grid-item--height2">
+                    <div class="form-group">
+                        <asp:Label ID="Label35" CssClass="label" runat="server" Text="Location"></asp:Label>
+                        <asp:SqlDataSource runat="server"
+                            ID="SqlDataSource2"
+                            DataSourceMode="DataReader"
+                            ConnectionString="<%$ ConnectionStrings:CARESconnection%>"
+                            SelectCommand="SELECT LocationID, LocationName FROM Location" />
+                        <asp:DropDownList
+                            ID="LocationViewDDL"
+                            DataSourceID="SqlDataSource2"
+                            DataTextField="LocationName"
+                            DataValueField="LocationID"
+                            AutoPostBack="true"
+                            Width="100%"
+                            OnSelectedIndexChanged="LocationViewDDL_SelectedIndexChanged"
+                            runat="server"
+                            CssClass="js-example-basic-single" />
+                    </div>
+                    <div class="form-group">
+                        <asp:Label ID="Label39" CssClass="label" runat="server" Text="Location Events"></asp:Label>
+                        <asp:ListBox ID="EventListBox" CssClass="custom-select" OnSelectedIndexChanged="EventListBox_SelectedIndexChanged" AutoPostBack="true" runat="server"></asp:ListBox>
+                    </div>
+                </div>
+                <div class="grid-item grid-item--width2 grid-item--height2">
+                    <!-- Info Display -->
+                    <div class="form-group">
+                        <asp:Label ID="Label36" CssClass="label" runat="server" Text="Location Details"></asp:Label>
+                        <asp:FormView CssClass="container" ID="FormView2" EmptyDataText=" " runat="server">
+
+                            <ItemTemplate>
+                                <table class="table table-bordered table-striped">
+                                    <tr>
+                                        <td>Location Name: </td>
+                                        <td><%#Eval("LocationName") %></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Address: </td>
+                                        <td><%#Eval("LocationAddress") %></td>
+                                    </tr>
+                                    <tr>
+                                        <td>City: </td>
+                                        <td><%#Eval("LocationCity") %></td>
+                                    </tr>
+                                </table>
+                            </ItemTemplate>
+                        </asp:FormView>
+                    </div>
+                </div>
+                <div class="grid-item grid-item--height2">
+                    <h4>Administrators: </h4>
+                    <asp:Repeater ID="Repeater1" runat="server">
+                        <ItemTemplate>
+                            <table>
+                                <tr>
+                                    <td><%# Container.DataItem %></td>
+                                </tr>
+                            </table>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                    <div class="form-group">
+                        <!--Student Dropdown allows for profile data viewing-->
+                        <asp:Label ID="WorkerListLabel" CssClass="label" runat="server" Text="Employees at this Location: "></asp:Label>
+
+                        <asp:ListBox ID="WorkerListBox" OnSelectedIndexChanged="WorkerListBox_SelectedIndexChanged" CssClass="custom-select" AutoPostBack="true" runat="server"></asp:ListBox>
+                    </div>
+                </div>
+
+                <div class="grid-item grid-item--width2 grid-item--height2 ">
+                    <div class="form-group">
+                        <asp:Label ID="Label44" CssClass="label" runat="server" Text="Event Details"></asp:Label>
+                        <asp:FormView CssClass="container" ID="FormView4" EmptyDataText=" " runat="server">
+
+                            <ItemTemplate>
+                                <table class="table table-bordered table-striped">
+                                    <tr>
+                                        <td>Event Name: </td>
+                                        <td><%#Eval("EventName") %></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Date: </td>
+                                        <td><%#Eval("EventDate") %></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Description: </td>
+                                        <td><%#Eval("EventDescription") %></td>
+                                    </tr>
+                                </table>
+                            </ItemTemplate>
+                        </asp:FormView>
+                    </div>
+                </div>
+                <div class="grid-item grid-item--height2 grid-item--width2" style="align-items: flex-end">
+                    <div class="form-group">
+                        <asp:Label ID="Label5" CssClass="label" runat="server" Text="Employee Details"></asp:Label>
+
+                        <asp:FormView CssClass="container" ID="FormView1" EmptyDataText=" " runat="server">
+
+                            <ItemTemplate>
+                                <table class="table table-bordered table-striped" style="width: 80%;">
+                                    <tr>
+                                        <td>Name: </td>
+                                        <td><%#Eval("Name") %></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Type: </td>
+                                        <td><%#Eval("Type") %></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Start Date: </td>
+                                        <td><%#Eval("StartDate") %></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email: </td>
+                                        <td><%#Eval("Email") %></td>
+                                    </tr>
+                                </table>
+                            </ItemTemplate>
+                        </asp:FormView>
                     </div>
                 </div>
             </div>
