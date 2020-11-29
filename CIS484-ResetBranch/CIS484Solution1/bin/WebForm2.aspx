@@ -379,60 +379,6 @@
     </asp:UpdatePanel>
 </asp:Content>
 
-<asp:Content ID="CordExisting" ContentPlaceHolderID="CoordinatorExistingPlaceholder" runat="server">
-    <div style="margin-top: 40px;">
-        <div style="margin-top: 40px;">
-            <asp:Label ID="CoordinatorNameLabel" CssClass="label" runat="server" Text="Coordinator Name"></asp:Label>
-            <asp:SqlDataSource runat="server"
-                ID="CoordinatorListDataSource"
-                DataSourceMode="DataReader"
-                ConnectionString="<%$ ConnectionStrings:dbconnection%>"
-                SelectCommand="SELECT VolunteerID, FirstName +' ' + LastName as CoordinatorName FROM EventPersonnel where PersonnelType='Coordinator'" />
-            <asp:DropDownList ID="CoordinatorNameDDL"
-                DataSourceID="CoordinatorListDataSource"
-                DataTextField="CoordinatorName"
-                DataValueField="VolunteerID"
-                AutoPostBack="true"
-                OnSelectedIndexChanged="CoordinatorNameDDL_SelectedIndexChanged"
-                runat="server"
-                Width="50%"
-                CssClass="js-example-basic-single" />
-        </div>
-        <div class="form-group">
-            <asp:FormView ID="CoordinatorFormView" runat="server">
-                <ItemTemplate>
-                    <table>
-                        <tr>
-                            <td>Coordinator Name:    </td>
-                            <td><%#Eval("CoordinatorName") %></td>
-                        </tr>
-                        <tr>
-                            <td>Notes: </td>
-                            <td><%#Eval("Notes") %></td>
-                        </tr>
-                        <tr>
-                            <td>Tshirt Color: </td>
-                            <td><%#Eval("Color") %></td>
-                        </tr>
-                        <tr>
-                            <td>Tshirt Size: </td>
-                            <td><%#Eval("Size") %></td>
-                        </tr>
-                    </table>
-                </ItemTemplate>
-            </asp:FormView>
-        </div>
-        <div class="form-group">
-            <fieldset>
-                <h2>Activities List</h2>
-                <div class="checkbox checkboxlist">
-                    <asp:CheckBoxList ID="CoordinatorCheckBoxList" CssClass="radio-container" OnSelectedIndexChanged="CoordinatorEventCheckBoxList_SelectedIndexChanged" AutoPostBack="true" RepeatDirection="Vertical" RepeatLayout="Flow" runat="server" />
-                </div>
-            </fieldset>
-        </div>
-    </div>
-</asp:Content>
-
 <asp:Content runat="server" ID="CommendationPage" ContentPlaceHolderID="CommedationPlaceholder">
     <asp:SqlDataSource runat="server"
         ID="CommendationDataSource"

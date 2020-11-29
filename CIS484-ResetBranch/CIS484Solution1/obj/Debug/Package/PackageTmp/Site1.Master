@@ -1,0 +1,906 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="CIS484Solution1.Site1" %>
+
+<!DOCTYPE html>
+<!-- John Wehner -->
+
+<html>
+<head runat="server">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Wehner" />
+    <meta name="author" content="Wehner" />
+    <meta name="keywords" content="Wehner" />
+    <title>CARES</title>
+    <!-- Font Awesome -->
+
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+    <!-- Font special for pages-->
+
+    <!-- Main JS-->
+    <script src="jquery.js"></script>
+    <script src="global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+    <!-- Main CSS-->
+    <link href="main.css" rel="stylesheet" media="all" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .grid:after {
+            content: '';
+            display: inline-block;
+            clear: both;
+        }
+
+        .grid-item {
+            width: 160px;
+            height: 120px;
+            float: left;
+            background: none;
+            border: none;
+            border-color: hsla(0, 0%, 0%, 0.5);
+            border-radius: 5px;
+            margin-bottom: 20px;
+            align-items: center
+        }
+
+        .grid-item--width2 {
+            width: 340px;
+        }
+
+        .grid-item--width3 {
+            width: 520px;
+        }
+
+        .grid-item--width4 {
+            width: 780px;
+        }
+
+        .grid-item--height2 {
+            height: 200px;
+        }
+
+        .grid-item--height3 {
+            height: 260px;
+        }
+
+        .grid-item--height4 {
+            height: 360px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        $('.grid').masonry({
+            itemSelector: '.grid-item',
+            columnWidth: 160,
+            gutter: 20
+        });
+        $(document).ready(function () {
+            $("#manBt").click(function () {
+                $("#manPan1").slideToggle("slow");
+            });
+        });
+        function newwin() {
+            if (document.getElementById("LoginForm").textContent != "Launch Login Form") {
+                document.getElementById("LoginForm").href = location.href;
+                document.getElementById('LoginForm').click();
+            }
+
+        }
+        function ShowMessage(message, messagetype) {
+            var cssclass;
+            switch (messagetype) {
+                case 'Success':
+                    cssclass = 'alert-success';
+                    break;
+                case 'Error':
+                    cssclass = 'alert-danger';
+                    break;
+                case 'Warning':
+                    cssclass = 'alert-warning';
+                    break;
+                default:
+                    cssclass = 'alert-info';
+            }
+            $('#alert_container').append('<div class="alert ' + cssclass + ' alert-dismissible fade show" role="alert"> <strong>' + messagetype + '</strong> ' + message + ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span></button></div>');
+            $('#alert_container1').append('<div class="alert ' + cssclass + ' alert-dismissible fade show" role="alert"> <strong>' + messagetype + '</strong> ' + message + ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span></button></div>');
+
+        }
+        function openModal() {
+            $('#centralModalSignUp').modal('show');
+        }
+        function openModal1() {
+            $('#centralModalLocation').modal('show');
+        }
+    </script>
+</head>
+<body>
+
+    <script type="text/javascript">
+        //Implementing select2 api in order to modernize and stylize the selections
+        $(document).ready(function () {
+            $(".js-example-basic-single").select2();
+        });
+    </script>
+    <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+        <div class="wrapper wrapper">
+            <div class="card card-4">
+                <div class="card-body">
+                    <!-- My Heading and my Name included in the Title and in the body-->
+                    <div class="row">
+                        <div class="col">
+                            <h2 class="title" style="width: 100%;">Shenandoah CARES</h2>
+                        </div>
+                        <div id="LoginDiv" class="col text-right" runat="server">
+                            <a href="" class="btn btn-primary btn-sm float-right" data-toggle="modal" id="LoginForm" onclick='newwin()' style="padding-top: 0%; padding-bottom: 0%;" data-target="#modalLRForm">LogIn/Register</a>
+                        </div>
+
+                        <div id="LogoutDiv" style="display: none;" class="col text-right" runat="server">
+                            <a href="javascript: window.location.href = window.location.href; Session.abandon();" runat="server" id="Logout" class="btn btn-primary btn-sm float-right" style="padding-top: 0%; padding-bottom: 0%;">Logout</a>
+                        </div>
+                    </div>
+                    <form id="LabForm" runat="server">
+                        <asp:ScriptManager EnablePartialRendering="true"
+                            ID="ScriptManager1" runat="server">
+                        </asp:ScriptManager>
+
+                        <!-- Macro Menu for overarching personnel type selection-->
+
+                        <div class="text-center">
+                            <div class="messagealert" id="alert_container">
+                            </div>
+                            <asp:Menu
+                                ID="MasterMenu"
+                                CssClass="navbar navbar-expand-lg navbar-light bg-light text-center"
+                                Orientation="Horizontal"
+                                Text-Align="center"
+                                runat="server"
+                                Width="100%"
+                                OnMenuItemClick="MasterMenu_MenuItemClick" NavigateUrl="javascript:  needToConfirm = false;" StaticMenuItemStyle-CssClass="menuItems" OnClientClick="javascript: needToConfirm = false;" StaticMenuStyle-CssClass="navb" StaticSelectedStyle-CssClass="menuItems" ClientIDMode="Static">
+                                <Items>
+                                    <asp:MenuItem Text="Home" Value="0" Selected="true" />
+                                    <asp:MenuItem Text="Employee Center" Value="1" />
+                                    <asp:MenuItem Text="Commendation Page" Value="2" />
+                                    <asp:MenuItem Text="Admin Page" Value="3" />
+                                    <asp:MenuItem Text="User: None" Value="5" Enabled="False" />
+                                </Items>
+                            </asp:Menu>
+                        </div>
+                        <!--Modal: Login / Register Form-->
+                        <div class="modal fade" id="modalLRForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog cascading-modal" role="document">
+                                <!--Content-->
+                                <div class="modal-content">
+
+                                    <!--Modal cascading tabs-->
+                                    <div class="modal-c-tabs">
+
+                                        <!-- Nav tabs -->
+                                        <ul class="nav nav-tabs md-tabs tabs-2 light-blue darken-3" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" data-toggle="tab" href="#panel7" role="tab"><i class="fas fa-user mr-1"></i>
+                                                    Login</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#panel8" role="tab"><i class="fas fa-user-plus mr-1"></i>
+                                                    Register</a>
+                                            </li>
+                                        </ul>
+
+                                        <!-- Tab panels -->
+                                        <div class="tab-content">
+                                            <!--Panel 7-->
+                                            <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
+                                                <asp:View>
+                                                    <!--Body-->
+                                                    <div class="modal-body mb-1">
+                                                        <div class="md-form form-sm mb-5">
+                                                            <i class="fas fa-envelope prefix"></i>
+                                                            <asp:TextBox CssClass="form-control form-control-sm validate" type="email" ID="defaultFormEmail" runat="server" CausesValidation="false" />
+                                                            <label data-error="wrong" data-success="right" for="defaultFormEmail">Your email</label>
+                                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1"
+                                                                ControlToValidate="defaultFormEmail"
+                                                                ValidationGroup="LoginGroup"
+                                                                ErrorMessage="Enter your email."
+                                                                runat="Server">
+                                                            </asp:RequiredFieldValidator>
+                                                        </div>
+
+                                                        <div class="md-form form-sm mb-4">
+                                                            <i class="fas fa-lock prefix"></i>
+                                                            <asp:TextBox CssClass="form-control form-control-sm validate" type="password" ID="defaultFormPass" runat="server" CausesValidation="false" />
+                                                            <label data-error="wrong" data-success="right" for="defaultFormPass">Your password</label>
+                                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2"
+                                                                ControlToValidate="defaultFormPass"
+                                                                ValidationGroup="LoginGroup"
+                                                                ErrorMessage="Enter your password."
+                                                                runat="Server">
+                                                            </asp:RequiredFieldValidator>
+                                                        </div>
+                                                        <div class="text-center mt-2">
+                                                            <i class="fas fa-sign-in ml-1">
+                                                                <asp:Button ID="LoginButton" runat="server" CssClass="btn btn-info" Text="Login" ValidationGroup="LoginGroup" OnClick="LoginButton_Click" />
+                                                            </i>
+                                                        </div>
+                                                    </div>
+                                                    <!--Footer-->
+                                                    <div class="modal-footer">
+                                                        <div class="options text-center text-md-right mt-1">
+                                                            <p>Not a member? <a href="#" class="blue-text">Sign Up</a></p>
+                                                            <p>Forgot <a href="#" class="blue-text">Password?</a></p>
+                                                        </div>
+                                                        <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </asp:View>
+                                            </div>
+                                            <!--/.Panel 7-->
+
+                                            <!--Panel 8-->
+                                            <div class="tab-pane fade" id="panel8" role="tabpanel">
+                                                <asp:View>
+                                                    <!--Body-->
+                                                    <div class="modal-body">
+                                                        <asp:ContentPlaceHolder ID="NewStaffPlaceholder" runat="server">
+                                                        </asp:ContentPlaceHolder>
+                                                        <asp:ContentPlaceHolder ID="TeacherNewPlaceholder" runat="server">
+                                                        </asp:ContentPlaceHolder>
+                                                    </div>
+                                                    <!--Footer-->
+                                                    <div class="modal-footer">
+                                                        <div class="options text-right">
+                                                            <p class="pt-1">Already have an account? <a href="#panel7" class="blue-text">Log In</a></p>
+                                                        </div>
+                                                        <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </asp:View>
+                                            </div>
+                                            <!--/.Panel 8-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/.Content-->
+                            </div>
+                        </div>
+                        <!--Modal: Login / Register Form-->
+
+                        <!-- Used Multiview to enable static page load at the beginning in order to boost responsiveness during user interaction-->
+
+                        <asp:MultiView ID="MasterMultiView" runat="server" ActiveViewIndex="0">
+                            <asp:View runat="server">
+                                <div style="margin-top: 40px;">
+                                    <asp:ContentPlaceHolder ID="HomePlaceHolder" runat="server">
+                                    </asp:ContentPlaceHolder>
+                                </div>
+                            </asp:View>
+                            <asp:View runat="server">
+                                <!--New and Existing Student Sub Menus-->
+                                <div style="width: 100%; margin-left: 20px; margin-top: 20px; margin-right: 20px;">
+                                    <h2 style="text-align: center">Employee Page</h2>
+                                    <div class="container-fluid">
+                                        <div class="grid">
+                                            <!-- The grid: three columns -->
+                                            <div class="row row-cols-1 row-cols-md-3">
+                                                <div class="col mb-3">
+                                                    <div class="card h-100">
+                                                        <%--<!--Card image-->--%>
+                                                        <div class="view overlay">
+                                                            <img class="card-img-top" src="https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/8/2019/10/Promote-charity-event-1200x630.png"
+                                                                alt="Card image cap">
+                                                            <a href="#!" data-toggle="modal" data-target="#centralModalHours">
+                                                                <div class="mask rgba-white-slight"></div>
+                                                            </a>
+                                                        </div>
+
+                                                        <!--Card content-->
+                                                        <div class="card-body">
+
+                                                            <!--Title-->
+                                                            <h4 class="card-title">Log Hours</h4>
+                                                            <!--Text-->
+                                                            <p class="card-text">Want to log work hours?</p>
+                                                            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                                                        </div>
+                                                    </div>
+                                                    <!-- Card -->
+                                                </div>
+                                                <div class="col mb-3">
+                                                    <div class="card h-100">
+                                                        <!--Card image-->
+                                                        <div class="view overlay">
+                                                            <img class="card-img-top" src="https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" alt="Card image cap">
+                                                            <a href="#!" data-toggle="modal" data-target="#centralModalInventoryAdd">
+                                                                <div class="mask rgba-white-slight"></div>
+                                                            </a>
+                                                        </div>
+
+                                                        <!--Card content-->
+                                                        <div class="card-body">
+
+                                                            <!--Title-->
+                                                            <h4 class="card-title">Add Inventory</h4>
+                                                            <!--Text-->
+                                                            <p class="card-text">
+                                                                New Clothing Donation?
+                                                            </p>
+                                                            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                                                        </div>
+                                                    </div>
+                                                    <!-- Card -->
+                                                </div>
+                                                <div class="col mb-3">
+                                                    <div class="card h-100">
+                                                        <!--Card image-->
+                                                        <div class="view overlay">
+                                                            <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg" alt="Card image cap">
+                                                            <a href="#!" data-toggle="modal" data-target="#centralModalInventoryCurrent">
+                                                                <div class="mask rgba-white-slight"></div>
+                                                            </a>
+                                                        </div>
+
+                                                        <!--Card content-->
+                                                        <div class="card-body">
+
+                                                            <!--Title-->
+                                                            <h4 class="card-title">Current Inventory</h4>
+                                                            <!--Text-->
+                                                            <p class="card-text">
+                                                                Want to document a sale or check current inventory?
+                                                            </p>
+                                                            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                                                        </div>
+                                                    </div>
+                                                    <!-- Card -->
+                                                </div>
+                                            </div>
+
+                                            <div class="row row-cols-1 row-cols-md-2">
+                                                <div class="col mb-2">
+                                                    <div class="card h-100">
+                                                        <%--<!--Card image-->--%>
+                                                        <div class="view overlay">
+                                                            <img class="card-img-top" src="https://lh3.googleusercontent.com/proxy/R-EosNHuwbC0UGc4q-gnnWEpmF1ZKKiS0faOgv3h60czdgNRBktf7rwEhWnONY31mTnB-Tm0eR0PD88XaRctK0PN7JDFjsUuIW1OCGXELIF75u1-X498Xzv6BaCHGbwUvw"
+                                                                alt="Card image cap">
+                                                            <a href="#!" data-toggle="modal" data-target="#centralModalSignUp">
+                                                                <div class="mask rgba-white-slight"></div>
+                                                            </a>
+                                                        </div>
+
+                                                        <!--Card content-->
+                                                        <div class="card-body">
+
+                                                            <!--Title-->
+                                                            <h4 class="card-title">View Events</h4>
+                                                            <!--Text-->
+                                                            <p class="card-text">Want to sign up and view Events?</p>
+                                                            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                                                        </div>
+                                                    </div>
+                                                    <!-- Card -->
+                                                </div>
+                                                <div class="col mb-2">
+                                                    <div class="card h-100">
+                                                        <!--Card image-->
+                                                        <div class="view overlay">
+                                                            <img class="card-img-top" src="https://miro.medium.com/max/3712/1*GUNgvKbFguAGo21p5XqpWg.png" alt="Card image cap">
+                                                            <a href="#!" data-toggle="modal" data-target="#centralModalWorkerView">
+                                                                <div class="mask rgba-white-slight"></div>
+                                                            </a>
+                                                        </div>
+
+                                                        <!--Card content-->
+                                                        <div class="card-body">
+
+                                                            <!--Title-->
+                                                            <h4 class="card-title">View Your Info</h4>
+                                                            <!--Text-->
+                                                            <p class="card-text">
+                                                                Want to view your Employee Information?
+                                                            </p>
+                                                            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                                                        </div>
+                                                    </div>
+                                                    <!-- Card -->
+                                                </div>
+                                            </div>
+                                            <div class="modal fade" id="centralModalHours" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                                aria-hidden="true">
+
+                                                <!-- Change class .modal-sm to change the size of the modal -->
+                                                <div class="modal-dialog modal-lg" role="document">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title w-100" id="myModalLabel">Log Hours</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body ">
+                                                            <div class="text-center">
+                                                                <div class="messagealert" id="alert_container1">
+                                                                </div>
+                                                            </div>
+                                                            <asp:ContentPlaceHolder ID="BasicEmployeeView" runat="server">
+                                                            </asp:ContentPlaceHolder>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade" id="centralModalInventoryAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                                aria-hidden="true">
+
+                                                <!-- Change class .modal-sm to change the size of the modal -->
+                                                <div class="modal-dialog modal-lg" role="document">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title w-100" id="myModalLabel">Add Items</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <asp:ContentPlaceHolder ID="InventoryManagementPlaceholder" runat="server">
+                                                            </asp:ContentPlaceHolder>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade" id="centralModalInventoryCurrent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                                aria-hidden="true">
+
+                                                <!-- Change class .modal-sm to change the size of the modal -->
+                                                <div class="modal-dialog modal-lg" role="document">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title w-100" id="myModalLabel">Modal title</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <asp:ContentPlaceHolder ID="InventoryManagement2Placeholder" runat="server">
+                                                            </asp:ContentPlaceHolder>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade" id="centralModalSignUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                                aria-hidden="true">
+
+                                                <!-- Change class .modal-sm to change the size of the modal -->
+                                                <div class="modal-dialog modal-lg" role="document">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title w-100" id="myModalLabel">Event Sign Up</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body ">
+                                                            <asp:ContentPlaceHolder ID="EventSignUpPlaceholder" runat="server">
+                                                            </asp:ContentPlaceHolder>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade" id="centralModalWorkerView" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                                aria-hidden="true">
+
+                                                <!-- Change class .modal-sm to change the size of the modal -->
+                                                <div class="modal-dialog modal-lg" role="document">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title w-100" id="myModalLabel">Worker View</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <asp:ContentPlaceHolder ID="EmployeePayPlaceholder" runat="server">
+                                                            </asp:ContentPlaceHolder>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <%--<h3>Cash Flow</h3>--%>
+                                        </div>
+                                    </div>
+
+                                    <%--    <h2 style="text-align: center">Manager Functions</h2>
+                                    <h3>Can view employees at location and approve hours</h3>
+                                    <h3>Can see inventory statistics </h3>
+                                    <h3 >Basic Statistics</h3>--%>
+
+                                    <!--Validating and Populable Student input with responsive list selection-->
+                                </div>
+                            </asp:View>
+                            <asp:View runat="server">
+                                <div style="width: 100%; margin-left: 20px; margin-top: 20px; margin-right: 20px;">
+                                    <h2 style="text-align: center">Commendation Page</h2>
+                                    <asp:ContentPlaceHolder runat="server" ID="CommedationPlaceholder">
+                                    </asp:ContentPlaceHolder>
+
+                                    <asp:ContentPlaceHolder ID="CoordinatorExistingPlaceholder" Visible="False" runat="server">
+                                    </asp:ContentPlaceHolder>
+                                </div>
+                            </asp:View>
+                            <asp:View runat="server">
+                                <script>
+                                    // Hide all elements with class="containerTab", except for the one that matches the clickable grid column
+                                    function openTab(tabName) {
+                                        var i, x;
+                                        x = document.getElementsByClassName("tab-content");
+                                        //for (i = 0; i < x.length; i++) {
+                                        //    x[i].style.display = "none";
+                                        //}
+                                        document.getElementById(tabName).style.display = "block";
+                                    }
+                                </script>
+                                <style>
+                                    .row:after {
+                                        content: "";
+                                        display: table;
+                                        clear: both;
+                                    }
+
+                                    /* Closable button inside the image */
+                                    .closebtn {
+                                        float: right;
+                                        font-size: 35px;
+                                        cursor: pointer;
+                                    }
+
+                                    .containerTab {
+                                        padding: 20px;
+                                    }
+
+                                    .collapse-content .fa.fa-heart:hover {
+                                        color: #f44336 !important;
+                                    }
+
+                                    .collapse-content .fa.fa-share-alt:hover {
+                                        color: #0d47a1 !important;
+                                    }
+                                </style>
+                                <div style="width: 100%; margin-left: 20px; margin-top: 20px; margin-right: 20px;">
+                                    <div class="container-fluid">
+                                        <div class="grid">
+                                            <!-- The grid: three columns -->
+                                            <div class="row row-cols-1 row-cols-md-4">
+                                                <div class="col mb-4">
+                                                    <div class="card h-100">
+                                                        <%--<!--Card image-->--%>
+                                                        <div class="view overlay">
+                                                            <img class="card-img-top" src="https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/8/2019/10/Promote-charity-event-1200x630.png"
+                                                                alt="Card image cap">
+                                                            <a href="#!" data-toggle="modal" data-target="#fullHeightModalRight">
+                                                                <div class="mask rgba-white-slight"></div>
+                                                            </a>
+                                                        </div>
+
+                                                        <!--Card content-->
+                                                        <div class="card-body">
+
+                                                            <!--Title-->
+                                                            <h4 class="card-title">Add a CARES contributor</h4>
+                                                            <!--Text-->
+                                                            <p class="card-text">Want to add a Volunteer, Employee, or VolunHelper?</p>
+                                                            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                                                        </div>
+                                                    </div>
+                                                    <!-- Card -->
+                                                </div>
+                                                <div class="col mb-4">
+                                                    <div class="card h-100">
+                                                        <!--Card image-->
+                                                        <div class="view overlay">
+                                                            <img class="card-img-top" src="https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" alt="Card image cap">
+                                                            <a href="#!" data-toggle="modal" data-target="#fullHeightModalRight1">
+                                                                <div class="mask rgba-white-slight"></div>
+                                                            </a>
+                                                        </div>
+
+                                                        <!--Card content-->
+                                                        <div class="card-body">
+
+                                                            <!--Title-->
+                                                            <h4 class="card-title">Add a Location</h4>
+                                                            <!--Text-->
+                                                            <p class="card-text">
+                                                                New Cares Location?
+                                                            </p>
+                                                            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                                                        </div>
+                                                    </div>
+                                                    <!-- Card -->
+                                                </div>
+                                                <div class="col mb-4">
+                                                    <div class="card h-100">
+                                                        <!--Card image-->
+                                                        <div class="view overlay">
+                                                            <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg" alt="Card image cap">
+                                                            <a href="#!" data-toggle="modal" data-target="#fullHeightModalRight3">
+                                                                <div class="mask rgba-white-slight"></div>
+                                                            </a>
+                                                        </div>
+
+                                                        <!--Card content-->
+                                                        <div class="card-body">
+
+                                                            <!--Title-->
+                                                            <h4 class="card-title">Add Event</h4>
+                                                            <!--Text-->
+                                                            <p class="card-text">
+                                                                Have an Event idea you want to make happen?
+                                                            </p>
+                                                            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                                                        </div>
+                                                    </div>
+                                                    <!-- Card -->
+                                                </div>
+                                                <div class="col mb-4">
+                                                    <div class="card h-100">
+                                                        <!--Card image-->
+                                                        <div class="view overlay">
+                                                            <img class="card-img-top" src="https://www.wpexplorer.com/wp-content/uploads/wordpress-best-donation-plugins.jpg" alt="Card image cap">
+                                                            <a href="#!" data-toggle="modal" data-target="#fullHeightModalRight2">
+                                                                <div class="mask rgba-white-slight"></div>
+                                                            </a>
+                                                        </div>
+
+                                                        <!--Card content-->
+                                                        <div class="card-body">
+
+                                                            <!--Title-->
+                                                            <h4 class="card-title">Enter Donation</h4>
+                                                            <!--Text-->
+                                                            <p class="card-text">
+                                                                Have a new donation from one of our generous donors?
+                                                            </p>
+                                                            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                                                        </div>
+                                                    </div>
+                                                    <!-- Card -->
+                                                </div>
+                                            </div>
+                                            <div class="row row-cols-1 row-cols-md-2">
+                                                <div class="col mb-2">
+                                                    <div class="card h-100">
+                                                        <%--<!--Card image-->--%>
+                                                        <div class="view overlay">
+                                                            <img class="card-img-top" src="https://images.prismic.io/meltwater/5456e736-ea88-4f21-82bf-5132326cbd99_eng-0303-BONUS+Data+Visualization+Designed+for+PR+and+Comms+Professionals.png?auto=compress,format&rect=0,20,596,397&w=1920&h=1280"
+                                                                alt="Card image cap">
+                                                            <a href="#!" data-toggle="modal" data-target="#centralModalBusAn">
+                                                                <div class="mask rgba-white-slight"></div>
+                                                            </a>
+                                                        </div>
+
+                                                        <!--Card content-->
+                                                        <div class="card-body">
+
+                                                            <!--Title-->
+                                                            <h4 class="card-title">View Business Analytics</h4>
+                                                            <!--Text-->
+                                                            <p class="card-text">Interested in the Companies Financials?</p>
+                                                            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                                                        </div>
+                                                    </div>
+                                                    <!-- Card -->
+                                                </div>
+                                                <div class="col mb-2">
+                                                    <div class="card h-100">
+                                                        <!--Card image-->
+                                                        <div class="view overlay">
+                                                            <img class="card-img-top" src="https://www.virginia.org/-/media/VTC/Default-Images/DefaultVirginiaSharejpg.ashx" alt="Card image cap">
+                                                            <a href="#!" data-toggle="modal" data-target="#centralModalLocation">
+                                                                <div class="mask rgba-white-slight"></div>
+                                                            </a>
+                                                        </div>
+
+                                                        <!--Card content-->
+                                                        <div class="card-body">
+
+                                                            <!--Title-->
+                                                            <h4 class="card-title">View Location Breakdown</h4>
+                                                            <!--Text-->
+                                                            <p class="card-text">
+                                                                Explore Data Breakdowns about Each Location
+                                                            </p>
+                                                            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                                                        </div>
+                                                    </div>
+                                                    <!-- Card -->
+                                                </div>
+                                            </div>
+                                            <div class="modal fade" id="centralModalBusAn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                                aria-hidden="true">
+
+                                                <!-- Change class .modal-sm to change the size of the modal -->
+                                                <div class="modal-dialog modal-lg" role="document">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title w-100" id="myModalLabel">Business View</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <asp:ContentPlaceHolder ID="BusAnPlaceholder" runat="server">
+                                                            </asp:ContentPlaceHolder>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade" id="centralModalLocation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                                aria-hidden="true">
+
+                                                <!-- Change class .modal-sm to change the size of the modal -->
+                                                <div class="modal-dialog modal-lg" role="document">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title w-100" id="myModalLabel">Location View</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <asp:ContentPlaceHolder ID="LocationViewPlaceholder" runat="server">
+                                                            </asp:ContentPlaceHolder>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                                aria-hidden="true">
+
+                                                <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+                                                <div class="modal-dialog modal-full-height modal-right" role="document">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title w-100" id="myModalLabel">Add Employee</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <asp:ContentPlaceHolder runat="server" ID="NewEmployeePlaceholder"></asp:ContentPlaceHolder>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-center">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade right" id="fullHeightModalRight1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                                aria-hidden="true">
+
+                                                <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+                                                <div class="modal-dialog modal-full-height modal-right" role="document">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title w-100" id="myModalLabel1">Add Location</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <asp:ContentPlaceHolder ID="NewLocationPlaceholder" runat="server">
+                                                            </asp:ContentPlaceHolder>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-center">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal fade right" id="fullHeightModalRight2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                                aria-hidden="true">
+
+                                                <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+                                                <div class="modal-dialog modal-full-height modal-right" role="document">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title w-100" id="myModalLabel1">Add Donation</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <asp:ContentPlaceHolder ID="NewDonationPlaceholder" runat="server">
+                                                            </asp:ContentPlaceHolder>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-center">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal fade" id="fullHeightModalRight3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                                aria-hidden="true">
+
+                                                <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+                                                <div class="modal-dialog modal-lg" role="document">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title w-100" id="myModalLabel1">Add Event</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <asp:ContentPlaceHolder ID="AddEventView" runat="server">
+                                                            </asp:ContentPlaceHolder>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-center">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <%--<h3>Cash Flow</h3>--%>
+                                        </div>
+                                    </div>
+                                </div>
+                            </asp:View>
+                        </asp:MultiView>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

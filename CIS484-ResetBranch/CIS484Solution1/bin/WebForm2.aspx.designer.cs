@@ -186,51 +186,6 @@ namespace CIS484Solution1
         protected global::System.Web.UI.WebControls.Button SubmitAdmin;
 
         /// <summary>
-        /// CoordinatorNameLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label CoordinatorNameLabel;
-
-        /// <summary>
-        /// CoordinatorListDataSource control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource CoordinatorListDataSource;
-
-        /// <summary>
-        /// CoordinatorNameDDL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList CoordinatorNameDDL;
-
-        /// <summary>
-        /// CoordinatorFormView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.FormView CoordinatorFormView;
-
-        /// <summary>
-        /// CoordinatorCheckBoxList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList CoordinatorCheckBoxList;
-
-        /// <summary>
         /// CommendationDataSource control.
         /// </summary>
         /// <remarks>

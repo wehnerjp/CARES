@@ -34,14 +34,21 @@
     <WarningLevel>4</WarningLevel>
     <PublishDatabaseSettings>
       <Objects>
-        <ObjectGroup Name="dbconnection-Deployment" Order="1">
-          <Destination Path="" />
-          <Object Type="DbFullSql">
+        <ObjectGroup Name="dbconnection-Deployment" Order="1" Enabled="False">
+          <Destination Path="server=cares.c7jfmaawbroe.us-east-1.rds.amazonaws.com%3bdatabase=CARES%3buid=admin%3bpassword=J0njones%3b" />
+          <Object Type="DbFullSql" Enabled="False">
             <PreSource Path="Data Source=localhost%3bInitial Catalog=Lab1%3bIntegrated Security=True" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
             <Source Path="obj\Debug\AutoScripts\dbconnection-Deployment_SchemaOnly.sql" Transacted="True" />
           </Object>
-          <Object Type="DbFullSql">
+          <Object Type="DbFullSql" Enabled="False">
             <Source Path="Lab1.sql" Transacted="False" />
+          </Object>
+        </ObjectGroup>
+        <ObjectGroup Name="CARESconnection-Deployment" Order="2" xmlns="">
+          <Destination Path="" />
+          <Object Type="DbFullSql">
+            <PreSource Path="server=cares.c7jfmaawbroe.us-east-1.rds.amazonaws.com%3bdatabase=CARES%3buid=admin%3bpassword=J0njones%3b" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\CARESconnection-Deployment_SchemaOnly.sql" Transacted="True" />
           </Object>
         </ObjectGroup>
       </Objects>
@@ -131,7 +138,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="Site1.Master">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -142,6 +148,9 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
